@@ -1,13 +1,23 @@
 {
-  "name": "inspiration",
-  "version": "1.0.0",
-  "description": "神马搜索动效平台",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "dependencies": {
-    "express": "^4.13.1"
-  }
+    "name": "inspiration",
+    "version": "1.0.0",
+    "description": "神马搜索动效平台",
+    "repository": "https://github.com/mingzhi22/inspiration",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "install": "bower install",
+        "dev": "cd source && fis3 release -wd ..",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "authors": [
+        "Michael Chou <mingzhi22@gmail.com>"
+    ],
+    "dependencies": {
+        "express": "^4.13.1"
+    },
+    "devDependencies": {
+        "bower": "^1.4.1",
+        "fis3": "^3.1.0"
+    }
 }

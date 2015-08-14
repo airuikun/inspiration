@@ -1,0 +1,25 @@
+{
+    "name": "inspiration",
+    "main": "index.js",
+    "version": "1.0.0",
+    "homepage": "https://github.com/mingzhi22/inspiration",
+    "authors": [
+        "Michael Chou <mingzhi22@gmail.com>"
+    ],
+    "description": "神马搜索动效平台",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "devDependencies": {
+        "angular": "~1.4.3",
+        "angular-animate": "~1.4.3",
+        "angular-bootstrap": "~0.13.2",
+        "angular-ui-codemirror": "~0.3.0",
+        "bootstrap": "~3.3.5"
+    }
+}
