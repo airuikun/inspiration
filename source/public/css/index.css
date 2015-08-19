@@ -1,10 +1,12 @@
 .CodeMirror {
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-.sidebar-css{
-	height:1000px;
+
+.sidebar-css {
+    height: 1000px;
 }
-.project-button{
-	margin-top:7px;
-	margin-right:30px;
+
+.project-button {
+    margin-top: 7px;
+    margin-right: 30px;
 }
