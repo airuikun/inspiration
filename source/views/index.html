@@ -12,234 +12,183 @@
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <span class="navbar-brand">UC Pen</span>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-
-                <div class="btn-group project-button" dropdown is-open="status.isopen">
-                    <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle
-                            ng-disabled="disabled">
-                        项目组 <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#">爱书旗</a></li>
-                        <li role="menuitem"><a href="#">神马搜索</a></li>
-                        <li role="menuitem"><a href="#">UC优视</a></li>
-                        <li role="menuitem"><a href="#">商搜</a></li>
-                        <li role="menuitem"><a href="#">框计算</a></li>
-                        <li role="menuitem"><a href="#">阿里巴巴</a></li>
-                        <li role="menuitem"><a href="#">阿里云</a></li>
-                        <li role="menuitem"><a href="#">淘宝</a></li>
-                        <li role="menuitem"><a href="#">支付宝</a></li>
-                        <li role="menuitem"><a href="#">移动事业群</a></li>
-                        <li role="menuitem"><a href="#">蚂蚁金服</a></li>
-                        <li role="menuitem"><a href="#">阿里影业</a></li>
-                        <li role="menuitem"><a href="#">菜鸟</a></li>
-                        <li role="menuitem"><a href="#">国际事业部</a></li>
-                    </ul>
-                </div>
-
-            </li>
-            <li><a href="#" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li>
-            <li><a href="#" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2 sidebar sidebar-css">
-            <accordion>
-                <accordion-group heading="动效1">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-                <accordion-group heading="动效2">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-                <accordion-group heading="动效3">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-                <accordion-group heading="动效4">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-                <accordion-group heading="动效5">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-                <accordion-group heading="动效6">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-                <accordion-group heading="动效7">
-                    <p>样例1</p>
-
-                    <p>样例2</p>
-
-                    <p>样例3</p>
-
-                    <p>样例4</p>
-                </accordion-group>
-            </accordion>
-        </div>
-        <div class="col-sm-10 container-fluid">
-            <div class="col-sm-4">
-                <section class="panel panel-default">
-                    <header class="panel-heading">HTML</header>
-                    <div class="panel-body" ui-codemirror="{
-              theme: 'monokai',
-              mode: 'htmlmixed'
-            }" ng-model="html" ng-model-options="{
-              debounce: 200
-            }"></div>
-                </section>
+      <div class="navbar-header">
+        <span class="navbar-brand">动效平台</span>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+            <div class="btn-group project-button" dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+              项目组 <span class="caret"></span>
+            </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-controller="projectList">
+                    <li role="menuitem" ng-repeat="item in proList">
+                        <a href="#">
+                            {{item}}
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="col-sm-4">
-                <section class="panel panel-default">
-                    <header class="panel-heading">CSS</header>
-                    <div class="panel-body" ui-codemirror="{
+        </li>
+        <li><a href="#" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li>
+        <li><a href="#" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 sidebar sidebar-css">
+        <accordion ng-controller="animateList">
+            <accordion-group heading="动效">
+                <p>样例1</p>
+                <p>样例2</p>
+                <p>样例3</p>
+            </accordion-group>
+            <accordion-group heading="动效">
+                <p>样例1</p>
+                <p>样例2</p>
+                <p>样例3</p>
+            </accordion-group>
+            <accordion-group heading="动效">
+                <p>样例1</p>
+                <p>样例2</p>
+                <p>样例3</p>
+            </accordion-group>
+            <accordion-group heading="动效">
+                <p ng-repeat="item in aniList">{{item}}</p>
+            </accordion-group>
+        </accordion>
+      </div>
+      <div class="col-sm-10 container-fluid">
+        <div class="col-sm-6">
+          <section class="panel panel-default">
+            <header class="panel-heading">HTML</header>
+            <div class="" ui-codemirror="{
+                lineNumbers: true,
+                theme: 'monokai',
+                lineWrapping : true,
+                mode: 'htmlmixed'
+              }" ng-model="html" ng-model-options="{
+                debounce: 200
+              }"></div>
+          </section>
+        </div>
+        <div class="col-sm-6">
+          <section class="panel panel-default">
+            <header class="panel-heading">CSS</header>
+            <div class="" ui-codemirror="{
+              lineNumbers: true,
               theme: 'monokai',
+              lineWrapping : true,
               mode: 'css'
             }" ng-model="css" ng-model-options="{
               debounce: 200
             }"></div>
-                </section>
-            </div>
-            <div class="col-sm-4">
-                <section class="panel panel-default">
-                    <header class="panel-heading">JavaScript</header>
-                    <div class="panel-body" ui-codemirror="{
+          </section>
+        </div>
+        
+      </div>
+      <div class="col-sm-10 container-fluid">
+        <div class="col-sm-6">
+          <section class="panel panel-default">
+            <header class="panel-heading">JavaScript</header>
+            <div class="" ui-codemirror="{
+              lineNumbers: true,
               theme: 'monokai',
+              lineWrapping : true,
               mode: 'javascript'
             }" ng-model="javascript" ng-model-options="{
               debounce: 200
             }"></div>
-                </section>
-            </div>
+          </section>
         </div>
-        <div class="col-sm-10 container-fluid">
-            <div class="col-sm-12">
-                <section class="panel panel-default">
-                    <header class="panel-heading">Preview</header>
-                    <div class="panel-body embed-responsive embed-responsive-16by9">
-                        <iframe class="col-sm-12" srcdoc="{{ compile({html: html, css: css, javascript: javascript}) }}"
-                                ng-cloak></iframe>
-                    </div>
-                </section>
+        <div class="col-sm-6">
+           <section class="panel panel-default">
+            <header class="panel-heading">Preview</header>
+            <div class="embed-responsive embed-responsive-16by9-ark">
+              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ compile({html: html, css: css, javascript: javascript}) }}" ng-cloak></iframe>
             </div>
+          </section>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 <script type="text/ng-template" id="init.html">
     <div></div>
 </script>
 <script type="text/ng-template" id="init.css">
     div {
-    position: relative;
+        position: relative;
 
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
 
-    border-radius: 100px;
-    margin: 100px auto 0;
-    color: red;
+        border-radius: 100px;
+        margin: 100px auto 0;
+        color: red;
 
-    transform: scale(1);
-    transition: transform ease 200ms;
+        transform: scale(1);
+        transition: transform ease 200ms;
     }
 
     div::before,
     div::after {
-    content: '';
+        content: '';
 
-    position: absolute;
-    top: 0;
+        position: absolute;
+        top: 0;
 
-    display: block;
-    width: 50%;
-    height: 100%;
+        display: block;
+        width: 50%;
+        height: 100%;
     }
 
     div::before {
-    background-color: currentColor;
+        background-color: currentColor;
 
-    animation:
-    before-1 linear 1s infinite,
-    before-2 steps(1) 1s infinite;
+        animation:
+        before-1 linear 1s infinite,
+        before-2 steps(1) 1s infinite;
     }
 
     @keyframes before-1 {
-    from { transform: none; }
-    to { transform: rotate(720deg); }
+        from { transform: none; }
+        to { transform: rotate(720deg); }
     }
 
     @keyframes before-2 {
-    0% {
-    left: 0;
-    transform-origin: right center;
-    }
-    50% {
-    left: 50%;
-    transform-origin: left center;
-    }
+        0% {
+            left: 0;
+            transform-origin: right center;
+        }
+        50% {
+            left: 50%;
+            transform-origin: left center;
+        }
     }
 
     div::after {
-    animation: after steps(1) 1s infinite;
+        animation: after steps(1) 1s infinite;
     }
 
     @keyframes after {
-    0% {
-    left: 0;
-    background: white;
-    }
-    25% {
-    left: 50%;
-    background: currentColor;
-    }
-    50% {
-    left: 0;
-    background: currentColor;
-    }
-    75% {
-    left: 50%;
-    background: white;
-    }
+        0% {
+            left: 0;
+            background: white;
+        }
+        25% {
+            left: 50%;
+            background: currentColor;
+        }
+        50% {
+            left: 0;
+            background: currentColor;
+        }
+        75% {
+            left: 50%;
+            background: white;
+        }
     }
 </script>
 <script type="text/ng-template" id="init.js">
@@ -247,10 +196,10 @@
     scale = 1;
 
     setInterval(function () {
-    var randomScale = (Math.random() * .3 + .2) * scale + 1;
+        var randomScale = (Math.random() * .3 + .2) * scale + 1;
 
-    div.style.transform = 'scale(' + randomScale + ')';
-    scale *= -1;
+        div.style.transform = 'scale(' + randomScale + ')';
+        scale *= -1;
     }, 200);
 </script>
 
