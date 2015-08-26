@@ -16,20 +16,21 @@
         <span class="navbar-brand">动效平台</span>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li>
+        <li ng-controller="projectList">
             <div class="btn-group project-button" dropdown is-open="status.isopen">
-            <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-              项目组 <span class="caret"></span>
+            <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+              <span>项目组</span> <span class="caret"></span>
             </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-controller="projectList">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
-                        <a href="#">
+                        <a href="#" >
                             {{item}}
                         </a>
                     </li>
                 </ul>
             </div>
         </li>
+        <li><a href="#" ng-click="createPage();">新建</a></li>
         <li><a href="#" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li>
         <li><a href="#" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
       </ul>
@@ -37,27 +38,36 @@
   </nav>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2 sidebar sidebar-css">
-        <accordion ng-controller="animateList">
-            <accordion-group heading="动效">
-                <p>样例1</p>
-                <p>样例2</p>
-                <p>样例3</p>
-            </accordion-group>
-            <accordion-group heading="动效">
-                <p>样例1</p>
-                <p>样例2</p>
-                <p>样例3</p>
-            </accordion-group>
-            <accordion-group heading="动效">
-                <p>样例1</p>
-                <p>样例2</p>
-                <p>样例3</p>
-            </accordion-group>
-            <accordion-group heading="动效">
-                <p ng-repeat="item in aniList">{{item}}</p>
+      <div class="col-sm-2 sidebar sidebar-css-ark" ng-controller="animateList">
+        <accordion>
+            <accordion-group ng-repeat="itemCate in category"  heading="{{itemCate.category}}">
+                <p ng-repeat="item in itemCate.example" >{{item}}</p>
             </accordion-group>
         </accordion>
+      </div>
+      <div id="controlCreateView" class="col-sm-10 container-fluid">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>样例名称 ： </label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>选择分类 ： </label></br>
+                <div class="btn-group project-button" dropdown is-open="status.isopen">
+                    <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+                      <span>{{categoryCur}}</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" ng-repeat="items in category">
+                            <a href="#"  ng-click="choiceCategory(items.category)">
+                                {{items.category}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                
+        </div>
       </div>
       <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
@@ -86,7 +96,6 @@
             }"></div>
           </section>
         </div>
-        
       </div>
       <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
