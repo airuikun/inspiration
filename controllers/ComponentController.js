@@ -2,13 +2,39 @@ var Component = require('../models/Component'),
     ComponentHistory = require('../models/ComponentHistory');
 
 
-var ComponentController = function() {
+var ComponentController = {
+    create : function(req, res) {
+        var data = req.body,
+            files = req.files;
+        //当组件存储完成、文件上传完成，才响应
+        createComponent(data, files).then(function(data) {
+            //渲染页面
+            //res.render('index', data.componentItem.componentItemID);
+            res.send(JSON.stringify(data));
+        }).catch(function(e) {
+            console.error(e);
+            res.redirect('error');
+        });
+    },
 
+    edit : function (req, res) {
+        var data = req.body,
+            files = req.files;
+        //当组件存储完成、文件上传完成，才响应
+        editComponent(data, files).then(function(data) {
+            //渲染页面
+            //res.render('index', data.componentItem.componentItemID);
+            res.send(JSON.stringify(data));
+        }).catch(function(e) {
+            console.error(e);
+            res.redirect('error');
+        });
+    }
 };
 
 
 //创建组件、组件项
-ComponentController.prototype.createComponent = function(data, files) {
+function createComponent(data, files) {
     //组件
     var component = new Component(data.name, data.typeID, 'userid', data.remarks); //用户ID后期通过session给值
     //历史版本
@@ -23,7 +49,7 @@ ComponentController.prototype.createComponent = function(data, files) {
 };
 
 //更新组件、组件项
-ComponentController.prototype.editComponent = function(data, files) {
+function editComponent(data, files) {
     //组件
     //var component = ComponentModel.getComponentByID(data.componentID) //从Model层获取数据
     var component = new Component(data.name, data.typeID, 'userid', data.remarks); //模拟
@@ -47,12 +73,14 @@ function saveDB(data) {
         console.log('component ID 为' +data.component.componentID + '保存成功');
         resolve(data);
     });
-};
+}
 
 function saveFile(data) {
     return new Promise(function(resolve, reject) {
-        for(var i = 0; i <  data.files.file.length; i++) {
-            console.log(data.files.file[i].name + '保存成功');0
+        if(data.files.file) {
+            for(var i = 0; i <  data.files.file.length; i++) {
+                console.log(data.files.file[i].name + '保存成功');0
+            }
         }
         resolve(data);
     });

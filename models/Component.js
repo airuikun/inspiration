@@ -1,5 +1,6 @@
 var md5Helper = require('../helpers/md5Helper'),
-    ModelBase = require('./ModelBase');
+    ModelBase = require('./ModelBase'),
+    util = require('util');
 
 var Component = function(name, typeID, userID, remarks) {
     var now = new Date();
@@ -13,10 +14,8 @@ var Component = function(name, typeID, userID, remarks) {
     ModelBase.call(this);
 };
 
-//寄生组合式继承
-var prototype = Object.create(ModelBase.prototype);
-prototype.constructor = Component;
-Component.prototype = prototype;
+//继承原型方法
+util.inherits(Component, ModelBase);
 
 module.exports = Component;
 
