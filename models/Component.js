@@ -2,9 +2,10 @@ var md5Helper = require('../helpers/md5Helper'),
     ModelBase = require('./ModelBase'),
     util = require('util');
 
-var Component = function(name, typeID, userID, remarks) {
+var Component = function(name, categoryID, typeID, userID, remarks) {
     var now = new Date();
     this.componentID = md5Helper.createMD5(now.getTime());
+    this.categoryID = categoryID;
     this.typeID = typeID;
     this.name = name;   //组件名称
     this.userID = userID;   //创建人ID

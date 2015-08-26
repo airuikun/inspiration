@@ -1,5 +1,5 @@
 var ProductLine = require('../models/ProductLine'),
-    ComponentCategory = require('../models/Category');
+    Category = require('../models/Category');
 
 
 var CategoryController = {
@@ -14,10 +14,10 @@ var CategoryController = {
             res.redirect('error');
         });
     },
-
+    //创建类别
     createCategory : function(req, res) {
         var data = req.body;
-        createComponentCategory(data).then(function(data) {
+        createCategory(data).then(function(data) {
             //渲染页面
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
@@ -25,6 +25,20 @@ var CategoryController = {
             console.error(e);
             res.redirect('error');
         });
+    },
+
+    //获取某个产品线下所有的类别
+    getCategoriesByProductLineID : function(req, res) {
+        var productLineID = req.params.productLineID;
+        console.debug('productLineID', productLineID);
+
+        //查询数据库
+        var result = [];
+
+        for(var i = 0; i < 5; i++) {
+            result.push(new Category(productLineID, '类型' + i));
+        }
+        res.send(JSON.stringify(result));
     }
 };
 
@@ -37,9 +51,9 @@ function createProductLine(data) {
 }
 
 //更新组件、组件项
-function createComponentCategory(data) {
+function createCategory(data) {
     //组件
-    var componentCategory = new ComponentCategory(data.productLineID, data.name);
+    var componentCategory = new Category(data.productLineID, data.name);
     return saveDB(componentCategory);
 }
 

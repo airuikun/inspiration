@@ -29,6 +29,18 @@ var ComponentController = {
             console.error(e);
             res.redirect('error');
         });
+    },
+    //通过类型获取ID
+    getComponentByCategoryID : function(req, res) {
+        console.debug('categoryID', req.params.categoryID);
+
+        //查询数据库
+        var result = [];
+
+        for(var i = 0; i < 5; i++) {
+            result.push(new Component('组件' + i, req.params.categoryID, '类型' + i, '用户' + i, '备注' + i));
+        }
+        res.send(JSON.stringify(result));
     }
 };
 
@@ -36,7 +48,7 @@ var ComponentController = {
 //创建组件、组件项
 function createComponent(data, files) {
     //组件
-    var component = new Component(data.name, data.typeID, 'userid', data.remarks); //用户ID后期通过session给值
+    var component = new Component(data.name, data.categoryID, data.typeID, 'userid', data.remarks); //用户ID后期通过session给值
     //历史版本
     var componentItem = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.remarks); //用户ID后期通过session给值
 
