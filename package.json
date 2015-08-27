@@ -18,7 +18,10 @@
     "connect-multiparty": "^2.0.0",
     "crypto": "0.0.3",
     "express": "^4.13.1",
-    "log4js": "^0.6.26"
+    "log4js": "^0.6.26",
+    "mysql": "^2.9.0",
+    "node-uuid": "^1.4.3",
+    "orm": "^2.1.26"
   },
   "devDependencies": {
     "bower": "^1.4.1",
