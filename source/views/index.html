@@ -38,38 +38,41 @@
   </nav>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2 sidebar sidebar-css-ark" ng-controller="animateList">
-        <accordion>
-            <accordion-group ng-repeat="itemCate in category"  heading="{{itemCate.category}}">
-                <p ng-repeat="item in itemCate.example" >{{item}}</p>
-            </accordion-group>
-        </accordion>
-      </div>
-      <div id="controlCreateView" class="col-sm-10 container-fluid">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>样例名称 ： </label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>选择分类 ： </label></br>
-                <div class="btn-group project-button" dropdown is-open="status.isopen">
-                    <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-                      <span>{{categoryCur}}</span> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-repeat="items in category">
-                            <a href="#"  ng-click="choiceCategory(items.category)">
-                                {{items.category}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-                
+        <div class="col-sm-2 sidebar sidebar-css-ark">
+            <accordion>
+                <accordion-group ng-repeat="itemCate in category"  heading="{{itemCate.category}}">
+                    <p ng-repeat="item in itemCate.example" >{{item}}</p>
+                </accordion-group>
+            </accordion>
         </div>
-      </div>
-      <div class="col-sm-10 container-fluid">
+    
+        <div id="controlCreateView" class="col-sm-10 container-fluid" ng-show="isShowCreate">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>样例名称 ： </label>
+                    <input type="text" ng-model="exampleName" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>选择分类 ： </label></br>
+                    <div class="btn-group project-button" dropdown is-open="status.isopen">
+                        <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+                          <span>{{categoryCur}}</span> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-repeat="items in category">
+                                <a href="#"  ng-click="choiceCategory(items.category)">
+                                    {{items.category}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+
+    <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
           <section class="panel panel-default">
             <header class="panel-heading">HTML</header>
@@ -96,8 +99,8 @@
             }"></div>
           </section>
         </div>
-      </div>
-      <div class="col-sm-10 container-fluid">
+    </div>
+    <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
           <section class="panel panel-default">
             <header class="panel-heading">JavaScript</header>
@@ -119,7 +122,35 @@
             </div>
           </section>
         </div>
-      </div>
+    </div>
+
+    <div class="col-sm-10 container-fluid"  ng-show="isShowCreate">
+        <form action="/component/create/" method="post" class="form-marginleft-ark" enctype="multipart/form-data">
+            <input type="text" name="name" class="hide" value="{{exampleName}}" />
+            <input type="text" name="typeID" class="hide" value="{{categoryCur}}" />
+            <input type="text" name="html" class="hide" value="{{html}}" />
+            <input type="text" name="js" class="hide" value="{{javascript}}" />
+            <input type="text" name="css" class="hide" value="{{css}}" />
+            <input type="text" name="remarks" class="hide" value="预留字段" />
+            <div class="form-group">
+                <label>上传文件 ： </label>
+                <input type="file" name="file" multiple />
+            </div>
+
+            <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" ng-click="isShowCreate=false;" value="确认">
+
+            <input type="button" class="btn btn-info btn-confirm-ark btn-com-ark" ng-click="isShowCreate=false;" value="取消">
+
+        </form>
+    </div>
+
+
+
+    <!-- <div class="col-sm-10 container-fluid"  ng-show="isShowCreate">
+        <button type="button" class="btn btn-info btn-confirm-ark btn-com-ark" ng-click="isShowCreate=false;">确认</button>
+        <button type="button" class="btn btn-info btn-com-ark" ng-click="isShowCreate=false;">取消</button>
+    </div> -->
+
     </div>
   </div>
 <script type="text/ng-template" id="init.html">

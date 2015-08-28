@@ -21,14 +21,22 @@ var template =
 
 .factory('save', function($http) {
         return function(parts) {
-            $http.post('/save', parts).then(function(response) {
+            $http.post('/component/create', parts).then(function(response) {
                 console.info(response);
             }).catch(function(response) {
                 console.error(response);
-                // alert(response.config.data.html);
-                // alert(response.config.data.javascript);
-                // alert(response.config.data.css);
             });
+
+            // $http.post('/component/create', {
+            //     data: new FormData(form)
+            // }).then(function(response) {
+            //     console.info(response);
+            // }).catch(function(response) {
+            //     console.error(response);
+            //     // alert(response.config.data.html);
+            //     // alert(response.config.data.javascript);
+            //     // alert(response.config.data.css);
+            // });
         };
     })
 
@@ -49,6 +57,9 @@ var template =
         $rootScope.html = '';
         $rootScope.javascript = '';
         $rootScope.css = '';
+
+        //显示新建页面信息
+        $rootScope.isShowCreate = true;
     };
 })
 
@@ -57,9 +68,11 @@ var template =
     return function( category ){
         // $rootScope.category = category;
         $rootScope.categoryCur = category;
-        alert($rootScope.categoryCur);
+        // alert($rootScope.categoryCur);
     };
 })
+
+
 
 .run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory) {
     $rootScope.compile = compile;
@@ -75,6 +88,16 @@ var template =
     $templateRequest('init.js').then(function(data) {
         $rootScope.javascript = data;
     });
+
+
+    //保存当前锁选择的分类
+    $rootScope.categoryCur = "分类";
+
+    //用户填写的样例名称
+    $rootScope.exampleName = '';
+
+
+
 
     //生成分类
     $rootScope.category = [{
@@ -102,6 +125,10 @@ var template =
     //点击选择分类choiceCategory
     $rootScope.choiceCategory = choiceCategory;
 
-    //保存当前锁选择的分类
-    $rootScope.categoryCur = "分类";
+
+    //控制新建页面信息的变量 默认新建页面的信息是隐藏的
+    $rootScope.isShowCreate = false;
+
+
+
 });
