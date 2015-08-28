@@ -2,7 +2,7 @@
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.sidebar-css {
+.sidebar-css-ark {
     height: 1000px;
 }
 
@@ -17,4 +17,8 @@
 
 .iframe-ark {
     padding-right:0px;
+}
+
+.hide {
+	display: none;
 }

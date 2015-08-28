@@ -31,15 +31,37 @@ var template =
             });
         };
     })
-    .controller('projectList', function($scope) {
-        $scope.proList = '爱书旗 神马搜索 UC优视 商搜 框计算 阿里巴巴 阿里云 淘宝 支付宝 移动事业群 蚂蚁金服 阿里影业 菜鸟 国际事业部'.split(' ');
-    })
 
-.controller('animateList', function($scope) {
-    $scope.aniList = ["样例1", "样例2", "样例3", "样例4"];
+.controller('projectList', function($scope) {
+    $scope.proList = '爱书旗 神马搜索 UC优视 商搜 框计算 阿里巴巴 阿里云 淘宝 支付宝 移动事业群 蚂蚁金服 阿里影业 菜鸟 国际事业部'.split(' ');
 })
 
-.run(function($rootScope, $templateRequest, compile, save) {
+.controller('animateList', function($scope) {
+    // $scope.category = ["分类1", "分类2", "分类3", "分类4"];
+    // $scope.aniList1 = ["样例1", "样例2", "样例3", "样例4"];
+    // $scope.aniList2 = ["样例1", "样例2", "样例3", "样例4"];
+    // $scope.aniList3 = ["样例1", "样例2", "样例3", "样例4"];
+    // $scope.aniList4 = ["样例1", "样例2", "样例3", "样例4"];
+})
+//点击新建页面
+.factory('createPage', function($rootScope) {
+    return function(){
+        $rootScope.html = '';
+        $rootScope.javascript = '';
+        $rootScope.css = '';
+    };
+})
+
+//点击选择分类
+.factory('choiceCategory', function($rootScope) {
+    return function( category ){
+        // $rootScope.category = category;
+        $rootScope.categoryCur = category;
+        alert($rootScope.categoryCur);
+    };
+})
+
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -53,4 +75,33 @@ var template =
     $templateRequest('init.js').then(function(data) {
         $rootScope.javascript = data;
     });
+
+    //生成分类
+    $rootScope.category = [{
+        id: "aniList1",
+        category: "分类1",
+        example: ["样例1", "样例2", "样例3", "样例4"]
+    }, {
+        id: "aniList2",
+        category: "分类2",
+        example: ["样例1", "样例2", "样例3", "样例4"]
+    }, {
+        id: "aniList3",
+        category: "分类3",
+        example: ["样例1", "样例2", "样例3", "样例4"]
+    }, {
+        id: "aniList4",
+        category: "分类4",
+        example: ["样例1", "样例2", "样例3", "样例4"]
+    }];
+
+
+    //点击新建页面
+    $rootScope.createPage = createPage;
+
+    //点击选择分类choiceCategory
+    $rootScope.choiceCategory = choiceCategory;
+
+    //保存当前锁选择的分类
+    $rootScope.categoryCur = "分类";
 });
