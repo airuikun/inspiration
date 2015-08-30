@@ -9,19 +9,19 @@ var ComponentController = require('../controllers/ComponentController'),
 
 exports.use = function (app) {
 
-
     //组件类的路由
     app.post('/component/create', multipartMiddleware, ComponentController.create);
     app.post('/component/edit', multipartMiddleware, ComponentController.edit);
-    app.get('/component/category/:categoryID', ComponentController.getComponentByCategoryID);
+    app.get('/component/category/:categoryID', ComponentController.getComponentsByCategoryID);
+    //app.get('/file/:fileID', ComponentController.downFile);
 
     //类别
     app.post('/category/create', CategoryController.createCategory);
-    app.get('/category/:productLineID', CategoryController.getCategoriesByProductLineID);
+    //app.get('/category/:productLineID', CategoryController.getCategoriesByProductLineID);
 
 
     //产品线
-    app.post('/produceLine/create', CategoryController.createProductLine);
+    app.post('/productLine/create', CategoryController.createProductLine);
 
 
 };

@@ -8,12 +8,13 @@ var uuid = require('node-uuid'),
  * @param path
  * @constructor
  */
-var ComponentFile = function(componentID, fileName, path) {
+var ComponentFile = function(componentID, fileName, path, fileSize) {
     this.componentFileID = uuid.v1();
     this.fileName = fileName;
     this.componentID = componentID;
     this.path = path;
     this.createTime = new Date();
+    this.fileSzie = fileSize;
     ModelBase.call(this)
 };
 

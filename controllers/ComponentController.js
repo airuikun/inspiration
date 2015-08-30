@@ -31,18 +31,6 @@ var ComponentController = {
             console.error(e);
             res.redirect('error');
         });
-    },
-    //通过类型获取ID
-    getComponentByCategoryID : function(req, res) {
-        console.debug('categoryID', req.params.categoryID);
-
-        //查询数据库
-        var result = [];
-
-        for(var i = 0; i < 5; i++) {
-            result.push(new Component('组件' + i, req.params.categoryID, '用户' + i, '备注' + i));
-        }
-        res.send(JSON.stringify(result));
     }
 };
 
@@ -101,13 +89,14 @@ function saveFileToDB(componentFile) {
 
 function saveFile(data) {
     return new Promise(function(resolve, reject) {
-        if(data.files.file) {
-            !data.files.file.length && (data.files.file = [data.files.file]);
-            var promiseArr = []
-            for(var i = 0; i <  data.files.file.length; i++) {
-                var file = data.files.file[i],
-                    componentFile = new ComponentFile(data.component.componentID, file.name);
-                    promiseArr.push(FileHelper.saveFile(file, componentFile).then(saveFileToDB));
+        var file = data.files.file;
+        if(file) {
+            !file.length && (file = [file]);
+            var promiseArr = [];
+            for(var i = 0; i <  file.length; i++) {
+                var item = file[i],
+                    componentFile = new ComponentFile(data.component.componentID, item.name, '', item.size);
+                    promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
             Promise.all(promiseArr).then(function() {
                 console.log('上传完毕');

@@ -1,16 +1,16 @@
 var db = require('../config/db'),
     ProductLine = require('../models/ProductLine');
 
-var productLineDAL = db.define("productLine", ProductLine.getType());
+var productLineTable = db.define("productLine", ProductLine.getType());
 
 //同步表
-productLineDAL.sync();
+productLineTable.sync();
 
 //DEMO
 //获取所有的产品线
 function getAllProductLine() {
     return new Promise(function(resolve, reject) {
-        productLineDAL.find({}, function(err, data) {
+        productLineTable.find({}, function(err, data) {
             if(err) {
                 console.error(err);
                 reject(err);
@@ -24,7 +24,7 @@ function getAllProductLine() {
 //创建产品线
 function createProductLine(productLine) {
     return new Promise(function(resolve, reject) {
-        productLineDAL.create([productLine],function(err, data) {
+        productLineTable.create([productLine],function(err, data) {
             if(err) {
                 console.error(err);
             }else {
