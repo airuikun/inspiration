@@ -1,9 +1,10 @@
-var md5Helper = require('../helpers/md5Helper'),
-    ModelBase = require('./ModelBase');
+var uuid = require('node-uuid'),
+    ModelBase = require('./ModelBase'),
+    util = require('util');
 
 var ComponentHistory = function(componentID, html, js, css, userID, remarks) {
     var now = new Date();
-    this.componentHistoryID = md5Helper.createMD5(now.getTime());
+    this.componentHistoryID = uuid.v1();
     this.componentID = componentID;
     this.html = html;
     this.js = js;
@@ -14,10 +15,21 @@ var ComponentHistory = function(componentID, html, js, css, userID, remarks) {
     ModelBase.call(this);
 };
 
-//寄生组合式继承
-var prototype = Object.create(ModelBase.prototype);
-prototype.constructor = ComponentHistory;
-ComponentHistory.prototype = prototype;
+ComponentHistory.getType = function() {
+    return {
+        componentHistoryID : String,
+        componentID : String,
+        html : String,
+        js : String,
+        css : String,
+        userID : String,
+        createTime : Date,
+        remarks : String
+    }
+};
+
+//继承原型方法
+util.inherits(ComponentHistory, ModelBase);
 
 module.exports = ComponentHistory;
 
