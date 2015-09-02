@@ -54,12 +54,13 @@ var template =
 //点击新建页面
 .factory('createPage', function($rootScope) {
     return function(){
-        $rootScope.html = '';
-        $rootScope.javascript = '';
-        $rootScope.css = '';
+        // $rootScope.html = '';
+        // $rootScope.javascript = '';
+        // $rootScope.css = '';
 
-        //显示新建页面信息
-        $rootScope.isShowCreate = true;
+        // //显示新建页面信息
+        // $rootScope.isShowCreate = true;
+        window.location.href = '../views/createpage.html';
     };
 })
 

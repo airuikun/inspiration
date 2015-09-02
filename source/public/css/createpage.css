@@ -1,0 +1,42 @@
+.CodeMirror {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.sidebar-css-ark {
+    min-height: 1200px;
+}
+
+.project-button {
+    margin-top: 7px;
+    margin-right: 30px;
+}
+
+.embed-responsive-16by9-ark {
+    height: 300px;
+}
+
+.iframe-ark {
+    padding-right:0px;
+}
+
+.hide {
+	display: none;
+}
+
+.btn-confirm-ark {
+	/*margin-left: 15px;*/
+	margin-right: 10px;
+}
+
+.btn-com-ark {
+	margin-bottom: 15px;
+}
+
+.form-marginleft-ark {
+	margin-left: 15px;
+}
+
+
+
+
+
