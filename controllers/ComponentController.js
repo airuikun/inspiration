@@ -78,12 +78,11 @@ function saveFile(data) {
 
 var ComponentController = {
     index: function(req, res) {
-        console.log(CategoryDAL.getAllCategories);
         Promise.all([
             CategoryDAL.getAllCategories()
-        ]).then(function(categories) {
+        ]).then(function(result) {
             res.render(AppUtils.getViewPath('index.ejs'), {
-                categories: categories
+                categories: result[0]
             });
         });
     },
