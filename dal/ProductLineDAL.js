@@ -6,7 +6,6 @@ var productLineTable = db.define("productLine", ProductLine.getType());
 //同步表
 productLineTable.sync();
 
-//DEMO
 //获取所有的产品线
 function getAllProductLine() {
     return new Promise(function(resolve, reject) {
@@ -33,7 +32,6 @@ function createProductLine(productLine) {
         })
     });
 }
-
 
 //查找
 //getAllProductLine().then(function(data) {

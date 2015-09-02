@@ -1,39 +1,10 @@
-var Component = require('../models/Component'),
+var FileHelper = require('../helpers/FileHelper'),
+    AppUtils = require('../helpers/AppUtils'),
+    CategoryDAL = require('../dal/CategoryDAL'),
+
+    Component = require('../models/Component'),
     ComponentFile = require('../models/ComponentFile'),
-    FileHelper = require('../helpers/FileHelper'),
     ComponentHistory = require('../models/ComponentHistory');
-
-
-var ComponentController = {
-    create : function(req, res) {
-        var data = req.body,
-            files = req.files;
-        //当组件存储完成、文件上传完成，才响应
-        createComponent(data, files).then(function(data) {
-            //渲染页面
-            //res.render('index', data.componentHistory.componentHistoryID);
-            res.send(JSON.stringify(data));
-        }).catch(function(e) {
-            console.error(e);
-            res.redirect('error');
-        });
-    },
-
-    edit : function (req, res) {
-        var data = req.body,
-            files = req.files;
-        //当组件存储完成、文件上传完成，才响应
-        editComponent(data, files).then(function(data) {
-            //渲染页面
-            //res.render('index', data.componentHistory.componentHistoryID);
-            res.send(JSON.stringify(data));
-        }).catch(function(e) {
-            console.error(e);
-            res.redirect('error');
-        });
-    }
-};
-
 
 //创建组件、组件项
 function createComponent(data, files) {
@@ -67,7 +38,6 @@ function editComponent(data, files) {
     }).then(saveFile);
 }
 
-
 //模拟保存到数据库
 function saveDB(data) {
     return new Promise(function(resolve, reject) {
@@ -76,7 +46,6 @@ function saveDB(data) {
         resolve(data);
     });
 }
-
 
 //保存文件到数据库
 function saveFileToDB(componentFile) {
@@ -107,6 +76,46 @@ function saveFile(data) {
     });
 }
 
+var ComponentController = {
+    index: function(req, res) {
+        console.log(CategoryDAL.getAllCategories);
+        Promise.all([
+            CategoryDAL.getAllCategories()
+        ]).then(function(categories) {
+            res.render(AppUtils.getViewPath('index.ejs'), {
+                categories: categories
+            });
+        });
+    },
+
+    create : function(req, res) {
+        var data = req.body,
+            files = req.files;
+        //当组件存储完成、文件上传完成，才响应
+        createComponent(data, files).then(function(data) {
+            //渲染页面
+            //res.render('index', data.componentHistory.componentHistoryID);
+            res.send(JSON.stringify(data));
+        }).catch(function(e) {
+            console.error(e);
+            res.redirect('error');
+        });
+    },
+
+    edit : function (req, res) {
+        var data = req.body,
+            files = req.files;
+        //当组件存储完成、文件上传完成，才响应
+        editComponent(data, files).then(function(data) {
+            //渲染页面
+            //res.render('index', data.componentHistory.componentHistoryID);
+            res.send(JSON.stringify(data));
+        }).catch(function(e) {
+            console.error(e);
+            res.redirect('error');
+        });
+    }
+};
 
 module.exports = ComponentController;
 
