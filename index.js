@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use('/public', express.static(__dirname + '/public'));
 
 // 配置路由
-require('./config/route')(app);
+require('./config/routes')(app);
 // 配置日志
 require('./config/log')(app);
 

@@ -8,7 +8,9 @@ var ComponentController = require('../controllers/ComponentController'),
 
 module.exports = function(app) {
     // 首页
-    app.get('/', multipartMiddleware, ComponentController.index);
+    app.get('/', multipartMiddleware, ComponentController.renderCreationPage);
+    // 编辑组件页面
+    app.get('/component/edit', multipartMiddleware, ComponentController.renderEditPage);
 
     // 组件类的路由
     app.post('/component/create', multipartMiddleware, ComponentController.create);

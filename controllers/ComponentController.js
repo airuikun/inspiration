@@ -77,17 +77,27 @@ function saveFile(data) {
 }
 
 var ComponentController = {
-    index: function(req, res) {
+    renderCreationPage: function(req, res) {
         Promise.all([
             CategoryDAL.getAllCategories()
         ]).then(function(result) {
-            res.render(AppUtils.getViewPath('index.ejs'), {
+            res.render(AppUtils.getViewPath('component/index.ejs'), {
                 categories: result[0]
             });
         });
     },
 
-    create : function(req, res) {
+    renderEditPage: function(req, res) {
+        Promise.all([
+            CategoryDAL.getAllCategories()
+        ]).then(function(result) {
+            res.render(AppUtils.getViewPath('component/edit.ejs'), {
+                categories: result[0]
+            });
+        });
+    },
+
+    create: function(req, res) {
         var data = req.body,
             files = req.files;
         //当组件存储完成、文件上传完成，才响应
@@ -101,7 +111,7 @@ var ComponentController = {
         });
     },
 
-    edit : function (req, res) {
+    edit: function (req, res) {
         var data = req.body,
             files = req.files;
         //当组件存储完成、文件上传完成，才响应
