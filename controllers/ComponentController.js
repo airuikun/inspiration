@@ -77,11 +77,21 @@ function saveFile(data) {
 }
 
 var ComponentController = {
-    renderCreationPage: function(req, res) {
+    renderIndexPage: function(req, res) {
         Promise.all([
             CategoryDAL.getAllCategories()
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/index.ejs'), {
+                categories: result[0]
+            });
+        });
+    },
+
+    renderCreationPage: function(req, res) {
+        Promise.all([
+            CategoryDAL.getAllCategories()
+        ]).then(function(result) {
+            res.render(AppUtils.getViewPath('component/create.ejs'), {
                 categories: result[0]
             });
         });
