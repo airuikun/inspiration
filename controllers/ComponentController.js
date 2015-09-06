@@ -1,7 +1,7 @@
 var FileHelper = require('../helpers/FileHelper'),
     AppUtils = require('../helpers/AppUtils'),
     CategoryDAL = require('../dal/CategoryDAL'),
-
+    ComponentFileDAL = require('../dal/ComponentFileDAL');
     Component = require('../models/Component'),
     ComponentFile = require('../models/ComponentFile'),
     ComponentHistory = require('../models/ComponentHistory');
@@ -49,12 +49,9 @@ function saveDB(data) {
 
 //保存文件到数据库
 function saveFileToDB(componentFile) {
-    return new Promise(function(resolve, reject) {
-        //模拟保存数据
-        console.log(componentFile.componentFileID + ' 文件保存成功');
-        resolve();
-    });
+    return  ComponentFileDAL.saveFiles([componentFile]);
 }
+
 
 function saveFile(data) {
     return new Promise(function(resolve, reject) {
@@ -67,10 +64,14 @@ function saveFile(data) {
                     componentFile = new ComponentFile(data.component.componentID, item.name, '', item.size);
                     promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
-            Promise.all(promiseArr).then(function() {
+            Promise.all(promiseArr).then(function(data) {
                 console.log('上传完毕');
-                resolve();
+                console.log(data);
+                resolve(data);
             });
+        }else {
+            //没有传送文件继续往下执行
+            resolve(data);
         }
 
     });
@@ -132,6 +133,19 @@ var ComponentController = {
         }).catch(function(e) {
             console.error(e);
             res.redirect('error');
+        });
+    },
+
+    deleteFile : function (req, res) {
+        var componentFileID = req.params.componentFileID;
+        ComponentFileDAL.deleteFileByID(componentFileID).then(function() {
+            res.send({
+                status : 1
+            });
+        }).catch(function() {
+            res.send({
+                status : 0
+            });
         });
     }
 };

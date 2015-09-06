@@ -4,7 +4,7 @@ var uuid = require('node-uuid'),
 
 var Component = function(name, categoryID, userID, remarks) {
     var now = new Date();
-    this.componentID = uuid.v1();
+    this.componentID = uuid.v4();
     this.categoryID = categoryID;
     this.name = name;   //组件名称
     this.userID = userID;   //创建人ID

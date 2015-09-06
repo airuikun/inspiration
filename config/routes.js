@@ -17,8 +17,7 @@ module.exports = function(app) {
     // 组件类的路由
     app.post('/component/create', multipartMiddleware, ComponentController.create);
     app.post('/component/edit', multipartMiddleware, ComponentController.edit);
-    //app.get('/component/category/:categoryID', ComponentController.getComponentsByCategoryID);
-    //app.get('/file/:fileID', ComponentController.downFile);
+    app.get('/file/:componentFileID', ComponentController.deleteFile);
 
     //类别
     app.post('/category/create', CategoryController.createCategory);

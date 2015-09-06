@@ -4,7 +4,7 @@ var uuid = require('node-uuid'),
 
 var ComponentHistory = function(componentID, html, js, css, userID, remarks) {
     var now = new Date();
-    this.componentHistoryID = uuid.v1();
+    this.componentHistoryID = uuid.v4();
     this.componentID = componentID;
     this.html = html;
     this.js = js;

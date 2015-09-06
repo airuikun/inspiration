@@ -4,7 +4,7 @@ var uuid = require('node-uuid'),
 
 var Category = function(productLineID, name) {
     var now = new Date();
-    this.categoryID = uuid.v1();
+    this.categoryID = uuid.v4();
     this.productLineID = productLineID;
     this.name = name;   //产品线名称
     this.createTime = now;
