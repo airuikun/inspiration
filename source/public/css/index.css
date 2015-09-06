@@ -3,7 +3,7 @@
 }
 
 .sidebar-css-ark {
-    height: 1000px;
+    min-height: 1200px;
 }
 
 .project-button {
@@ -22,3 +22,21 @@
 .hide {
 	display: none;
 }
+
+.btn-confirm-ark {
+	/*margin-left: 15px;*/
+	margin-right: 10px;
+}
+
+.btn-com-ark {
+	margin-bottom: 15px;
+}
+
+.form-marginleft-ark {
+	margin-left: 15px;
+}
+
+
+
+
+
