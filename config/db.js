@@ -11,4 +11,19 @@ var opts = {
         pool: true
     }
 };
-module.exports = orm.connect(opts);
+
+function connDB() {
+    return new Promise(function(resolve, reject) {
+        console.info('正在连接数据库');
+        orm.connect(opts, function(err, db) {
+            if(err) {
+                reject(err);
+                console.error('数据库连接失败', err);
+            }else {
+                console.info('数据库连接成功');
+                resolve(db);
+            }
+        });
+    });
+}
+module.exports = connDB;

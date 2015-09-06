@@ -1,7 +1,7 @@
 var FileHelper = require('../helpers/FileHelper'),
     AppUtils = require('../helpers/AppUtils'),
     CategoryDAL = require('../dal/CategoryDAL'),
-    ComponentFileDAL = require('../dal/ComponentFileDAL');
+    ComponentFileDAL = require('../dal/ComponentFileDAL'),
     Component = require('../models/Component'),
     ComponentFile = require('../models/ComponentFile'),
     ComponentHistory = require('../models/ComponentHistory');
