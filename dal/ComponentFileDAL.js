@@ -2,7 +2,7 @@ var conn = require('../config/db'),
     ComponentFile = require('../models/ComponentFile');
 
 
-var getComponentFileTable = conn().then(function(db) {
+var getComponentFileTable = conn.then(function(db) {
     var ComponentFileTable = db.define("componentFile", ComponentFile.getType());
     console.log(111)
     //同步表

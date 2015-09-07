@@ -1,12 +1,8 @@
 var conn = require('../config/db'),
     ProductLine = require('../models/ProductLine');
 
-var productLineTable = db.define("productLine", ProductLine.getType());
 
-//同步表
-productLineTable.sync();
-
-var getProductLineTable = conn().then(function(db) {
+var getProductLineTable = conn.then(function(db) {
     var productLineTable = db.define("productLine", ProductLine.getType());
     //同步表
     productLineTable.sync();
