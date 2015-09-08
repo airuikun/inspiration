@@ -2,6 +2,8 @@ var FileHelper = require('../helpers/FileHelper'),
     AppUtils = require('../helpers/AppUtils'),
     CategoryDAL = require('../dal/CategoryDAL'),
     ComponentFileDAL = require('../dal/ComponentFileDAL'),
+    ComponentDAL = require('../dal/ComponentDAL'),
+    ComponentHistoryDAL = require('../dal/ComponentHistoryDAL'),
     Component = require('../models/Component'),
     ComponentFile = require('../models/ComponentFile'),
     ComponentHistory = require('../models/ComponentHistory');
@@ -11,7 +13,7 @@ function createComponent(data, files) {
     //组件
     var component = new Component(data.name, data.categoryID, 'userid', data.remarks); //用户ID后期通过session给值
     //历史版本
-    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.remarks); //用户ID后期通过session给值
+    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updata); //用户ID后期通过session给值
 
     //首先保存到数据然，然后再保存到文件中
     return saveDB({
@@ -25,10 +27,10 @@ function createComponent(data, files) {
 function editComponent(data, files) {
     //组件
     //var component = ComponentModel.getComponentByID(data.componentID) //从Model层获取数据
-    var component = new Component(data.name, data.typeID, 'userid', data.remarks); //模拟
+    var component = new Component(data.name, data.categoryID, 'userid', data.remarks); //模拟
     component.setParameters(data);
     //历史版本
-    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.remarks); //用户ID后期通过session给值
+    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updateConent); //用户ID后期通过session给值
 
     //首先保存到数据然，然后再保存到文件中
     return saveDB({
@@ -42,8 +44,11 @@ function editComponent(data, files) {
 function saveDB(data) {
     return new Promise(function(resolve, reject) {
         //模拟保存数据
-        console.log('component ID 为' +data.component.componentID + '保存成功');
-        resolve(data);
+        var promiseArr = [ComponentDAL.createComponent(data.component), ComponentHistoryDAL.createComponentHistory(data.componentHistory)];
+        Promise.all(promiseArr).then(function() {
+            resolve(data);
+        });
+
     });
 }
 
@@ -66,7 +71,6 @@ function saveFile(data) {
             }
             Promise.all(promiseArr).then(function(data) {
                 console.log('上传完毕');
-                console.log(data);
                 resolve(data);
             });
         }else {
@@ -89,9 +93,12 @@ var ComponentController = {
     },
 
     renderCreationPage: function(req, res) {
+        //读取cookie获取产品线ID
+        var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
-            CategoryDAL.getAllCategories()
+            CategoryDAL.getAllCategories(productLineID)
         ]).then(function(result) {
+            console.log(result);
             res.render(AppUtils.getViewPath('component/create.ejs'), {
                 categories: result[0]
             });

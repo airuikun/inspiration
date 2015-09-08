@@ -4,7 +4,6 @@ var conn = require('../config/db'),
 
 var getComponentFileTable = conn.then(function(db) {
     var ComponentFileTable = db.define("componentFile", ComponentFile.getType());
-    console.log(111)
     //同步表
     ComponentFileTable.sync();
     return ComponentFileTable;

@@ -7,7 +7,7 @@ var opts = {
     username: "root",
     password: "root",
     query: {
-        debug : false,
+        debug : true,
         pool: true
     }
 };
