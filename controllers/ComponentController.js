@@ -89,6 +89,8 @@ var ComponentController = {
             res.render(AppUtils.getViewPath('component/index.ejs'), {
                 categories: result[0]
             });
+        }).catch(function(e) {
+            res.redirect('error');
         });
     },
 
@@ -96,22 +98,28 @@ var ComponentController = {
         //读取cookie获取产品线ID
         var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
-            CategoryDAL.getAllCategories(productLineID)
+            CategoryDAL.queryCategoriesByProductLineID(productLineID)
         ]).then(function(result) {
             console.log(result);
             res.render(AppUtils.getViewPath('component/create.ejs'), {
                 categories: result[0]
             });
+        }).catch(function(e) {
+            res.redirect('error');
         });
     },
 
     renderEditPage: function(req, res) {
+        //获取到前台传来的组件ID
+        var componentID = '567ee0e3-a893-4d9f-ac57-960a57d438c9';
         Promise.all([
-            CategoryDAL.getAllCategories()
+            ComponentHistoryDAL.getComponentHistoryByComponentID(componentID)
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
                 categories: result[0]
             });
+        }).catch(function(e) {
+            res.redirect('error');
         });
     },
 
@@ -138,7 +146,6 @@ var ComponentController = {
             //res.render('index', data.componentHistory.componentHistoryID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
-            console.error(e);
             res.redirect('error');
         });
     },

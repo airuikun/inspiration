@@ -1,26 +1,21 @@
-var conn = require('../config/db'),
+var db = require('../config/db'),
     ProductLine = require('../models/ProductLine');
 
 
-var getProductLineTable = conn.then(function(db) {
-    var productLineTable = db.define("productLine", ProductLine.getType());
-    //同步表
-    productLineTable.sync();
-    return productLineTable;
-});
+var ProductLineTable = db.define('productLine', ProductLine.getType());
+//同步表
+ProductLineTable.sync();
 
 //获取所有的产品线
 function getAllProductLine() {
     return new Promise(function(resolve, reject) {
-        getProductLineTable.then(function(productLineTable) {
-            productLineTable.find({}, function(err, data) {
-                if(err) {
-                    console.error(err);
-                    reject(err);
-                }else {
-                    resolve(JSON.stringify(data));
-                }
-            });
+        ProductLineTable.find({}, function(err, data) {
+            if(err) {
+                console.error(err);
+                throw err;
+            }else {
+                resolve(JSON.stringify(data));
+            }
         });
     });
 }
@@ -28,17 +23,16 @@ function getAllProductLine() {
 //创建产品线
 function createProductLine(productLine) {
     return new Promise(function(resolve, reject) {
-        getProductLineTable.then(function(productLineTable) {
-            productLineTable.create([productLine],function(err, data) {
-                if(err) {
-                    console.error(err);
-                }else {
-                    console.log(JSON.stringify(data));
-                }
-            })
+        ProductLineTable.create([productLine],function(err, data) {
+            if(err) {
+                console.error(err);
+                throw err;
+            }else {
+                console.log(JSON.stringify(data));
+            }
         });
-
     });
+
 }
 
 //查找

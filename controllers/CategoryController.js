@@ -33,7 +33,6 @@ var CategoryController = {
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
-            console.error(e);
             res.redirect('error');
         });
     },
@@ -47,7 +46,6 @@ var CategoryController = {
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
-            console.error(e);
             res.redirect('error');
         });
     }
