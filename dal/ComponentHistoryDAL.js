@@ -6,7 +6,7 @@ var ComponentHistoryTable = db.define('componentHistory', ComponentHistory.getTy
 //同步表
 ComponentHistoryTable.sync();
 
-//获取所有的产品线
+//获取所有的组件历史
 function getAllComponentHistory() {
     return new Promise(function(resolve, reject) {
         ComponentHistoryTable.find({}, function(err, data) {
@@ -20,7 +20,23 @@ function getAllComponentHistory() {
     });
 }
 
-//创建产品线
+//通过ID获取组件历史
+function getComponentHistoryByID(componentHistoryID) {
+    return new Promise(function(resolve, reject) {
+        ComponentHistoryTable.find({
+            componentHistoryID : componentHistoryID
+        }, function(err, data) {
+            if(err) {
+                console.error(err);
+                throw err;
+            }else {
+                resolve(data);
+            }
+        });
+    });
+}
+
+//创建组件历史
 function createComponentHistory(ComponentHistory) {
     return new Promise(function(resolve, reject) {
         ComponentHistoryTable.create([ComponentHistory],function(err, data) {
@@ -29,7 +45,7 @@ function createComponentHistory(ComponentHistory) {
                 throw err;
             }else {
                 console.log('生成组件版本成功', JSON.stringify(data));
-                resolve();
+                resolve(JSON.stringify(data));
             }
         });
 
@@ -55,5 +71,6 @@ function getComponentHistoryByComponentID(componentID) {
 module.exports = {
     getAllComponentHistory : getAllComponentHistory,
     createComponentHistory : createComponentHistory,
-    getComponentHistoryByComponentID : getComponentHistoryByComponentID
+    getComponentHistoryByComponentID : getComponentHistoryByComponentID,
+    getComponentHistoryByID : getComponentHistoryByID
 };

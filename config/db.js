@@ -8,7 +8,7 @@ var orm = require("orm"),
         username: "root",
         password: "root",
         query: {
-            debug : true,
+            debug : false,
             pool: true
         }
     };

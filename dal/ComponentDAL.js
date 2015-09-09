@@ -19,17 +19,36 @@ function getAllComponent() {
     });
 }
 
-//创建产品线
-function createComponent(Component) {
+//创建组件
+function createComponent(component) {
     return new Promise(function(resolve, reject) {
-        ComponentTable.create([Component],function(err, data) {
+        ComponentTable.create([component],function(err, data) {
             if(err) {
                 console.error(err);
                 reject(err);
             }else {
                 console.debug('上传组件成功', JSON.stringify(data));
-                resolve();
+                resolve(JSON.stringify(data));
             }
+        });
+
+    });
+}
+
+//更新组件
+function updateComponent(componentID, newComponent) {
+    return new Promise(function(resolve, reject) {
+        ComponentTable.find({
+            componentID : componentID
+        }, function(err, component) {
+            if(err) throw e;
+            for(var key in newComponent) {
+                component[0][key] = newComponent[key];
+            }
+            component[0].save(function (err) {
+                if(err) throw err;
+                resolve();
+            })
         });
 
     });
@@ -39,5 +58,6 @@ function createComponent(Component) {
 //这里提交给上层Controller调用
 module.exports = {
     getAllComponent : getAllComponent,
-    createComponent : createComponent
+    createComponent : createComponent,
+    updateComponent : updateComponent
 };

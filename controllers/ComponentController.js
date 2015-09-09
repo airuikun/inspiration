@@ -16,45 +16,55 @@ function createComponent(data, files) {
     var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updata); //用户ID后期通过session给值
 
     //首先保存到数据然，然后再保存到文件中
-    return saveDB({
-        component : component,
-        componentHistory : componentHistory,
-        files : files
-    }).then(saveFile);
+    return Promise.all([
+            ComponentDAL.createComponent(component),
+            ComponentHistoryDAL.createComponentHistory(componentHistory),
+            saveFile({
+                files : files,
+                component : component.componentID
+            })
+        ]);
+
 }
 
 //更新组件、组件项
 function editComponent(data, files) {
     //组件
-    //var component = ComponentModel.getComponentByID(data.componentID) //从Model层获取数据
-    var component = new Component(data.name, data.categoryID, 'userid', data.remarks); //模拟
-    component.setParameters(data);
-    //历史版本
-    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updateConent); //用户ID后期通过session给值
+    var componentID = '567ee0e3-a893-4d9f-ac57-960a57d438c9';
 
-    //首先保存到数据然，然后再保存到文件中
-    return saveDB({
-        component : component,
-        componentHistory : componentHistory,
-        files : files
-    }).then(saveFile);
-}
-
-//模拟保存到数据库
-function saveDB(data) {
-    return new Promise(function(resolve, reject) {
-        //模拟保存数据
-        var promiseArr = [ComponentDAL.createComponent(data.component), ComponentHistoryDAL.createComponentHistory(data.componentHistory)];
-        Promise.all(promiseArr).then(function() {
-            resolve(data);
+    //获取组件历史版本，如果html,css,js有变化新增历史版本
+    var postStr = data.html + data.js + data.css;
+    var componentHistoryID = '9c5e2ca6-fca8-4268-ba44-07109d2fea20';
+    //根据组件历史ID查询HTML,css,js
+    return ComponentHistoryDAL.getComponentHistoryByID(componentHistoryID)
+        .then(function (component) {
+            //判断前台是否有修改，若有修改则保持另外一份
+            var strArr = [component[0].html, component[0].js, component[0].css];
+            if(strArr.join('') !== postStr) {
+                //历史版本
+                ComponentHistoryDAL.createComponentHistory(new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent));
+            }
+        }).then(function() {
+            //同时更新组件表的一些属性
+            ComponentDAL.updateComponent(componentID, {
+                name : data.name,
+                categoryID : data.categoryID,
+                userID : 'userid',
+                remarks : data.remarks
+            });
+        }).then(function() {
+            //最后保存文件
+            saveFile({
+                files : files,
+                component : componentID
+            });
         });
-
-    });
 }
+
 
 //保存文件到数据库
 function saveFileToDB(componentFile) {
-    return  ComponentFileDAL.saveFiles([componentFile]);
+    return ComponentFileDAL.saveFiles([componentFile]);
 }
 
 
@@ -66,7 +76,7 @@ function saveFile(data) {
             var promiseArr = [];
             for(var i = 0; i <  file.length; i++) {
                 var item = file[i],
-                    componentFile = new ComponentFile(data.component.componentID, item.name, '', item.size);
+                    componentFile = new ComponentFile(data.componentID, item.name, '', item.size);
                     promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
             Promise.all(promiseArr).then(function(data) {
