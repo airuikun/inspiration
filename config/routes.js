@@ -8,11 +8,11 @@ var ComponentController = require('../controllers/ComponentController'),
 
 module.exports = function(app) {
     // 首页
-    app.get('/', multipartMiddleware, ComponentController.renderIndexPage);
+    app.get('/', ComponentController.renderIndexPage);
     // 编辑组件页面
-    app.get('/component/edit', multipartMiddleware, ComponentController.renderEditPage);
+    app.get('/component/edit', ComponentController.renderEditPage);
     // 新建组件页面
-    app.get('/component/create', multipartMiddleware, ComponentController.renderCreationPage);
+    app.get('/component/create', ComponentController.renderCreationPage);
 
     // 组件类的路由
     app.post('/component/create', multipartMiddleware, ComponentController.create);

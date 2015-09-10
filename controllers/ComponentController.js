@@ -42,11 +42,11 @@ function editComponent(data, files) {
             var strArr = [component[0].html, component[0].js, component[0].css];
             if(strArr.join('') !== postStr) {
                 //历史版本
-                ComponentHistoryDAL.createComponentHistory(new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent));
+                return ComponentHistoryDAL.createComponentHistory(new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent));
             }
         }).then(function() {
             //同时更新组件表的一些属性
-            ComponentDAL.updateComponent(componentID, {
+            return ComponentDAL.updateComponent(componentID, {
                 name : data.name,
                 categoryID : data.categoryID,
                 userID : 'userid',
@@ -54,7 +54,7 @@ function editComponent(data, files) {
             });
         }).then(function() {
             //最后保存文件
-            saveFile({
+            return saveFile({
                 files : files,
                 component : componentID
             });
