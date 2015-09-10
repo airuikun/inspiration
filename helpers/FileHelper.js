@@ -3,7 +3,7 @@ var fs = require('fs'),
     BASE_PATH = path.dirname(require.main.filename);
 
 
-//这个file为
+//这个file为系统file，第二个file为我们自己的file
 function saveFile(file, componentFile) {
     return new Promise(function(resolve, reject) {
         var now = new Date();
@@ -20,7 +20,7 @@ function saveFile(file, componentFile) {
                     var writeStream = fs.createWriteStream(destFilePath);
                     readStream.pipe(writeStream);
                     readStream.on('end', function () {
-                        componentFile.path = resolvePath;
+                        componentFile.path = path.join(resolvePath, file.name);
                         resolve(componentFile);
                     });
                     readStream.on('error', function (e) {
@@ -35,34 +35,6 @@ function saveFile(file, componentFile) {
 
     });
 }
-
-//下载文件的方法：http://my.oschina.net/sundq/blog/189505
-//下载文件直接放在资源文件下public/upload
-/*
-function downFile(req, res, file) {
-
-    var mimetype = mime.lookup(file.path);
-
-    encodedZH(req, res, file.fileName);
-    res.setHeader('Content-type', mimetype);
-
-    var filestream = fs.createReadStream(file.path);
-    filestream.pipe(res);
-}
-
-//处理下载中文乱码
-function encodedZH(req, res, filename) {
-    var userAgent = (req.headers['user-agent']||'').toLowerCase();
-
-    if(userAgent.indexOf('msie') >= 0 || userAgent.indexOf('chrome') >= 0) {
-        res.setHeader('Content-Disposition', 'attachment; filename=' + encodeURIComponent(filename));
-    } else if(userAgent.indexOf('firefox') >= 0) {
-        res.setHeader('Content-Disposition', 'attachment; filename*="utf8\'\'' + encodeURIComponent(filename)+'"');
-    } else {
-        res.setHeader('Content-Disposition', 'attachment; filename=' + new Buffer(filename).toString('binary'));
-    }
-}
-*/
 
 function exists(path) {
     return new Promise(function(resolve, reject) {
@@ -96,7 +68,22 @@ function mkdir(obj) {
     });
 }
 
+//删除文件或文件夹
+function deleteFile(filePath) {
+    return new Promise(function(resolve, reject) {
+        fs.unlink(path.join(BASE_PATH,filePath), function(err) {
+            if(err) {
+                console.error('删除 ' + filePath + ' 出错',err);
+                reject(err);
+            }else {
+                console.debug('删除 ' + filePath + ' 成功');
+                resolve();
+            }
+        })
+    });
+}
 
 module.exports = {
-    saveFile : saveFile
+    saveFile : saveFile,
+    deleteFile : deleteFile
 };

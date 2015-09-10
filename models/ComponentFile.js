@@ -9,7 +9,7 @@ var uuid = require('node-uuid'),
  * @constructor
  */
 var ComponentFile = function(componentID, fileName, path, fileSize) {
-    this.componentFileID = uuid.v1();
+    this.componentFileID = uuid.v4();
     this.fileName = fileName;
     this.componentID = componentID;
     this.path = path;

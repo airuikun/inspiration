@@ -4,7 +4,7 @@ var uuid = require('node-uuid'),
 
 var ProductLine = function(name) {
     var now = new Date();
-    this.productLineID = uuid.v1();
+    this.productLineID = uuid.v4();
     this.name = name;   //产品线名称
     this.createTime = now;
     ModelBase.call(this);

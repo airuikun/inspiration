@@ -33,7 +33,6 @@ var CategoryController = {
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
-            console.error(e);
             res.redirect('error');
         });
     },
@@ -47,23 +46,8 @@ var CategoryController = {
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
-            console.error(e);
             res.redirect('error');
         });
-    },
-
-    //获取某个产品线下所有的类别
-    getCategoriesByProductLineID: function(req, res) {
-        var productLineID = req.params.productLineID;
-        console.debug('productLineID', productLineID);
-
-        //查询数据库
-        var result = [];
-
-        for(var i = 0; i < 5; i++) {
-            result.push(new Category(productLineID, '类型' + i));
-        }
-        res.send(JSON.stringify(result));
     }
 };
 

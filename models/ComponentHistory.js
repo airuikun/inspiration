@@ -2,16 +2,16 @@ var uuid = require('node-uuid'),
     ModelBase = require('./ModelBase'),
     util = require('util');
 
-var ComponentHistory = function(componentID, html, js, css, userID, remarks) {
+var ComponentHistory = function(componentID, html, js, css, userID, updateConent) {
     var now = new Date();
-    this.componentHistoryID = uuid.v1();
+    this.componentHistoryID = uuid.v4();
     this.componentID = componentID;
     this.html = html;
     this.js = js;
     this.css = css;
     this.userID = userID;   //修改人ID
     this.createTime = now;
-    this.remarks = remarks || '';
+    this.updateConent = updateConent || ''; //更新内容
     ModelBase.call(this);
 };
 
@@ -24,7 +24,7 @@ ComponentHistory.getType = function() {
         css : String,
         userID : String,
         createTime : Date,
-        remarks : String
+        updateConent : String
     }
 };
 
