@@ -12,7 +12,7 @@ function getAllProductLine() {
         ProductLineTable.find({}, function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 resolve(JSON.stringify(data));
             }
@@ -26,7 +26,7 @@ function createProductLine(productLine) {
         ProductLineTable.create([productLine],function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 console.log(JSON.stringify(data));
             }

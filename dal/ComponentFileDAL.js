@@ -13,7 +13,7 @@ function saveFiles(files) {
         ComponentFileTable.create(files,function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 console.log(JSON.stringify(data));
                 resolve(data);
@@ -30,7 +30,7 @@ function getFilesByComponentID(componentID) {
         }, function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 console.log(JSON.stringify(data));
                 resolve(data);

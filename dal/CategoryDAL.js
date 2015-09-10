@@ -13,7 +13,7 @@ function queryCategoriesByProductLineID(productLineID) {
         db.driver.execQuery(getAllCategoriesSQL,  [productLineID], function(err, data) {
             if(err) {
                 console.log(err);
-                throw err;
+                reject(err);
             }else {
                 resolve(formatCategories(data));
             }

@@ -12,7 +12,7 @@ function getAllComponentHistory() {
         ComponentHistoryTable.find({}, function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 resolve(JSON.stringify(data));
             }
@@ -28,7 +28,7 @@ function getComponentHistoryByID(componentHistoryID) {
         }, function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 resolve(data);
             }
@@ -42,7 +42,7 @@ function createComponentHistory(ComponentHistory) {
         ComponentHistoryTable.create([ComponentHistory],function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 console.log('生成组件版本成功', JSON.stringify(data));
                 resolve(JSON.stringify(data));
@@ -59,7 +59,7 @@ function getComponentHistoryByComponentID(componentID) {
         db.driver.execQuery(getComponentHistoryByComponentIDSQL,  [componentID], function(err, data) {
             if(err) {
                 console.error(err);
-                throw err;
+                reject(err);
             }else {
                 resolve(data);
             }

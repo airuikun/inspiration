@@ -41,12 +41,12 @@ function updateComponent(componentID, newComponent) {
         ComponentTable.find({
             componentID : componentID
         }, function(err, component) {
-            if(err) throw e;
+            if(err) reject(err);;
             for(var key in newComponent) {
                 component[0][key] = newComponent[key];
             }
             component[0].save(function (err) {
-                if(err) throw err;
+                if(err) reject(err);
                 resolve();
             })
         });
