@@ -128,7 +128,8 @@ var ComponentController = {
         var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
             ComponentHistoryDAL.getComponentHistoryByComponentID(componentID),
-            CategoryDAL.queryCategoriesByProductLineID(productLineID)
+            CategoryDAL.queryCategoriesByProductLineID(productLineID),
+            ComponentFileDAL.getFilesByComponentID(componentID)
         ]).then(function(result) {
             console.log(result);
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
