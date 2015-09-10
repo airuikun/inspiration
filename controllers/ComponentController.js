@@ -93,8 +93,10 @@ function saveFile(data) {
 
 var ComponentController = {
     renderIndexPage: function(req, res) {
+        //读取cookie获取产品线ID
+        var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
-            CategoryDAL.getAllCategories()
+            CategoryDAL.queryCategoriesByProductLineID(productLineID)
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/index.ejs'), {
                 categories: result[0]
