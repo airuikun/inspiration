@@ -71,7 +71,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                             <li role="menuitem" ng-repeat="items in categories">
-                                <a href=""  ng-click="choiceCategory(items.name)">
+                                <a href=""  ng-click="choiceCategory(items.id, items.name)">
                                     {{items.name}}
                                 </a>
                             </li>
@@ -137,7 +137,7 @@
     <div class="col-sm-10 container-fluid"  ng-show="isShowCreate">
         <form action="/component/create/" method="post" class="form-marginleft-ark" enctype="multipart/form-data">
             <input type="text" name="name" class="hide" value="{{exampleName}}" />
-            <input type="text" name="typeID" class="hide" value="{{categoryCur}}" />
+            <input type="text" name="typeID" class="hide" value="{{categoryId}}" />
             <input type="text" name="html" class="hide" value="{{html}}" />
             <input type="text" name="js" class="hide" value="{{javascript}}" />
             <input type="text" name="css" class="hide" value="{{css}}" />

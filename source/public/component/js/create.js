@@ -38,7 +38,7 @@ var template =
 .controller('projectList', function($scope) {
     $scope.proList = productLine;
     console.log($scope.proList);
-    
+
 })
 
 .controller('animateList', function($scope) {
@@ -63,9 +63,11 @@ var template =
 
 //点击选择分类
 .factory('choiceCategory', function($rootScope) {
-    return function( category ){
-        // $rootScope.category = category;
-        $rootScope.categoryCur = category;
+    return function( id, name ){
+        // $rootScope.id, name = category;
+        $rootScope.categoryCur = name;
+
+        $rootScope.categoryId = id;
         // alert($rootScope.categoryCur);
     };
 })
