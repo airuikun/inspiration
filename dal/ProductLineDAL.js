@@ -14,7 +14,7 @@ function getAllProductLine() {
                 console.error(err);
                 reject(err);
             }else {
-                resolve(JSON.stringify(data));
+                resolve(data);
             }
         });
     });
