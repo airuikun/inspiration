@@ -11,7 +11,14 @@
 </head>
 <body>
 <script>
-    var categories = <%- JSON.stringify(categories) %>;
+    //左边栏
+    var component = <%- JSON.stringify(components) %>;
+
+    //分类
+    var categories = <%- JSON.stringify(categories) %>; 
+
+    //产品线
+    var productLine = <%- JSON.stringify(productLine) %>; 
 </script>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -27,7 +34,7 @@
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
                         <a href="" >
-                            {{item}}
+                            {{item.name}}
                         </a>
                     </li>
                 </ul>
@@ -43,8 +50,8 @@
     <div class="row">
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
-                <accordion-group ng-repeat="itemCate in category"  heading="{{itemCate.category}}">
-                    <div ng-repeat="item in itemCate.example" id="{{item.id}}" ng-click="gotoExample(item.id)"><a href="">{{item.name}}</a></div>
+                <accordion-group ng-repeat="itemCate in component" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
+                    <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="">{{item.componentName}}</a></div>
                 </accordion-group>
             </accordion>
         </div>
@@ -63,9 +70,9 @@
                           <span>{{categoryCur}}</span> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                            <li role="menuitem" ng-repeat="items in category">
-                                <a href=""  ng-click="choiceCategory(items.category)">
-                                    {{items.category}}
+                            <li role="menuitem" ng-repeat="items in categories">
+                                <a href=""  ng-click="choiceCategory(items.name)">
+                                    {{items.name}}
                                 </a>
                             </li>
                         </ul>

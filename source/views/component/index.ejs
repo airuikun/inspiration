@@ -12,6 +12,7 @@
 <body>
 <script>
     var categories = <%- JSON.stringify(categories) %>;
+    console.log(categories); 
 </script>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -45,8 +46,8 @@
     <div class="row">
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
-                <accordion-group ng-repeat="itemCate in category"  heading="{{itemCate.category}}">
-                    <div ng-repeat="item in itemCate.example" id="{{item.id}}" ng-click="gotoExample(item.id)"><a href="">{{item.name}}</a></div>
+                <accordion-group ng-repeat="itemCate in category" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
+                    <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="">{{item.componentName}}</a></div>
                 </accordion-group>
             </accordion>
         </div>

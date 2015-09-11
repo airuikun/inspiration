@@ -36,7 +36,9 @@ var template =
         };
     })
 .controller('projectList', function($scope) {
-    $scope.proList = '爱书旗 神马搜索 UC优视 商搜 框计算 阿里巴巴 阿里云 淘宝 支付宝 移动事业群 蚂蚁金服 阿里影业 菜鸟 国际事业部'.split(' ');
+    $scope.proList = productLine;
+    console.log($scope.proList);
+    
 })
 
 .controller('animateList', function($scope) {
@@ -92,8 +94,13 @@ var template =
     //用户填写的样例名称
     $rootScope.exampleName = '';
 
+    //生成左边栏
+    $rootScope.component = component;
+
     //生成分类
-    $rootScope.category = categories;
+    $rootScope.categories = categories;
+
+
 
     //点击新建页面
     $rootScope.createPage = createPage;
