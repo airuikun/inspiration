@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap-theme.css">
     <link rel="stylesheet" href="../../public/bower_components/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="../../public/bower_components/codemirror/theme/monokai.css">
-    <link rel="stylesheet" href="../../public/css/index.css">
+    <link rel="stylesheet" href="../../public/component/css/index.css">
 </head>
 <body>
 <script>
@@ -26,7 +26,7 @@
             </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
-                        <a href="#" >
+                        <a href="" >
                             {{item}}
                         </a>
                     </li>
@@ -35,9 +35,9 @@
         </li>
         <li><a href="/component/create">新建</a></li>
         <li><a href="/component/edit">编辑</a></li>
-        <!-- <li><a href="#" ng-click="createPage();">新建</a></li> -->
-        <!-- <li><a href="#" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li> -->
-        <li><a href="#" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
+        <!-- <li><a href="" ng-click="createPage();">新建</a></li> -->
+        <!-- <li><a href="" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li> -->
+        <li><a href="" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
       </ul>
     </div>
   </nav>
@@ -46,7 +46,7 @@
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
                 <accordion-group ng-repeat="itemCate in category"  heading="{{itemCate.category}}">
-                    <p ng-repeat="item in itemCate.example" id="{{item.id}}" ng-click="gotoExample(item.id)">{{item.name}}</p>
+                    <div ng-repeat="item in itemCate.example" id="{{item.id}}" ng-click="gotoExample(item.id)"><a href="">{{item.name}}</a></div>
                 </accordion-group>
             </accordion>
         </div>
@@ -66,7 +66,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                             <li role="menuitem" ng-repeat="items in category">
-                                <a href="#"  ng-click="choiceCategory(items.category)">
+                                <a href=""  ng-click="choiceCategory(items.category)">
                                     {{items.category}}
                                 </a>
                             </li>
@@ -123,7 +123,7 @@
            <section class="panel panel-default">
             <header class="panel-heading">Preview</header>
             <div class="embed-responsive embed-responsive-16by9-ark">
-              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ compile({html: html, css: css, javascript: javascript}) }}" ng-cloak></iframe>
+              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ preview }}"></iframe>
             </div>
           </section>
         </div>
@@ -159,93 +159,18 @@
     </div>
   </div>
 <script type="text/ng-template" id="init.html">
-    <div></div>
+    <div id="airuikun">angular</div>
 </script>
 <script type="text/ng-template" id="init.css">
-    div {
-        position: relative;
-
-        width: 200px;
-        height: 200px;
-        overflow: hidden;
-
-        border-radius: 100px;
-        margin: 100px auto 0;
-        color: red;
-
-        transform: scale(1);
-        transition: transform ease 200ms;
-    }
-
-    div::before,
-    div::after {
-        content: '';
-
-        position: absolute;
-        top: 0;
-
-        display: block;
-        width: 50%;
-        height: 100%;
-    }
-
-    div::before {
-        background-color: currentColor;
-
-        animation:
-        before-1 linear 1s infinite,
-        before-2 steps(1) 1s infinite;
-    }
-
-    @keyframes before-1 {
-        from { transform: none; }
-        to { transform: rotate(720deg); }
-    }
-
-    @keyframes before-2 {
-        0% {
-            left: 0;
-            transform-origin: right center;
-        }
-        50% {
-            left: 50%;
-            transform-origin: left center;
-        }
-    }
-
-    div::after {
-        animation: after steps(1) 1s infinite;
-    }
-
-    @keyframes after {
-        0% {
-            left: 0;
-            background: white;
-        }
-        25% {
-            left: 50%;
-            background: currentColor;
-        }
-        50% {
-            left: 0;
-            background: currentColor;
-        }
-        75% {
-            left: 50%;
-            background: white;
-        }
+    $ark = 200px;
+    #airuikun {
+        width: $ark;
+        height: $ark;
+        background-color: red;
     }
 </script>
 <script type="text/ng-template" id="init.js">
-    var div = document.querySelector('div'),
-    scale = 1;
-
-    setInterval(function () {
-        var randomScale = (Math.random() * .3 + .2) * scale + 1;
-
-        div.style.transform = 'scale(' + randomScale + ')';
-        scale *= -1;
-    }, 200);
+  var a = 111;
 </script>
 
 <script src="../../public/bower_components/angular/angular.js"></script>
@@ -259,7 +184,7 @@
 <script src="../../public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script src="../../public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
 
-<script src="../../public/js/index.js"></script>
+<script src="../../public/component/js/index.js"></script>
 
 </body>
 </html>
