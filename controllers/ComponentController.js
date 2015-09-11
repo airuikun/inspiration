@@ -138,7 +138,7 @@ var ComponentController = {
         ]).then(function(result) {
             console.log(result);
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
-                categories: result[0],
+                component: result[0],
                 components: result[1],
                 productLine : result[2],
                 files : result[3]
@@ -152,10 +152,10 @@ var ComponentController = {
         var data = req.body,
             files = req.files;
         //当组件存储完成、文件上传完成，才响应
-        createComponent(data, files).then(function(componentID) {
+        createComponent(data, files).then(function(result) {
             console.log(data)
             //渲染页面
-            res.redirect('component/edit/' + componentID)
+            res.redirect('/component/edit/' + result[2])
         }).catch(function(e) {
             console.error(e);
             res.redirect('error');
