@@ -4,6 +4,7 @@ var FileHelper = require('../helpers/FileHelper'),
     ComponentFileDAL = require('../dal/ComponentFileDAL'),
     ComponentDAL = require('../dal/ComponentDAL'),
     ComponentHistoryDAL = require('../dal/ComponentHistoryDAL'),
+    ProductLineDAL = require('../dal/ProductLineDAL'),
     Component = require('../models/Component'),
     ComponentFile = require('../models/ComponentFile'),
     ComponentHistory = require('../models/ComponentHistory');
@@ -110,11 +111,14 @@ var ComponentController = {
         //读取cookie获取产品线ID
         var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
-            CategoryDAL.queryCategoriesByProductLineID(productLineID)
+            CategoryDAL.queryCategoriesByProductLineID(productLineID),
+            CategoryDAL.getAllProductLine(productLineID),
+            ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
-            console.log(result);
             res.render(AppUtils.getViewPath('component/create.ejs'), {
-                categories: result[0]
+                components: result[0],
+                categories: result[1],
+                productLine : result[2]
             });
         }).catch(function(e) {
             res.redirect('error');
