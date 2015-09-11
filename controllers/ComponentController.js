@@ -22,7 +22,7 @@ function createComponent(data, files) {
             ComponentHistoryDAL.createComponentHistory(componentHistory),
             saveFile({
                 files : files,
-                component : component.componentID
+                componentID : component.componentID
             })
         ]);
 
@@ -57,7 +57,7 @@ function editComponent(data, files) {
             //最后保存文件
             return saveFile({
                 files : files,
-                component : componentID
+                componentID : componentID
             });
         });
 }
@@ -72,7 +72,7 @@ function saveFileToDB(componentFile) {
 function saveFile(data) {
     return new Promise(function(resolve, reject) {
         var file = data.files.file;
-        if(file) {
+        if(file && file.size) {
             !file.length && (file = [file]);
             var promiseArr = [];
             for(var i = 0; i <  file.length; i++) {
@@ -80,13 +80,13 @@ function saveFile(data) {
                     componentFile = new ComponentFile(data.componentID, item.name, '', item.size);
                     promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
-            Promise.all(promiseArr).then(function(data) {
+            Promise.all(promiseArr).then(function() {
                 console.log('上传完毕');
-                resolve(data);
+                resolve(data.componentID);
             });
         }else {
             //没有传送文件继续往下执行
-            resolve(data);
+            resolve(data.componentID);
         }
 
     });
@@ -111,8 +111,8 @@ var ComponentController = {
         //读取cookie获取产品线ID
         var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
-            CategoryDAL.queryCategoriesByProductLineID(productLineID),
-            CategoryDAL.getAllProductLine(productLineID),
+            CategoryDAL.getComponentsByProductLineID(productLineID),
+            CategoryDAL.getAllCategoryByProductLineID(productLineID),
             ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/create.ejs'), {
@@ -127,17 +127,21 @@ var ComponentController = {
 
     renderEditPage: function(req, res) {
         //获取到前台传来的组件ID
-        var componentID = '48fda01e-e78a-4825-9f77-f20c92ce2010';
+        var componentID = req.params.componentID;
         //读取cookie获取产品线ID
         var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
         Promise.all([
             ComponentHistoryDAL.getComponentHistoryByComponentID(componentID),
-            CategoryDAL.queryCategoriesByProductLineID(productLineID),
+            CategoryDAL.getComponentsByProductLineID(productLineID),
+            CategoryDAL.getAllCategoryByProductLineID(productLineID),
             ComponentFileDAL.getFilesByComponentID(componentID)
         ]).then(function(result) {
             console.log(result);
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
-                categories: result[0]
+                categories: result[0],
+                components: result[1],
+                productLine : result[2],
+                files : result[3]
             });
         }).catch(function(e) {
             res.redirect('error');
@@ -148,10 +152,10 @@ var ComponentController = {
         var data = req.body,
             files = req.files;
         //当组件存储完成、文件上传完成，才响应
-        createComponent(data, files).then(function(data) {
+        createComponent(data, files).then(function(componentID) {
+            console.log(data)
             //渲染页面
-            //res.render('index', data.componentHistory.componentHistoryID);
-            res.send(JSON.stringify(data));
+            res.redirect('component/edit/' + componentID)
         }).catch(function(e) {
             console.error(e);
             res.redirect('error');

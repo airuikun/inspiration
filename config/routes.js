@@ -10,7 +10,7 @@ module.exports = function(app) {
     // 首页
     app.get('/', ComponentController.renderIndexPage);
     // 编辑组件页面
-    app.get('/component/edit', ComponentController.renderEditPage);
+    app.get('/component/edit/:componentID', ComponentController.renderEditPage);
     // 新建组件页面
     app.get('/component/create', ComponentController.renderCreationPage);
 

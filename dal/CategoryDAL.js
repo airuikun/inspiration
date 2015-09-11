@@ -7,7 +7,7 @@ CategoryTable.sync();
 
 
 //获取该产品线所有类型
-function getAllProductLine(productLineID) {
+function getAllCategoryByProductLineID(productLineID) {
     return new Promise(function(resolve, reject) {
         CategoryTable.find({
             productLineID : productLineID
@@ -24,7 +24,7 @@ function getAllProductLine(productLineID) {
 
 var getAllCategoriesSQL = 'SELECT component.componentID , component.name as componentName, cate.categoryID, cate.name as categoryName FROM (select categoryID, name from category where productLineID = ?) cate inner join component ON component.categoryID = cate.categoryID';
 //查询出该产品线下对应的类型
-function queryCategoriesByProductLineID(productLineID) {
+function getComponentsByProductLineID(productLineID) {
     return new Promise(function(resolve, reject) {
         db.driver.execQuery(getAllCategoriesSQL,  [productLineID], function(err, data) {
             if(err) {
@@ -68,6 +68,6 @@ function formatCategories(arr) {
 
 
 module.exports = {
-    queryCategoriesByProductLineID : queryCategoriesByProductLineID,
-    getAllProductLine : getAllProductLine
+    getComponentsByProductLineID : getComponentsByProductLineID,
+    getAllCategoryByProductLineID : getAllCategoryByProductLineID
 };
