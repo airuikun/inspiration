@@ -1,4 +1,4 @@
-var db = require('../config/db'),
+var db = require('./ORM'),
     ProductLine = require('../models/ProductLine');
 
 

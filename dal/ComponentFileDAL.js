@@ -1,4 +1,4 @@
-var db = require('../config/db'),
+var db = require('./ORM'),
     ComponentFile = require('../models/ComponentFile');
 
 

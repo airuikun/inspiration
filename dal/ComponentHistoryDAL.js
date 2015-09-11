@@ -1,4 +1,4 @@
-var db = require('../config/db'),
+var db = require('./ORM'),
     ComponentHistory = require('../models/ComponentHistory');
 
 

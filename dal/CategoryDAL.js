@@ -1,4 +1,4 @@
-var db = require('../config/db'),
+var db = require('./ORM'),
     Category = require('../models/Category');
 
 var ComponentCategoryTable = db.define('category', Category.getType());
