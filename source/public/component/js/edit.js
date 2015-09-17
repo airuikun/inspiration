@@ -36,7 +36,7 @@ var template =
         };
     })
 .controller('projectList', function($scope) {
-    $scope.proList = '爱书旗 神马搜索 UC优视 商搜 框计算 阿里巴巴 阿里云 淘宝 支付宝 移动事业群 蚂蚁金服 阿里影业 菜鸟 国际事业部'.split(' ');
+    $scope.proList = productLine;
 })
 
 .controller('animateList', function($scope) {
@@ -70,7 +70,7 @@ var template =
 
 
 
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample) {
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -89,10 +89,7 @@ var template =
     //保存当前锁选择的分类
     $rootScope.categoryCur = "分类";
 
-    //用户填写的样例名称
-    $rootScope.exampleName = '';
-
-    //生成分类
+    //生成编辑页面的分类选项
     $rootScope.category = categories;
 
     //点击新建页面
@@ -107,6 +104,25 @@ var template =
 
     //点击样例
     $rootScope.gotoExample = gotoExample;
+
+
+    //从数据段获取的到页面信息
+    $timeout(function(){
+        // console.log('test');
+        // console.log(component);
+
+        $rootScope.component = component[0];
+        $rootScope.exampleName = $rootScope.component.name;
+        $rootScope.html = $rootScope.component.html;
+        $rootScope.css = $rootScope.component.css;
+        $rootScope.javascript = $rootScope.component.js;
+        $rootScope.remarks = $rootScope.component.remarks;
+        $rootScope.componentID = $rootScope.component.componentID;
+        $rootScope.componentHistoryID = $rootScope.component.componentHistoryID;
+        // $rootScope.categoryID = component.categoryID; 
+    }, 300);
+    
+
 
 
 

@@ -11,8 +11,23 @@
 </head>
 <body>
 <script>
-    var categories = <%- JSON.stringify(categories) %>;
+    var component = <%- JSON.stringify(component) %>;
+    
+    console.log('component');
+    console.log(component);
+
+    //左边栏分类
+    var categories = <%- JSON.stringify(components) %>;
+    console.log('components');
     console.log(categories);
+
+    var productLine = <%- JSON.stringify(productLine) %>;
+    console.log('productLine');
+    console.log(productLine);
+
+    var files = <%- JSON.stringify(files) %>;
+    console.log('files');
+    console.log(files);
 </script>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -28,7 +43,7 @@
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
                         <a href="" >
-                            {{item}}
+                            {{item.name}}
                         </a>
                     </li>
                 </ul>
