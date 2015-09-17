@@ -47,7 +47,7 @@ function editComponent(data, files) {
                 componentHistoryID = newComponentHistory.componentHistoryID;
                 return ComponentHistoryDAL.createComponentHistory(newComponentHistory);
             }
-        }).then(function(componentHistoryID) {
+        }).then(function() {
             //同时更新组件表的一些属性
             return ComponentDAL.updateComponent(componentID, {
                 name : data.name,
@@ -139,14 +139,16 @@ var ComponentController = {
             CategoryDAL.getComponentsByProductLineID(productLineID),
             CategoryDAL.getAllCategoryByProductLineID(productLineID),
             ComponentFileDAL.getFilesByComponentID(componentID),
-            ComponentHistoryDAL.getAllComponentHistoryByComponentID(componentID)
+            ComponentHistoryDAL.getAllComponentHistoryByComponentID(componentID),
+            ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
                 component: result[0],
                 components: result[1],
-                productLine : result[2],
+                category : result[2],
                 files : result[3],
-                componentHistory : result[4]
+                componentHistory : result[4],
+                productLines : result[5]
             });
         }).catch(function(e) {
             res.redirect('error');
