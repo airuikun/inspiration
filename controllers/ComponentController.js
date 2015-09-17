@@ -31,11 +31,11 @@ function createComponent(data, files) {
 //更新组件、组件项
 function editComponent(data, files) {
     //组件
-    var componentID = '567ee0e3-a893-4d9f-ac57-960a57d438c9';
+    var componentID = data.componentID;
 
     //获取组件历史版本，如果html,css,js有变化新增历史版本
     var postStr = data.html + data.js + data.css;
-    var componentHistoryID = '9c5e2ca6-fca8-4268-ba44-07109d2fea20';
+    var componentHistoryID = data.componentHistoryID;
     //根据组件历史ID查询HTML,css,js
     return ComponentHistoryDAL.getComponentHistoryByID(componentHistoryID)
         .then(function (component) {
@@ -43,9 +43,11 @@ function editComponent(data, files) {
             var strArr = [component[0].html, component[0].js, component[0].css];
             if(strArr.join('') !== postStr) {
                 //历史版本
-                return ComponentHistoryDAL.createComponentHistory(new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent));
+                var newComponentHistory = new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent);
+                componentHistoryID = newComponentHistory.componentHistoryID;
+                return ComponentHistoryDAL.createComponentHistory(newComponentHistory);
             }
-        }).then(function() {
+        }).then(function(componentHistoryID) {
             //同时更新组件表的一些属性
             return ComponentDAL.updateComponent(componentID, {
                 name : data.name,
@@ -59,6 +61,8 @@ function editComponent(data, files) {
                 files : files,
                 componentID : componentID
             });
+        }).then(function() {
+            return componentHistoryID;
         });
 }
 
@@ -134,14 +138,15 @@ var ComponentController = {
             ComponentHistoryDAL.getComponentHistoryByComponentID(componentID),
             CategoryDAL.getComponentsByProductLineID(productLineID),
             CategoryDAL.getAllCategoryByProductLineID(productLineID),
-            ComponentFileDAL.getFilesByComponentID(componentID)
+            ComponentFileDAL.getFilesByComponentID(componentID),
+            ComponentHistoryDAL.getAllComponentHistoryByComponentID(componentID)
         ]).then(function(result) {
-            console.log(result);
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
                 component: result[0],
                 components: result[1],
                 productLine : result[2],
-                files : result[3]
+                files : result[3],
+                componentHistory : result[4]
             });
         }).catch(function(e) {
             res.redirect('error');
@@ -168,8 +173,7 @@ var ComponentController = {
         //当组件存储完成、文件上传完成，才响应
         editComponent(data, files).then(function(data) {
             //渲染页面
-            //res.render('index', data.componentHistory.componentHistoryID);
-            res.send(JSON.stringify(data));
+            res.redirect('/component/edit/' + data);
         }).catch(function(e) {
             res.redirect('error');
         });
