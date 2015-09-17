@@ -31,5 +31,5 @@ module.exports = function(app) {
     //操作功能类 add by zdw 15.09.16
     // var bodyParser = require('body-parser');
     // app.use(bodyParser.text());//从body获取内容时需使用此方式
-    app.post('/sa2css', OperationController.sass2css);
+    app.post('/api/sass2css', OperationController.sass2css);
 };

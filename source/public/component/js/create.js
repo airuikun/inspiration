@@ -23,7 +23,7 @@ var template =
 .factory('save', function($http) {
     console.log('send');
         return function(parts) {
-            $http.post('http://100.85.120.170:3000/sa2css', parts).then(function(response) {
+            $http.post('/api/sass2css', parts).then(function(response) {
                 console.log('大伟的数据：');
                 console.info(response);
             }).catch(function(response) {
