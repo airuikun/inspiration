@@ -1,13 +1,18 @@
-var ComponentController = require('../controllers/ComponentController'),
-    CategoryController = require('../controllers/CategoryController'),
-    OperationController = require('../controllers/OperationController'),
+var express = require('express'),
+    path = require('path'),
     //http://yijiebuyi.com/blog/90c1381bfe0efb94cf9df932147552be.html
     //表单默认提交方式为www-form-urlencoded
     //有文件传输的为form-data类型，需要引入connect-multiparty库
     multipart = require('connect-multiparty'),
-    multipartMiddleware = multipart();
+    multipartMiddleware = multipart(),
+    ComponentController = require('../controllers/ComponentController'),
+    CategoryController = require('../controllers/CategoryController'),
+    OperationController = require('../controllers/OperationController');
 
 module.exports = function(app) {
+    // 静态资源目录
+    app.use('/favicon.ico', express.static(path.join(path.dirname(require.main.filename), '/public/favicon.ico')));
+    app.use('/public', express.static(path.join(path.dirname(require.main.filename), '/public')));
 
     // 首页
     app.get('/', ComponentController.renderIndexPage);
