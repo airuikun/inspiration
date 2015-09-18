@@ -78,7 +78,7 @@ function saveFile(data) {
             var promiseArr = [];
             for(var i = 0; i <  file.length; i++) {
                 var item = file[i];
-                if(!item.size) break;
+                if(!item.size) continue;
                 var componentFile = new ComponentFile(data.componentID, item.name, '', item.size);
                 promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
