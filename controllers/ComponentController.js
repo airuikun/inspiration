@@ -44,7 +44,6 @@ function editComponent(data, files) {
             if(strArr.join('') !== postStr) {
                 //历史版本
                 var newComponentHistory = new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent);
-                componentHistoryID = newComponentHistory.componentHistoryID;
                 return ComponentHistoryDAL.createComponentHistory(newComponentHistory);
             }
         }).then(function() {
@@ -61,8 +60,6 @@ function editComponent(data, files) {
                 files : files,
                 componentID : componentID
             });
-        }).then(function() {
-            return componentHistoryID;
         });
 }
 
