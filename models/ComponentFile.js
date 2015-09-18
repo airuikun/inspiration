@@ -25,7 +25,10 @@ ComponentFile.getType = function() {
         fileName : String,
         componentID : String,
         path : String,
-        createTime : Date
+        createTime : {
+            type : 'date',
+            time : true
+        }
     }
 };
 

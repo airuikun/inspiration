@@ -20,7 +20,10 @@ Component.getType = function() {
         categoryID : String,
         name : String,
         userID : String,
-        createTime : Date,
+        createTime : {
+            type : 'date',
+            time : true
+        },
         remarks : String
     }
 };

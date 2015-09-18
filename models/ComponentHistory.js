@@ -23,7 +23,10 @@ ComponentHistory.getType = function() {
         js : String,
         css : String,
         userID : String,
-        createTime : Date,
+        createTime : {
+            type : 'date',
+            time : true
+        },
         updateConent : String
     }
 };

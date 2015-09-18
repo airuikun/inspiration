@@ -14,7 +14,10 @@ ProductLine.getType = function() {
     return {
         productLineID : String,
         name : String,
-        createTime : Date
+        createTime : {
+            type : 'date',
+            time : true
+        }
     }
 };
 

@@ -16,7 +16,10 @@ Category.getType = function() {
         categoryID : String,
         productLineID : String,
         name : String,
-        createTime : Date
+        createTime : {
+            type : 'date',
+            time : true
+        }
     }
 };
 
