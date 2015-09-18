@@ -73,13 +73,14 @@ function saveFileToDB(componentFile) {
 function saveFile(data) {
     return new Promise(function(resolve, reject) {
         var file = data.files.file;
-        if(file && file.size) {
+        if(file) {
             !file.length && (file = [file]);
             var promiseArr = [];
             for(var i = 0; i <  file.length; i++) {
-                var item = file[i],
-                    componentFile = new ComponentFile(data.componentID, item.name, '', item.size);
-                    promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
+                var item = file[i];
+                if(!item.size) break;
+                var componentFile = new ComponentFile(data.componentID, item.name, '', item.size);
+                promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
             Promise.all(promiseArr).then(function() {
                 console.log('上传完毕');
