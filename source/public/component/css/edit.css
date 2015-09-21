@@ -37,6 +37,23 @@
 }
 
 
+.fileDiv-ark {
+    background-color:#f2dede;
+    color:#a94442;
+    border-color: #ebccd1;
+    width: 600px;
+    position: relative;
+}
 
 
+.fileDivfork-ark {
+    position: absolute;
+    right: 15px;
+    bottom: 8px;
+}
 
+.fileDivfork-left-ark {
+    position: absolute;
+    right: 85px;
+    bottom: 8px;
+}

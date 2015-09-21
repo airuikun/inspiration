@@ -61,16 +61,46 @@ var template =
 
 //点击选择分类
 .factory('choiceCategory', function($rootScope) {
-    return function( category ){
-        // $rootScope.category = category;
-        $rootScope.categoryCur = category;
+    return function( categoryID, name ){
+        // $rootScope.id, name = category;
+        $rootScope.categoryCur = name;
+
+        $rootScope.categoryId = categoryID;
         // alert($rootScope.categoryCur);
     };
 })
 
 
+//点击去下载文件
+.factory('deleteFiles', function($http, $rootScope, $document) {
+        return function(componentFileID) {
+            $http.get('/file/' + componentFileID)
+            .success(function() {
+                alert('success');
+                for ( var i in $rootScope.files ) {
+                    if ( $rootScope.files[i].componentFileID == componentFileID ) {
+                        angular.element('.' + componentFileID).remove();
+                        delete $rootScope.files[i];
+                    }
+                }
+            })
+            .error(function() {
+                alert('fail');
+            });
+ 
+        };
+    })
 
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout) {
+
+//点击历史版本
+.factory('historyVersion', function($rootScope) {
+    return function( componentID,componentHistoryID ){
+        // alert(componentID);
+        // alert(componentHistoryID);
+        window.location = '/component/edit/' + componentID + '/' + componentHistoryID;
+    };
+})
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -86,11 +116,8 @@ var template =
     });
 
 
-    //保存当前锁选择的分类
-    $rootScope.categoryCur = "分类";
-
     //生成编辑页面的分类选项
-    $rootScope.category = categories;
+    $rootScope.category = category;
 
     //点击新建页面
     $rootScope.createPage = createPage;
@@ -119,8 +146,37 @@ var template =
         $rootScope.remarks = $rootScope.component.remarks;
         $rootScope.componentID = $rootScope.component.componentID;
         $rootScope.componentHistoryID = $rootScope.component.componentHistoryID;
-        // $rootScope.categoryID = component.categoryID; 
+        $rootScope.categoryID = component.categoryID; 
+        //文件
+        $rootScope.files = files;
+        //历史版本
+        $rootScope.componentHistory = componentHistory;
+
+
+        //渲染编辑页面的分类选项
+        //显示默认的分类
+        $rootScope.categoryCur = "分类";
+        var cateId = component[0].categoryID;
+        for ( var i in category ) {
+            if ( category[i].categoryID == cateId ) {
+                $rootScope.categoryCur = category[i].name;
+                $rootScope.categoryId = category[i].categoryID;
+            }
+        }
+
+    
+        //左边栏
+        $rootScope.components = components;
+        
+
+
     }, 300);
+
+    //跳转到下载文件页面
+    $rootScope.deleteFiles = deleteFiles;
+
+    //跳转到历史版本页面
+    $rootScope.historyVersion = historyVersion;
     
 
 

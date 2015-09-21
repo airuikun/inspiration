@@ -74,10 +74,38 @@ var template =
         // alert($rootScope.categoryCur);
     };
 })
+.factory('watchAll', function($rootScope,$timeout) {
+    return function(){
+        $rootScope.$watch('css', cssWatch);
+        $rootScope.$watch('html', jsHtmlWatch);
+        $rootScope.$watch('javascript', jsHtmlWatch);
+        var t1;
+        function jsHtmlWatch( data ){
+            $timeout.cancel(t1);
+            t1 = $timeout(function(){
+                    console.log(data);
+                    $rootScope.run();
+                }, 1000);
+        }
+        var t2;
+        function cssWatch( data ){
+            $timeout.cancel(t2);
+            //$http.get().success().error();
+            $rootScope.css = '#airuikun {' 
+                    + 'width: 200px;' 
+                    + 'height: 200px;' 
+                    + 'background-color: red;'
+                + '}';
+            t2 = $timeout(function(){
+                    console.log($rootScope.css);
+                    $rootScope.run();
+                }, 1000);
+        }
+    }
+})
 
 
-
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample) {
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -121,5 +149,20 @@ var template =
     $rootScope.gotoExample = gotoExample;
 
 
+
+    //执行效果
+    $rootScope.preview = '';
+    $rootScope.run = function () {
+        var self = this;
+        var code = template.replace(/{{(.+?)}}/g, function (_, type) {
+          return self[type]
+        });
+        self.preview = $sce.trustAsHtml(code)
+    };
+    $timeout(function(){
+        $rootScope.run();
+    },1000);
+    //监听数据的变化 
+    watchAll();
 
 });

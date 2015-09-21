@@ -3,31 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>动效平台首页</title>
-    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="../../public/bower_components/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="../../public/bower_components/codemirror/theme/monokai.css">
-    <link rel="stylesheet" href="../../public/component/css/edit.css">
+    <link rel="stylesheet" href="/public/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/public/bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/public/bower_components/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="/public/component/css/edit.css">
 </head>
 <body>
 <script>
-    var component = <%- JSON.stringify(component) %>;
     
+    //所有字段html js css的信息
+    var component = <%- JSON.stringify(component) %>;
     console.log('component');
     console.log(component);
 
+
+
     //左边栏分类
-    var categories = <%- JSON.stringify(components) %>;
+    var components = <%- JSON.stringify(components) %>;
     console.log('components');
-    console.log(categories);
+    console.log(components);
 
-    var productLine = <%- JSON.stringify(productLine) %>;
-    console.log('productLine');
-    console.log(productLine);
 
-    var files = <%- JSON.stringify(files) %>;
+
+    //编辑的分类
+    var category = <%- JSON.stringify(category) %>; 
+    console.log('category');
+    console.log(category);
+
+
+
+    //文件
+    var files = <%- JSON.stringify(files) %>; 
     console.log('files');
     console.log(files);
+
+
+    //历史版本
+    var componentHistory = <%- JSON.stringify(componentHistory) %>; 
+    componentHistory = JSON.parse(componentHistory);
+    console.log('componentHistory');
+    console.log(componentHistory);
+
+
+    //产品线
+    var productLine = <%- JSON.stringify(productLines) %>; 
+    console.log('productLines');
+    console.log(productLine);
+
+
+
 </script>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -59,7 +84,7 @@
     <div class="row">
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
-                <accordion-group ng-repeat="itemCate in category" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
+                <accordion-group ng-repeat="itemCate in components" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
                     <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="">{{item.componentName}}</a></div>
                 </accordion-group>
             </accordion>
@@ -80,8 +105,8 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                             <li role="menuitem" ng-repeat="items in category">
-                                <a href=""  ng-click="choiceCategory(items.category)">
-                                    {{items.category}}
+                                <a href=""  ng-click="choiceCategory(items.categoryID, items.name)">
+                                    {{items.name}}
                                 </a>
                             </li>
                         </ul>
@@ -144,17 +169,52 @@
     </div>
 
     <div class="col-sm-10 container-fluid"  ng-show="isShowCreate">
-        <form action="/component/create/" method="post" class="form-marginleft-ark" enctype="multipart/form-data">
+        <form action="/component/edit/" method="post" class="form-marginleft-ark" enctype="multipart/form-data">
             <input type="text" name="name" class="hide" value="{{exampleName}}" />
-            <input type="text" name="typeID" class="hide" value="{{categoryCur}}" />
+            <input type="text" name="categoryID" class="hide" value="{{categoryId}}" />
             <input type="text" name="html" class="hide" value="{{html}}" />
             <input type="text" name="js" class="hide" value="{{javascript}}" />
             <input type="text" name="css" class="hide" value="{{css}}" />
             <input type="text" name="remarks" class="hide" value="预留字段" />
+
+            <div class="form-group">
+                <label>编辑已有文件 ： </label>
+                <ul>
+                    <div ng-repeat="fileItem in files" class="alert fileDiv-ark {{fileItem.componentFileID}}"  >{{fileItem.fileName}}
+                        <a href="http://localhost:3000/{{fileItem.path}}">
+                            <div class="btn btn-primary fileDivfork-left-ark" >
+                                下载
+                            </div>
+                        </a>
+                        <div class="btn btn-primary fileDivfork-ark" ng-click="deleteFiles(fileItem.componentFileID)">
+                            删除
+                        </div>
+                    </div>
+                </ul>
+            </div>
+
             <div class="form-group">
                 <label>上传文件 ： </label>
                 <input type="file" name="file" multiple />
             </div>
+
+            <div class="form-group">
+                <label>历史版本 ： </label>
+                 <ul>
+                    <div ng-repeat="historyItem in componentHistory" class="alert fileDiv-ark"  >{{historyItem.componentHistoryID}}
+                        <div class="btn btn-primary fileDivfork-ark" ng-click="historyVersion(historyItem.componentID,historyItem.componentHistoryID)">
+                                跳转
+                            </div>
+                    </div>
+                </ul>
+            </div>
+
+
+            <input type="text" name="componentID" class="hide" value="{{componentID}}" />
+
+            <input type="text" name="componentHistoryID" class="hide" value="{{componentHistoryID}}" />
+
+
 
             <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
 
@@ -179,18 +239,18 @@
 <script type="text/ng-template" id="init.js">
 </script>
 
-<script src="../../public/bower_components/angular/angular.js"></script>
-<script src="../../public/bower_components/angular-animate/angular-animate.js"></script>
-<script src="../../public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/public/bower_components/angular/angular.js"></script>
+<script src="/public/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
-<script src="../../public/bower_components/codemirror/lib/codemirror.js"></script>
-<script src="../../public/bower_components/codemirror/mode/xml/xml.js"></script>
-<script src="../../public/bower_components/codemirror/mode/css/css.js"></script>
-<script src="../../public/bower_components/codemirror/mode/javascript/javascript.js"></script>
-<script src="../../public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script src="../../public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="/public/bower_components/codemirror/lib/codemirror.js"></script>
+<script src="/public/bower_components/codemirror/mode/xml/xml.js"></script>
+<script src="/public/bower_components/codemirror/mode/css/css.js"></script>
+<script src="/public/bower_components/codemirror/mode/javascript/javascript.js"></script>
+<script src="/public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="/public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
 
-<script src="../../public/component/js/edit.js"></script>
+<script src="/public/component/js/edit.js"></script>
 
 </body>
 </html>
