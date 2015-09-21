@@ -69,10 +69,28 @@ function getComponentHistoryByComponentID(componentID) {
     });
 }
 
+var getComponentHistoryByComponentHistoryIDSQL = 'SELECT componentHistory.componentHistoryID, componentHistory.html, componentHistory.js, componentHistory.css, component.componentID, component.categoryID, component.name, component.remarks FROM (SELECT componentHistoryID, componentID, html, js, css FROM componentHistory WHERE componentHistory.componentHistoryID = ?) componentHistory inner join component ON componentHistory.componentID = component.componentID';
+//找到某一个组件历史
+function getComponentHistoryByComponentHistoryID(componentHistoryID) {
+    return new Promise(function(resolve, reject) {
+        db.driver.execQuery(getComponentHistoryByComponentHistoryIDSQL,  [componentHistoryID], function(err, data) {
+            if(err) {
+                console.error(err);
+                reject(err);
+            }else {
+                resolve(data);
+            }
+        });
+    });
+}
+
+
+
 //这里提交给上层Controller调用
 module.exports = {
     getAllComponentHistoryByComponentID : getAllComponentHistoryByComponentID,
     createComponentHistory : createComponentHistory,
     getComponentHistoryByComponentID : getComponentHistoryByComponentID,
-    getComponentHistoryByID : getComponentHistoryByID
+    getComponentHistoryByID : getComponentHistoryByID,
+    getComponentHistoryByComponentHistoryID : getComponentHistoryByComponentHistoryID
 };

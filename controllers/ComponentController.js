@@ -128,12 +128,20 @@ var ComponentController = {
     },
 
     renderEditPage: function(req, res) {
+        var getHistory;
         //获取到前台传来的组件ID
         var componentID = req.params.componentID;
+        var componentHistoryID = req.params.componentHistoryID;
         //读取cookie获取产品线ID
         var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
+
+        if(componentHistoryID) {
+            getHistory = ComponentHistoryDAL.getComponentHistoryByComponentHistoryID(componentHistoryID);
+        }else {
+            getHistory = ComponentHistoryDAL.getComponentHistoryByComponentID(componentID);
+        }
         Promise.all([
-            ComponentHistoryDAL.getComponentHistoryByComponentID(componentID),
+            getHistory,
             CategoryDAL.getComponentsByProductLineID(productLineID),
             CategoryDAL.getAllCategoryByProductLineID(productLineID),
             ComponentFileDAL.getFilesByComponentID(componentID),

@@ -18,6 +18,8 @@ module.exports = function(app) {
     app.get('/', ComponentController.renderIndexPage);
     // 编辑组件页面
     app.get('/component/edit/:componentID', ComponentController.renderEditPage);
+    // 编辑组件版本页面
+    app.get('/component/edit/:componentID/:componentHistoryID', ComponentController.renderEditPage);
     // 新建组件页面
     app.get('/component/create', ComponentController.renderCreationPage);
 
