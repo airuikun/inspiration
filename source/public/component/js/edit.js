@@ -31,7 +31,6 @@ var template =
     })
 .factory('gotoExample', function($http) {
         return function(id) {
-            alert(id);
             // window.location.href = '/component/edit/';
         };
     })
@@ -77,10 +76,10 @@ var template =
             $http.get('/file/' + componentFileID)
             .success(function() {
                 alert('success');
-                for ( var i in $rootScope.files ) {
+                for ( var i = 0; i < $rootScope.files.length; i++ ) {
                     if ( $rootScope.files[i].componentFileID == componentFileID ) {
-                        angular.element('.' + componentFileID).remove();
-                        delete $rootScope.files[i];
+                        // angular.element('.' + componentFileID).remove();
+                        $rootScope.files.splice(i,1);
                     }
                 }
             })

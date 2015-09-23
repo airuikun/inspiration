@@ -34,7 +34,6 @@ var template =
     })
 .factory('gotoExample', function($http) {
         return function(id) {
-            alert(id);
             // window.location.href = '/component/edit/';
         };
     })
