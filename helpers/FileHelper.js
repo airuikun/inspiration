@@ -1,5 +1,6 @@
 var fs = require('fs'),
     path = require('path'),
+    mkdirp = require('mkdirp'),
     BASE_PATH = path.dirname(require.main.filename);
 
 
@@ -11,10 +12,7 @@ function saveFile(file, componentFile) {
         var destPath = path.join(BASE_PATH, resolvePath);
         var destFilePath = path.join(destPath, file.name);
         try {
-            //同步改为异步
-            //我感觉项目里面不能出现同步代码
-            exists(destPath)
-                .then(mkdir)
+            mkdir(resolvePath)
                 .then(function() {
                     var readStream = fs.createReadStream(file.path);
                     var writeStream = fs.createWriteStream(destFilePath);
@@ -36,35 +34,15 @@ function saveFile(file, componentFile) {
     });
 }
 
-function exists(path) {
+function mkdir(resolvePath) {
     return new Promise(function(resolve, reject) {
-        fs.exists(path, function(isExists) {
-            resolve({
-                path : path,
-                isExists : isExists
-            });
-        })
-    });
-}
-
-function mkdir(obj) {
-    return new Promise(function(resolve, reject) {
-        if(!obj.isExists) {
-            fs.mkdir(obj.path, function(err) {
-            //fs.mkdir('/Users/hacke2/work/1123', function(err) {
-                if(err)  {
-                    //因为是异步，所以上传两个文件判断改目录是否存在的时候
-                    //第一次判断都会判断成不存在，从而重复创建，报错
-                    //忽略这个错误
-                    if(err.code === 'EEXIST') {
-                        console.debug('已经创建了该目录');
-                    }else {
-                        reject(err);
-                    }
-                }
-            })
-        }
-        resolve();
+        mkdirp(resolvePath, function (err) {
+            if (err) {
+                console.error(err);
+            }else {
+                resolve();
+            }
+        });
     });
 }
 
