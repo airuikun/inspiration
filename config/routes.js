@@ -13,6 +13,12 @@ var express = require('express'),
 module.exports = function(app) {
     // 静态资源目录
     app.use('/favicon.ico', express.static(path.join(path.dirname(require.main.filename), '/public/favicon.ico')));
+
+    app.use('/public/upload', function(req, res, next) {
+        res.setHeader('Content-Type', 'application/octet-stream');
+        next();
+    });
+
     app.use('/public', express.static(path.join(path.dirname(require.main.filename), '/public')));
 
     // 首页
