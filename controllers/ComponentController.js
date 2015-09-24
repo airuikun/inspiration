@@ -97,12 +97,16 @@ function saveFile(data) {
 var ComponentController = {
     renderIndexPage: function(req, res) {
         //读取cookie获取产品线ID
-        var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
+        var productLineID = req.cookies.productLineID;
+        if(!productLineID) {
+            res.redirect('/welcome');
+        }
+
         Promise.all([
             CategoryDAL.getAllCategoryByProductLineID(productLineID)
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/index.ejs'), {
-                categories: result[0]
+                categories: productLine
             });
         }).catch(function(e) {
             res.redirect('error');
@@ -111,7 +115,10 @@ var ComponentController = {
 
     renderCreationPage: function(req, res) {
         //读取cookie获取产品线ID
-        var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
+        var productLineID = req.cookies.productLineID;
+        if(!productLineID) {
+            res.redirect('/welcome');
+        }
         Promise.all([
             CategoryDAL.getComponentsByProductLineID(productLineID),
             CategoryDAL.getAllCategoryByProductLineID(productLineID),
@@ -128,12 +135,15 @@ var ComponentController = {
     },
 
     renderEditPage: function(req, res) {
+        //读取cookie获取产品线ID
+        var productLineID = req.cookies.productLineID;
+        if(!productLineID) {
+            res.redirect('/welcome');
+        }
         var getHistory;
         //获取到前台传来的组件ID
         var componentID = req.params.componentID;
         var componentHistoryID = req.params.componentHistoryID;
-        //读取cookie获取产品线ID
-        var productLineID = '1441da10-4c9b-11e5-aacc-6dd6b9b16484';
 
         if(componentHistoryID) {
             getHistory = ComponentHistoryDAL.getComponentHistoryByComponentHistoryID(componentHistoryID);
@@ -168,7 +178,7 @@ var ComponentController = {
         createComponent(data, files).then(function(result) {
             console.log(data)
             //渲染页面
-            res.redirect('/component/edit/' + result[2])
+            res.redirect('/component/edit/' + result[2]);
         }).catch(function(e) {
             console.error(e);
             res.redirect('error');

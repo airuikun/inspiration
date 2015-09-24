@@ -7,7 +7,8 @@ var express = require('express'),
     multipartMiddleware = multipart(),
     ComponentController = require('../controllers/ComponentController'),
     CategoryController = require('../controllers/CategoryController'),
-    OperationController = require('../controllers/OperationController');
+    OperationController = require('../controllers/OperationController'),
+    PageController = require('../controllers/PageController');
 
 module.exports = function(app) {
     // 静态资源目录
@@ -39,4 +40,12 @@ module.exports = function(app) {
     // var bodyParser = require('body-parser');
     // app.use(bodyParser.text());//从body获取内容时需使用此方式
     app.post('/api/sass2css', OperationController.sass2css);
+
+
+    // 欢迎页
+    app.get('/welcome', PageController.renderWelcomePage);
+    // 500页
+    app.get('/error', PageController.renderErrorPage);
+    // 404页
+    app.get('/404', PageController.renderNotFoundPage);
 };

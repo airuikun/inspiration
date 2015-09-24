@@ -1,5 +1,6 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
     app = express();
 
 //跨域请求设置 add by zdw 15.09.17
@@ -13,6 +14,8 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(cookieParser());
 
 // 配置路由
 require('./config/routes')(app);
