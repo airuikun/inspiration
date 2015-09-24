@@ -44,8 +44,9 @@ module.exports = function(app) {
 
     // 欢迎页
     app.get('/welcome', PageController.renderWelcomePage);
-    // 500页
+    // 欢迎页
     app.get('/error', PageController.renderErrorPage);
+
     // 404页
-    app.get('/404', PageController.renderNotFoundPage);
+    app.use(PageController.renderNotFoundPage);
 };
