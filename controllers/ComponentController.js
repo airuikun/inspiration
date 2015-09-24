@@ -103,10 +103,12 @@ var ComponentController = {
         }
 
         Promise.all([
-            CategoryDAL.getAllCategoryByProductLineID(productLineID)
+            CategoryDAL.getAllCategoryByProductLineID(productLineID),
+            ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/index.ejs'), {
-                categories: productLine
+                categories: result[0],
+                productLines : result[1]
             });
         }).catch(function(e) {
             res.redirect('error');
