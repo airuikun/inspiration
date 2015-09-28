@@ -94,11 +94,11 @@ var template =
         function cssWatch( data ){
             $timeout.cancel(t2);
             //$http.get().success().error();
-            $rootScope.css = '#airuikun {' 
-                    + 'width: 200px;' 
-                    + 'height: 200px;' 
-                    + 'background-color: red;'
-                + '}';
+            // $rootScope.css = '#airuikun {' 
+            //         + 'width: 200px;' 
+            //         + 'height: 200px;' 
+            //         + 'background-color: red;'
+            //     + '}';
             t2 = $timeout(function(){
                     console.log($rootScope.css);
                     $rootScope.run();
