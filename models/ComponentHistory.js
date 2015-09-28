@@ -19,9 +19,18 @@ ComponentHistory.getType = function() {
     return {
         componentHistoryID : String,
         componentID : String,
-        html : String,
-        js : String,
-        css : String,
+        html : {
+            type:'text',
+            size : 9999
+        },
+        js : {
+            type:'text',
+            size : 9999
+        },
+        css : {
+            type:'text',
+            size : 9999
+        },
         userID : String,
         createTime : {
             type : 'date',
