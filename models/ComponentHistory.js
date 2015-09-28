@@ -21,15 +21,15 @@ ComponentHistory.getType = function() {
         componentID : String,
         html : {
             type:'text',
-            size : 9999
+            size : 5000
         },
         js : {
             type:'text',
-            size : 9999
+            size : 5000
         },
         css : {
             type:'text',
-            size : 9999
+            size : 5000
         },
         userID : String,
         createTime : {

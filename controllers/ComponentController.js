@@ -160,6 +160,7 @@ var ComponentController = {
             ComponentHistoryDAL.getAllComponentHistoryByComponentID(componentID),
             ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
+            result[0][0] && (result[0][0].html = encodeURIComponent(result[0][0].html));
             res.render(AppUtils.getViewPath('component/edit.ejs'), {
                 component: result[0],
                 components: result[1],

@@ -6,17 +6,17 @@ var ComponentHistoryTable = db.define('componentHistory', ComponentHistory.getTy
 //同步表
 ComponentHistoryTable.sync();
 
+
+var getAllComponentHistoryByComponentIDSQL = 'SELECT componentHistoryID, componentID, createTime, updateContent FROM componentHistory WHERE componentHistory.componentID = ?';
 //获取某一个组件的所有的组件历史
 function getAllComponentHistoryByComponentID(componentID) {
     return new Promise(function(resolve, reject) {
-        ComponentHistoryTable.find({
-            componentID : componentID
-        }, function(err, data) {
+        db.driver.execQuery(getAllComponentHistoryByComponentIDSQL,  [componentID], function(err, data) {
             if(err) {
                 console.error(err);
                 reject(err);
             }else {
-                resolve(JSON.stringify(data));
+                resolve(data);
             }
         });
     });
