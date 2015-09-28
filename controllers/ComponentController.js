@@ -14,7 +14,7 @@ function createComponent(data, files) {
     //组件
     var component = new Component(data.name, data.categoryID, 'userid', data.remarks); //用户ID后期通过session给值
     //历史版本
-    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updata); //用户ID后期通过session给值
+    var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updateContent); //用户ID后期通过session给值
 
     //首先保存到数据然，然后再保存到文件中
     return Promise.all([
@@ -43,7 +43,7 @@ function editComponent(data, files) {
             var strArr = [component[0].html, component[0].js, component[0].css];
             if(strArr.join('') !== postStr) {
                 //历史版本
-                var newComponentHistory = new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateConent);
+                var newComponentHistory = new ComponentHistory(componentID, data.html, data.js, data.css, 'userid', data.updateContent);
                 return ComponentHistoryDAL.createComponentHistory(newComponentHistory);
             }
         }).then(function() {
