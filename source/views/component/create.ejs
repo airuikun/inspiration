@@ -13,8 +13,8 @@
 <script>
     //左边栏
     var component = <%- JSON.stringify(components) %>;
-    // console.log('component');
-    // console.log(component);
+    console.log('component');
+    console.log(component);
     //分类 新建页面的分类选项
     var categories = <%- JSON.stringify(categories) %>; 
     console.log('categories');
@@ -36,7 +36,7 @@
         <li ng-controller="projectList">
             <div class="btn-group project-button" dropdown is-open="status.isopen">
             <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-              <span>项目组</span> <span class="caret"></span>
+              <span>{{productName}}</span> <span class="caret"></span>
             </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
@@ -148,10 +148,18 @@
             <input type="text" name="html" class="hide" value="{{html}}" />
             <input type="text" name="js" class="hide" value="{{javascript}}" />
             <input type="text" name="css" class="hide" value="{{css}}" />
-            <input type="text" name="remarks" class="hide" value="预留字段" />
             <div class="form-group">
                 <label>上传文件 ： </label>
                 <input type="file" name="file" multiple />
+            </div>
+
+           
+
+            <div class="form-group remarks-div-width">
+                <label>版本描述 ： </label>
+                <ul>
+                  <input type="text" name="updateContent" class="form-control">
+                </ul>
             </div>
 
             <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
@@ -187,6 +195,8 @@
 <script src="../../public/bower_components/codemirror/mode/javascript/javascript.js"></script>
 <script src="../../public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script src="../../public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
+
 
 <script src="../../public/component/js/create.js"></script>
 

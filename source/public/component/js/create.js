@@ -3,7 +3,8 @@ var template =
     angular.module('ucpen', [
         'ngAnimate',
         'ui.bootstrap',
-        'ui.codemirror'
+        'ui.codemirror',
+        'ngCookies'
     ])
 
 .value('template', '<!DOCTYPE html><html><head><meta charset="utf-8"><style>{{css}}</style></head><body>{{html}}<script>{{javascript}}</script></body></html>')
@@ -37,9 +38,12 @@ var template =
             // window.location.href = '/component/edit/';
         };
     })
-.controller('projectList', function($scope) {
+.controller('projectList', function($scope, $cookies) {
     $scope.proList = productLine;
     console.log($scope.proList);
+
+    //顶部项目组默认名称
+    $scope.productName = $cookies.get('productLineName');
 
 })
 
@@ -104,7 +108,7 @@ var template =
 })
 
 
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template) {
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -120,8 +124,7 @@ var template =
     });
 
 
-    //保存当前锁选择的分类
-    $rootScope.categoryCur = "分类";
+    
 
     //用户填写的样例名称
     $rootScope.exampleName = '';
@@ -132,7 +135,9 @@ var template =
     //生成分类
     $rootScope.categories = categories;
 
-
+    //设定默认的分类和分类id
+    $rootScope.categoryCur = categories[0].name;
+    $rootScope.categoryId = categories[0].categoryID;
 
     //点击新建页面
     $rootScope.createPage = createPage;
@@ -146,6 +151,9 @@ var template =
 
     //点击样例
     $rootScope.gotoExample = gotoExample;
+
+
+
 
 
 

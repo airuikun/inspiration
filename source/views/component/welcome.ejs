@@ -29,7 +29,7 @@
         <span>项目组</span> <span class="caret"></span>
       </button>
           <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-              <li role="menuitem" ng-repeat="item in productLine" ng-click='cookieFunc(item.productLineID)'>
+              <li role="menuitem" ng-repeat="item in productLine" ng-click='cookieFunc(item.productLineID, item.name)'>
                 <a href="">
                   {{item.name}}
                 </a>

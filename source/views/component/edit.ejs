@@ -62,7 +62,7 @@
         <li ng-controller="projectList">
             <div class="btn-group project-button" dropdown is-open="status.isopen">
             <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-              <span>项目组</span> <span class="caret"></span>
+              <span>{{productName}}</span> <span class="caret"></span>
             </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
@@ -174,7 +174,7 @@
             <input type="text" name="html" class="hide" value="{{html}}" />
             <input type="text" name="js" class="hide" value="{{javascript}}" />
             <input type="text" name="css" class="hide" value="{{css}}" />
-            <input type="text" name="remarks" class="hide" value="预留字段" />
+
 
             <div class="form-group">
                 <label>编辑已有文件 ： </label>
@@ -214,6 +214,13 @@
             <input type="text" name="componentHistoryID" class="hide" value="{{componentHistoryID}}" />
 
 
+            <div class="form-group remarks-div-width">
+                <label>版本描述 ： </label>
+                <ul>
+                    <input type="text" name="updateContent" class="form-control">
+                </ul>
+            </div>
+
 
             <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
 
@@ -248,6 +255,7 @@
 <script src="/public/bower_components/codemirror/mode/javascript/javascript.js"></script>
 <script src="/public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script src="/public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
 
 <script src="/public/component/js/edit.js"></script>
 
