@@ -27,7 +27,7 @@ ComponentHistory.getType = function() {
             type : 'date',
             time : true
         },
-        updateConent : String
+        updateContent : String
     }
 };
 
