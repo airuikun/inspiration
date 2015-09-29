@@ -12,7 +12,7 @@ var FileHelper = require('../helpers/FileHelper'),
 //创建组件、组件项
 function createComponent(data, files) {
     //组件
-    var component = new Component(data.name, data.categoryID, 'userid', data.remarks); //用户ID后期通过session给值
+    var component = new Component(data.name, data.categoryID, 'userid', data.remarks, data.productLineID); //用户ID后期通过session给值
     //历史版本
     var componentHistory = new ComponentHistory(component.componentID, data.html, data.js, data.css, 'userid', data.updateContent); //用户ID后期通过session给值
 
@@ -52,7 +52,8 @@ function editComponent(data, files) {
                 name : data.name,
                 categoryID : data.categoryID,
                 userID : 'userid',
-                remarks : data.remarks
+                remarks : data.remarks,
+                modifyTime : new Date()
             });
         }).then(function() {
             //最后保存文件

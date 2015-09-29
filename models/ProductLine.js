@@ -7,6 +7,7 @@ var ProductLine = function(name) {
     this.productLineID = uuid.v4();
     this.name = name;   //产品线名称
     this.createTime = now;
+    this.status = 1;
     ModelBase.call(this);
 };
 
@@ -17,7 +18,8 @@ ProductLine.getType = function() {
         createTime : {
             type : 'date',
             time : true
-        }
+        },
+        status : Number
     }
 };
 

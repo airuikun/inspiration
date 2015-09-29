@@ -8,6 +8,7 @@ var Category = function(productLineID, name) {
     this.productLineID = productLineID;
     this.name = name;   //产品线名称
     this.createTime = now;
+    this.status = 1;
     ModelBase.call(this);
 };
 
@@ -19,7 +20,8 @@ Category.getType = function() {
         createTime : {
             type : 'date',
             time : true
-        }
+        },
+        status : Number
     }
 };
 
