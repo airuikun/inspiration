@@ -81,7 +81,6 @@ var template =
         return function(componentFileID) {
             $http.get('/file/' + componentFileID)
             .success(function() {
-                alert('success');
                 for ( var i = 0; i < $rootScope.files.length; i++ ) {
                     if ( $rootScope.files[i].componentFileID == componentFileID ) {
                         // angular.element('.' + componentFileID).remove();
@@ -90,7 +89,6 @@ var template =
                 }
             })
             .error(function() {
-                alert('fail');
             });
  
         };
@@ -105,7 +103,23 @@ var template =
         window.location = '/component/edit/' + componentID + '/' + componentHistoryID;
     };
 })
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion) {
+
+// .filter('addDateTime', function($rootScope){
+//     return function(){
+//         if (  ) {}
+//     };
+// })
+.factory('watchUpdateContent', function($rootScope) {
+    return function() {
+        $rootScope.$watch('updateContent', function() {
+            if ($rootScope.updateContent == '') {
+                $rootScope.updateContent = new Date();
+            }
+        });
+    }
+
+})
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion, watchUpdateContent) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -183,8 +197,9 @@ var template =
     //跳转到历史版本页面
     $rootScope.historyVersion = historyVersion;
     
-
-
-
+    //历史版本消息
+    $rootScope.updateContent = '';
+    //监听历史版本描述
+    $rootScope.watchUpdateContent = watchUpdateContent;
 
 });

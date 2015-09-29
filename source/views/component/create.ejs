@@ -158,11 +158,11 @@
             <div class="form-group remarks-div-width">
                 <label>版本描述 ： </label>
                 <ul>
-                  <input type="text" name="updateContent" class="form-control">
+                  <input type="text" name="updateContent" ng-model="updateContent" class="form-control">
                 </ul>
             </div>
 
-            <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
+            <input type="submit" ng-click="watchUpdateContent()" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
 
             <input type="button" class="btn btn-info btn-confirm-ark btn-com-ark" value="取消">
 

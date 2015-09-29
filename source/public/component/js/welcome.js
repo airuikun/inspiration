@@ -17,7 +17,7 @@ var template =
         });
         console.log($cookies.get('productLineID'));
         console.log($cookies.get('productLineName'));
-        window.location.href = '/component/create';
+        window.history.back();
     };
 })
 .run(function($rootScope, $templateRequest, $timeout, cookieFunc) {

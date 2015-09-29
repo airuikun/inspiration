@@ -107,8 +107,17 @@ var template =
     }
 })
 
+.factory('watchUpdateContent', function($rootScope) {
+    return function() {
+        $rootScope.$watch('updateContent', function() {
+            if ($rootScope.updateContent == '') {
+                $rootScope.updateContent = new Date();
+            }
+        });
+    }
 
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies) {
+})
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies, watchUpdateContent) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -171,5 +180,18 @@ var template =
     },1000);
     //监听数据的变化 
     watchAll();
+
+
+
+
+    //历史版本消息
+    $rootScope.updateContent = '';
+    //监听历史版本描述
+    $rootScope.watchUpdateContent = watchUpdateContent;
+
+
+
+
+
 
 });
