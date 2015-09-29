@@ -32,13 +32,10 @@ var template =
     })
 .factory('gotoExample', function($http) {
         return function(id) {
-            alert(id);
             // window.location.href = '/component/edit/';
         };
     })
-.controller('projectList', function($scope) {
-    $scope.proList = '爱书旗 神马搜索 UC优视 商搜 框计算 阿里巴巴 阿里云 淘宝 支付宝 移动事业群 蚂蚁金服 阿里影业 菜鸟 国际事业部'.split(' ');
-})
+
 
 .controller('animateList', function($scope) {
     // $scope.category = ["分类1", "分类2", "分类3", "分类4"];
@@ -87,11 +84,11 @@ var template =
         function cssWatch( data ){
             $timeout.cancel(t2);
             //$http.get().success().error();
-            $rootScope.css = '#airuikun {' 
-                    + 'width: 200px;' 
-                    + 'height: 200px;' 
-                    + 'background-color: red;'
-                + '}';
+            // $rootScope.css = '#airuikun {' 
+            //         + 'width: 200px;' 
+            //         + 'height: 200px;' 
+            //         + 'background-color: red;'
+            //     + '}';
             t2 = $timeout(function(){
                     console.log($rootScope.css);
                     $rootScope.run();
@@ -109,7 +106,29 @@ var template =
 
 })
 
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, template, $sce, $timeout, watchAll) {
+.factory('projectGroup', function($rootScope, $cookies) {
+        return function(id, name) {
+            // window.location.href = '/component/edit/';
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 15);
+
+            $rootScope.productName = $cookies.put('productLineName', name, {
+            'expires': expireDate,
+            'path': '/'
+        });
+            $rootScope.productLineID = $cookies.put('productLineID', id, {
+            'expires': expireDate,
+            'path': '/'
+        });
+
+            console.log($cookies.get('productLineName'));
+            console.log($cookies.get('productLineID'));
+            window.location.href = '/';
+
+        };
+    })
+
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, template, $sce, $timeout, watchAll, projectGroup) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -163,4 +182,9 @@ var template =
 
     //监听数据的变化 
     watchAll();
+
+
+
+     //点击项目组
+    $rootScope.projectGroup = projectGroup;
 });

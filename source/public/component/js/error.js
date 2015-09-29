@@ -15,4 +15,7 @@ var template =
 .run(function($rootScope, $templateRequest, $timeout, goback) {
     // $rootScope.productLine = productLine;
     $rootScope.goback = goback;
+
+
+    // $rootScope.text = text;
 });
