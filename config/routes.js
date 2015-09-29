@@ -50,8 +50,11 @@ module.exports = function(app) {
 
     // 欢迎页
     app.get('/welcome', PageController.renderWelcomePage);
-    // 欢迎页
+    // 系统内部错误
     app.get('/error', PageController.renderErrorPage);
+    // 404
+    app.get('/404', PageController.renderNotFoundPage);
+
 
     // 404页
     app.use(PageController.renderNotFoundPage);

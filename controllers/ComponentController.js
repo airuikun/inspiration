@@ -149,15 +149,22 @@ var ComponentController = {
             ComponentHistoryDAL.getAllComponentHistoryByComponentID(componentID),
             ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
-            result[0][0] && (result[0][0].html = encodeURIComponent(result[0][0].html));
-            res.render(AppUtils.getViewPath('component/edit.ejs'), {
-                component: result[0],
-                components: result[1],
-                category : result[2],
-                files : result[3],
-                componentHistory : result[4],
-                productLines : result[5]
-            });
+            var component = result[0][0];
+            if(component) {
+                //转义html，应为里面有可能有<script>标签
+                component.html = encodeURIComponent(component.html);
+                res.render(AppUtils.getViewPath('component/edit.ejs'), {
+                    component: result[0],
+                    components: result[1],
+                    category : result[2],
+                    files : result[3],
+                    componentHistory : result[4],
+                    productLines : result[5]
+                });
+            } else {
+                //这种情况为数据库删除了历史版本，但是组件没有删除
+                res.redirect('404');
+            }
         }).catch(function(e) {
             res.redirect('error');
         });
