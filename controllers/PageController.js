@@ -11,10 +11,16 @@ var renderWelcomePage  = function (req, res) {
 };
 
 var renderNotFoundPage  = function (req, res) {
-    res.render(AppUtils.getViewPath('component/404.ejs'));
+    res.render(AppUtils.getViewPath('component/error.ejs'), {
+        status : 404,
+        text : '404'
+    });
 };
 var renderErrorPage  = function (req, res) {
-    res.render(AppUtils.getViewPath('component/500.ejs'));
+    res.render(AppUtils.getViewPath('component/error.ejs'), {
+        status : 500,
+        text : '500'
+    });
 };
 
 var redirectWelcome = function(req, res, next) {

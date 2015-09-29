@@ -163,7 +163,10 @@ var ComponentController = {
                 });
             } else {
                 //这种情况为数据库删除了历史版本，但是组件没有删除
-                res.redirect('/404');
+                res.render(AppUtils.getViewPath('component/error.ejs'), {
+                    status : 302,
+                    text : '当前组件已失效'
+                });
             }
         }).catch(function(e) {
             res.redirect('error');
