@@ -17,7 +17,9 @@ var template =
         });
         console.log($cookies.get('productLineID'));
         console.log($cookies.get('productLineName'));
-        window.history.back();
+        // window.history.back();
+        var hash = window.location.hash;
+        window.location.href = hash.substring(2);
     };
 })
 .run(function($rootScope, $templateRequest, $timeout, cookieFunc) {
