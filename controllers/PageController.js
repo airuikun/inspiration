@@ -17,8 +17,19 @@ var renderErrorPage  = function (req, res) {
     res.render(AppUtils.getViewPath('component/500.ejs'));
 };
 
+var redirectWelcome = function(req, res, next) {
+    //读取cookie获取产品线ID
+    var productLineID = req.cookies.productLineID;
+    if(!productLineID) {
+        res.redirect('/welcome#!'+ req.url);
+    }else {
+        next();
+    }
+};
+
 module.exports = {
     renderWelcomePage : renderWelcomePage,
     renderNotFoundPage : renderNotFoundPage,
-    renderErrorPage : renderErrorPage
+    renderErrorPage : renderErrorPage,
+    redirectWelcome : redirectWelcome
 };

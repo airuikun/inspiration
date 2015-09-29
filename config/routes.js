@@ -22,13 +22,13 @@ module.exports = function(app) {
     app.use('/public', express.static(path.join(path.dirname(require.main.filename), '/public')));
 
     // 首页
-    app.get('/', ComponentController.renderIndexPage);
+    app.get('/', PageController.redirectWelcome, ComponentController.renderIndexPage);
     // 编辑组件页面
-    app.get('/component/edit/:componentID', ComponentController.renderEditPage);
+    app.get('/component/edit/:componentID', PageController.redirectWelcome, ComponentController.renderEditPage);
     // 编辑组件版本页面
-    app.get('/component/edit/:componentID/:componentHistoryID', ComponentController.renderEditPage);
+    app.get('/component/edit/:componentID/:componentHistoryID', PageController.redirectWelcome, ComponentController.renderEditPage);
     // 新建组件页面
-    app.get('/component/create', ComponentController.renderCreationPage);
+    app.get('/component/create', PageController.redirectWelcome, ComponentController.renderCreationPage);
 
     // 组件类的路由
     app.post('/component/create', multipartMiddleware, ComponentController.create);

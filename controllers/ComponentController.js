@@ -95,14 +95,10 @@ function saveFile(data) {
     });
 }
 
+
 var ComponentController = {
     renderIndexPage: function(req, res) {
-        //读取cookie获取产品线ID
         var productLineID = req.cookies.productLineID;
-        if(!productLineID) {
-            res.redirect('/welcome');
-        }
-
         Promise.all([
             CategoryDAL.getAllCategoryByProductLineID(productLineID),
             ProductLineDAL.getAllProductLine()
@@ -117,11 +113,7 @@ var ComponentController = {
     },
 
     renderCreationPage: function(req, res) {
-        //读取cookie获取产品线ID
         var productLineID = req.cookies.productLineID;
-        if(!productLineID) {
-            res.redirect('/welcome');
-        }
         Promise.all([
             CategoryDAL.getComponentsByProductLineID(productLineID),
             CategoryDAL.getAllCategoryByProductLineID(productLineID),
@@ -138,11 +130,7 @@ var ComponentController = {
     },
 
     renderEditPage: function(req, res) {
-        //读取cookie获取产品线ID
         var productLineID = req.cookies.productLineID;
-        if(!productLineID) {
-            res.redirect('/welcome');
-        }
         var getHistory;
         //获取到前台传来的组件ID
         var componentID = req.params.componentID;
@@ -180,7 +168,6 @@ var ComponentController = {
             files = req.files;
         //当组件存储完成、文件上传完成，才响应
         createComponent(data, files).then(function(result) {
-            console.log(data)
             //渲染页面
             res.redirect('/component/edit/' + result[2]);
         }).catch(function(e) {
