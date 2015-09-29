@@ -163,7 +163,7 @@ var ComponentController = {
                 });
             } else {
                 //这种情况为数据库删除了历史版本，但是组件没有删除
-                res.redirect('404');
+                res.redirect('/404');
             }
         }).catch(function(e) {
             res.redirect('error');
