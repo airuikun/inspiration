@@ -100,7 +100,7 @@ var ComponentController = {
     renderIndexPage: function(req, res) {
         var productLineID = req.cookies.productLineID;
         Promise.all([
-            CategoryDAL.getAllCategoryByProductLineID(productLineID),
+            CategoryDAL.getComponentsByProductLineID(productLineID),
             ProductLineDAL.getAllProductLine()
         ]).then(function(result) {
             res.render(AppUtils.getViewPath('component/index.ejs'), {
