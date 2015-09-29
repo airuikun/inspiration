@@ -37,10 +37,10 @@ var template =
     })
 .controller('projectList', function($scope, $cookies) {
     $scope.proList = productLine;
-    console.log($scope.proList);
 
     //顶部项目组默认名称
     $scope.productName = $cookies.get('productLineName');
+    $scope.productLineID = $cookies.get('productLineID');
 
 })
 
@@ -159,7 +159,7 @@ var template =
 
         $rootScope.component = component[0];
         $rootScope.exampleName = $rootScope.component.name;
-        $rootScope.html = $rootScope.component.html;
+        $rootScope.html = window.decodeURIComponent($rootScope.component.html);
         $rootScope.css = $rootScope.component.css;
         $rootScope.javascript = $rootScope.component.js;
         $rootScope.remarks = $rootScope.component.remarks;
