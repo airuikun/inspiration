@@ -1,7 +1,9 @@
 var db = require('./ORM'),
     Category = require('../models/Category');
 
-var CategoryTable = db.define('category', Category.getType());
+var CategoryTable = db.define('category', Category.getType(),{
+    cache   : false
+});
 //同步表
 CategoryTable.sync();
 
@@ -10,7 +12,8 @@ CategoryTable.sync();
 function getAllCategoryByProductLineID(productLineID) {
     return new Promise(function(resolve, reject) {
         CategoryTable.find({
-            productLineID : productLineID
+            productLineID : productLineID,
+            status : 1
         }, function(err, data) {
             if(err) {
                 console.error(err);
@@ -22,7 +25,7 @@ function getAllCategoryByProductLineID(productLineID) {
     });
 }
 
-var getAllCategoriesSQL = 'SELECT component.componentID , component.name as componentName, cate.categoryID, cate.name as categoryName FROM (select categoryID, name from category where productLineID = ?) cate inner join component ON component.categoryID = cate.categoryID';
+var getAllCategoriesSQL = 'SELECT component.componentID , component.name as componentName, cate.categoryID, cate.name as categoryName FROM (select categoryID, name, category.status from category where productLineID = ? AND category.status=1) cate inner join component ON component.categoryID = cate.categoryID AND component.status=1';
 //查询出该产品线下对应的类型
 function getComponentsByProductLineID(productLineID) {
     return new Promise(function(resolve, reject) {

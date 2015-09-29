@@ -1,14 +1,18 @@
 var db = require('./ORM'),
     Component = require('../models/Component');
 
-var ComponentTable = db.define('component', Component.getType());
+var ComponentTable = db.define('component', Component.getType(),{
+    cache   : false
+});
 //同步表
 ComponentTable.sync();
 
 //获取所有的产品线
 function getAllComponent() {
     return new Promise(function(resolve, reject) {
-        ComponentTable.find({}, function(err, data) {
+        ComponentTable.find({
+            status : 1
+        }, function(err, data) {
             if(err) {
                 console.error(err);
                 reject(err);

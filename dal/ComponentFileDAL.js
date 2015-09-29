@@ -2,7 +2,9 @@ var db = require('./ORM'),
     ComponentFile = require('../models/ComponentFile');
 
 
-var ComponentFileTable = db.define('componentFile', ComponentFile.getType());
+var ComponentFileTable = db.define('componentFile', ComponentFile.getType(),{
+    cache   : false
+});
 //同步表
 ComponentFileTable.sync();
 
