@@ -60,7 +60,7 @@ var template =
 
         // //显示新建页面信息
         // $rootScope.isShowCreate = true;
-        window.location.href = '../views/createpage.html';
+        window.location.href = '/component/create';
     };
 })
 

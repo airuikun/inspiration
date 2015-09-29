@@ -11,8 +11,15 @@
 </head>
 <body>
 <script>
+    //左边栏
     var categories = <%- JSON.stringify(categories) %>;
+    console.log('左边栏'); 
     console.log(categories); 
+
+    //产品线
+    var productLines = <%- JSON.stringify(productLines) %>;
+    console.log('产品线'); 
+    console.log(productLines); 
 </script>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -23,20 +30,20 @@
         <li ng-controller="projectList">
             <div class="btn-group project-button" dropdown is-open="status.isopen">
             <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-              <span>项目组</span> <span class="caret"></span>
+              <span>{{productName}}</span> <span class="caret"></span>
             </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                     <li role="menuitem" ng-repeat="item in proList">
                         <a href="" >
-                            {{item}}
+                            {{item.name}}
                         </a>
                     </li>
                 </ul>
             </div>
         </li>
         <li><a href="/component/create">新建</a></li>
-        <li><a href="/component/edit">编辑</a></li>
-        <!-- <li><a href="" ng-click="createPage();">新建</a></li> -->
+        <!-- <li><a href="/component/edit">编辑</a></li>
+        <li><a href="" ng-click="createPage();">新建</a></li> -->
         <!-- <li><a href="" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li> -->
         <li><a href="" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
       </ul>
@@ -184,6 +191,8 @@
 <script src="../../public/bower_components/codemirror/mode/javascript/javascript.js"></script>
 <script src="../../public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script src="../../public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
+
 
 <script src="../../public/component/js/index.js"></script>
 

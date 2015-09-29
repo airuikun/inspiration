@@ -3,7 +3,8 @@ var template =
     angular.module('ucpen', [
         'ngAnimate',
         'ui.bootstrap',
-        'ui.codemirror'
+        'ui.codemirror',
+        'ngCookies'
     ])
 
 .value('template', '<!DOCTYPE html><html><head><meta charset="utf-8"><style>{{css}}</style></head><body>{{html}}<script>{{javascript}}</script></body></html>')
@@ -97,6 +98,15 @@ var template =
                 }, 1000);
         }
     }
+})
+
+.controller('projectList', function($scope, $cookies) {
+    $scope.proList = productLines;
+
+    //顶部项目组默认名称
+    $scope.productName = $cookies.get('productLineName');
+    $scope.productLineID = $cookies.get('productLineID');
+
 })
 
 .run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, template, $sce, $timeout, watchAll) {
