@@ -38,14 +38,35 @@ var template =
             // window.location.href = '/component/edit/';
         };
     })
-.controller('projectList', function($scope, $cookies) {
-    $scope.proList = productLine;
-    console.log($scope.proList);
+.controller('projectList', function($rootScope, $cookies) {
+    $rootScope.proList = productLine;
 
     //顶部项目组默认名称
-    $scope.productName = $cookies.get('productLineName');
+    $rootScope.productName = $cookies.get('productLineName');
 
 })
+
+.factory('projectGroup', function($rootScope, $cookies) {
+        return function(id, name) {
+            // window.location.href = '/component/edit/';
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 15);
+
+            $rootScope.productName = $cookies.put('productLineName', name, {
+            'expires': expireDate,
+            'path': '/'
+        });
+            $rootScope.productLineID = $cookies.put('productLineID', id, {
+            'expires': expireDate,
+            'path': '/'
+        });
+
+            console.log($cookies.get('productLineName'));
+            console.log($cookies.get('productLineID'));
+            window.location.href = '/';
+
+        };
+    })
 
 .controller('animateList', function($scope) {
     // $scope.category = ["分类1", "分类2", "分类3", "分类4"];
@@ -117,7 +138,7 @@ var template =
     }
 
 })
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies, watchUpdateContent) {
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies, watchUpdateContent, projectGroup) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -191,6 +212,8 @@ var template =
 
 
 
+    //点击项目组
+    $rootScope.projectGroup = projectGroup;
 
 
 

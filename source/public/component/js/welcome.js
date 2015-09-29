@@ -10,10 +10,12 @@ var template =
         var expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 15);
         $cookies.put('productLineID', id, {
-            'expires': expireDate
+            'expires': expireDate,
+            'path': '/'
         });
         $cookies.put('productLineName', name, {
-            'expires': expireDate
+            'expires': expireDate,
+            'path': '/'
         });
         console.log($cookies.get('productLineID'));
         console.log($cookies.get('productLineName'));

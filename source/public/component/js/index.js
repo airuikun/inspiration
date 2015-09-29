@@ -100,12 +100,12 @@ var template =
     }
 })
 
-.controller('projectList', function($scope, $cookies) {
-    $scope.proList = productLines;
+.controller('projectList', function($rootScope, $cookies) {
+    $rootScope.proList = productLines;
 
     //顶部项目组默认名称
-    $scope.productName = $cookies.get('productLineName');
-    $scope.productLineID = $cookies.get('productLineID');
+    $rootScope.productName = $cookies.get('productLineName');
+    $rootScope.productLineID = $cookies.get('productLineID');
 
 })
 
