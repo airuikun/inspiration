@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" href="/public/cms/css/style.css" rel="stylesheet" />
+<link type="text/css" href="/public/cms/css/addCategoryPage.css" rel="stylesheet" />
+<script type="text/javascript" src="/public/cms/js/jquery.js"></script>
+<script type="text/javascript" src="/public/cms/js/js.js"></script>
+<script type="text/javascript" src="/public/cms/js/addCategoryPage.js"></script>
+<title><%- pageTitle %></title>
+</head>
+<body>
+<table width="98%" border="1" cellspacing="0" cellpadding="15">
+  <tr style="background-color:#a8c7ce">
+    <td align="center" valign="middle"><strong>添加分类</strong></td>
+  </tr>
+  <tr>
+    <td>
+      <strong>选择产品线：</strong>
+      <select class="changePro">
+        <%if(data) {%>
+          <%for(var i=0;i<data.length;i++) {%>
+            <%
+              var obj = data[i],
+                  productId = obj.productLineID,
+                  productName = obj.name;
+            %>
+            <option value='<%-productId%>'><%-productName%></option>
+          <%}%>
+        <%}%>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td><strong>分类名称：</strong><input type="text" maxlength="18" class="text" /></td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle"><input type="image" class="crosshair sub" src="/public/cms/img/qd.jpg" /></td>
+  </tr>
+</table>
+</body>
+</html>

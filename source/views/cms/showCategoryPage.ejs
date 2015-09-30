@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%- pageTitle %></title>
+<link type="text/css" href="/public/cms/css/style.css" rel="stylesheet" />
+<link type="text/css" href="/public/cms/css/showCategoryPage.css" rel="stylesheet" />
+<script type="text/javascript" src="/public/cms/js/jquery.js"></script>
+<script type="text/javascript" src="/public/cms/js/js.js"></script>
+<script type="text/javascript" src="/public/cms/js/showCategoryPage.js"></script>
+</head>
+
+<body>
+  <div class="listTable">
+    <table class="STYLE10 showList" width="98%" border="1" cellspacing="0" cellpadding="8">
+      <tr style="background-color:#a8c7ce">
+        <td colspan="4" align="center" valign="middle"><strong>分类信息</strong></td>
+      </tr>
+      <tr>
+        <td colspan="4" valign="middle"><strong>选择产品线：
+          <select class="changePro">
+            <%if(productId == 'nopid'){%>
+              <option class="pleaseSelect" selected=selected value=''>请选择...</option>
+            <%}%>
+            <%if(proData) {%>
+              <%for(var i=0;i<proData.length;i++) {%>
+                <%
+                  var obj = proData[i],
+                      proId = obj.productLineID,
+                      productName = obj.name;
+                %>
+
+                <%if(productId == proId) {%>
+                  <%
+                    var selected = "selected=selected";
+                  %>
+                <%}else{%>
+                  <%
+                    var selected = "";
+                  %>
+                <%}%>
+
+                <option value='<%-proId%>' <%-selected%>><%-productName%></option>
+              <%}%>
+            <%}%>
+          </select>
+        </strong></td>
+      </tr>
+      <tr class="STYLE6">
+        <td align="center" width="8%" valign="middle"><strong>编号</strong></td>
+        <td align="center" width="36%" valign="middle"><strong>名称</strong></td>
+        <td align="center" width="30%" valign="middle"><strong>创建时间</strong></td>
+        <td align="center" width="18%" valign="middle"><strong>操作</strong></td>
+      </tr>
+
+      <%if(productId!='nopid') {%>
+        <%
+          var len = pro2CateData.length;
+        %>
+        <%for(var i=0;i<len;i++){
+          var resData = pro2CateData[i],
+              num = i+1,
+              dataTime = new Date(resData.createTime).toLocaleDateString();
+        %>
+
+          <tr class='pro2cat'>
+            <td align='center' valign='middle'><%-num%></td>
+            <td align='center' valign='middle'><%-resData.name%></td>
+            <td align='center' valign='middle'><%-dataTime%></td>
+            <td align='center' valign='middle'><span pid='<%-productId%>' cid='<%-resData.categoryID%>' cname='<%-resData.name%>' class='crosshair edit'>修改</span> / <span id='<%-resData.categoryID%>' class='crosshair del'>删除</span></td>
+          </tr>
+        <%}%>
+      <%}%>
+
+    </table>
+  </div>
+
+  <div class="ediTable" style="display:none">
+    <table width="98%" border="1" cellspacing="0" cellpadding="15">
+      <tr style="background-color:#a8c7ce">
+        <td align="center" valign="middle"><strong>添加分类</strong></td>
+      </tr>
+      <tr>
+        <td>
+          <strong>选择产品线：</strong>
+          <select class="editChangePro">
+            <%if(proData) {%>
+              <%for(var i=0;i<proData.length;i++) {%>
+                <%
+                  var obj = proData[i],
+                      productId = obj.productLineID,
+                      productName = obj.name;
+                %>
+                <option value='<%-productId%>'><%-productName%></option>
+              <%}%>
+            <%}%>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>分类名称：</strong><input type="text" maxlength="18" class="text" /></td>
+      </tr>
+      <tr>
+        <td align="center" valign="middle"><input type="image" class="crosshair sub" src="/public/cms/img/qd.jpg" />&nbsp;<span class="crosshair editQx">取消</span></td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

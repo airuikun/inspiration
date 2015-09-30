@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%- pageTitle %></title>
+<link type="text/css" href="/public/cms/css/style.css" rel="stylesheet" />
+<link type="text/css" href="/public/cms/css/showProductPage.css" rel="stylesheet" />
+<script type="text/javascript" src="/public/cms/js/jquery.js"></script>
+<script type="text/javascript" src="/public/cms/js/js.js"></script>
+<script type="text/javascript" src="/public/cms/js/showProductPage.js"></script>
+</head>
+
+<body>
+  <div class="listTable">
+    <table class="STYLE10 showList" width="98%" border="1" cellspacing="0" cellpadding="8">
+      <tr style="background-color:#a8c7ce">
+        <td colspan="4" align="center" valign="middle"><strong>产品线信息</strong></td>
+      </tr>
+      <tr class="STYLE6">
+        <td align="center" width="8%" valign="middle"><strong>编号</strong></td>
+        <td align="center" width="36%" valign="middle"><strong>名称</strong></td>
+        <td align="center" width="30%" valign="middle"><strong>创建时间</strong></td>
+        <td align="center" width="18%" valign="middle"><strong>操作</strong></td>
+      </tr>
+      <%if(data) {%>
+        <%for(i=0;i<data.length;i++) {%>
+          <%
+            var index = i+1,
+                res = data[i],
+                dataTime = new Date(res.createTime).toLocaleDateString();
+          %>
+          <tr>
+            <td align="center" valign="middle"><%-index%></td>
+            <td align="center" valign="middle"><%-res.name%></td>
+            <td align="center" valign="middle"><%-dataTime%></td>
+            <td align="center" valign="middle"><span pid="<%-res.productLineID%>" pname="<%-res.name%>" class="crosshair edit">修改</span> / <span id="<%-res.productLineID%>" class="crosshair del">删除</span></td>
+          </tr>
+        <%}%>
+      <%}%>
+    </table>
+  </div>
+
+  <div class="ediTable" style="display:none">
+    <table class="editPro" width="80%" border="1" cellspacing="0" cellpadding="10">
+      <tr style="background-color:#a8c7ce;text-align:center">
+      <td class="editTd"><b>修改产品线信息</b></td>
+      </tr>
+      <tr>
+        <td class="editTd"><b>产品名称：</b><input type="text" maxlength="18" class="ediProject text"  /></td>
+      </tr>
+      <tr align="center"> 
+        <td class="editTd"><input type="image" class="crosshair sub" src="/public/cms/img/qd.jpg" />&nbsp;<span class="crosshair editQx">取消</span></td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+</html>

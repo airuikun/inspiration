@@ -8,7 +8,8 @@ var express = require('express'),
     ComponentController = require('../controllers/ComponentController'),
     CategoryController = require('../controllers/CategoryController'),
     OperationController = require('../controllers/OperationController'),
-    PageController = require('../controllers/PageController');
+    PageController = require('../controllers/PageController'),
+    CmsController = require('../controllers/CmsController');
 
 module.exports = function(app) {
     // 静态资源目录
@@ -47,7 +48,6 @@ module.exports = function(app) {
     // app.use(bodyParser.text());//从body获取内容时需使用此方式
     app.post('/api/sass2css', OperationController.sass2css);
 
-
     // 欢迎页
     app.get('/welcome', PageController.renderWelcomePage);
     // 系统内部错误
@@ -57,5 +57,25 @@ module.exports = function(app) {
 
 
     // 404页
-    app.use(PageController.renderNotFoundPage);
+    //app.use(PageController.renderNotFoundPage);
+
+    //cms管理
+    app.get('/cms', CmsController.init);//初始化全首页
+    app.get('/cms/top', CmsController.top);//首页顶部
+    app.get('/cms/bottom', CmsController.bottom);//首页底部
+    app.get('/cms/left', CmsController.left);//首页左侧
+    app.get('/cms/right', CmsController.right);//首页右侧
+    app.get('/cms/addProduct', CmsController.addProductPage);//添加产品线管理页面
+    app.get('/cms/showProduct', CmsController.showProductPage);//查看产品线管理页面
+    app.get('/cms/addCategory', CmsController.addCategoryPage);//添加分类管理页面
+    app.get('/cms/showCategory/:pid', CmsController.showCategoryPage);//查看分类管理页面
+    //cms管理ajax接口
+    //app.get('/cms/addProductApi/:projectName', CmsController.addProductApi);//添加产品线
+    app.post('/cms/addProduct', CmsController.addProductApi);//添加产品线
+    app.post('/cms/delProduct', CmsController.delProductApi);//删除产品线
+    app.post('/cms/ediProduct', CmsController.ediProductApi);//修改产品线
+    app.post('/cms/addCategory', CmsController.addCategoryApi);//添加分类
+    app.post('/cms/showCategory', CmsController.getCategoryApi);//获取产品线下全部分类
+    app.post('/cms/editCategory', CmsController.editCategoryApi);//修改分类
+    app.post('/cms/delCategory', CmsController.delCategoryApi);//删除分类
 };

@@ -58,6 +58,20 @@ function updateComponent(componentID, newComponent) {
     });
 }
 
+//获取所有的产品线
+function getAllComponent() {
+    return new Promise(function(resolve, reject) {
+        ComponentTable.find({}, function(err, data) {
+            if(err) {
+                console.error(err);
+                reject(err);
+            }else {
+                resolve(JSON.stringify(data));
+            }
+        });
+    });
+}
+
 
 //这里提交给上层Controller调用
 module.exports = {

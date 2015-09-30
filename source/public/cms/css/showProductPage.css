@@ -1,0 +1,29 @@
+body {
+    margin-left: 3px;
+    margin-top: 10px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+}
+
+table{
+    border-collapse:collapse;
+}
+
+
+.editPro{
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    color: #000; 
+}
+
+
+.text{
+    height: 25px;
+    width: 250px;
+}
+
+.STYLE6 {color: #000000; font-size: 12px; background-color: #d3eaef }
+.STYLE10 {color: #000000; font-size: 12px; }
