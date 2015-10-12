@@ -177,39 +177,54 @@ var ComponentController = {
         var data = req.body,
             files = req.files;
         data.productLineID = req.cookies.productLineID;
-        //当组件存储完成、文件上传完成，才响应
-        createComponent(data, files).then(function(result) {
-            //渲染页面
-            res.redirect('/component/edit/' + result[2]);
-        }).catch(function(e) {
-            console.error(e);
+        if(data.name) {
+            //当组件存储完成、文件上传完成，才响应
+            createComponent(data, files).then(function(result) {
+                //渲染页面
+                res.redirect('/component/edit/' + result[2]);
+            }).catch(function(e) {
+                console.error(e);
+                res.redirect('error');
+            });
+        }else {
             res.redirect('error');
-        });
+        }
     },
 
     edit: function (req, res) {
         var data = req.body,
             files = req.files;
-        //当组件存储完成、文件上传完成，才响应
-        editComponent(data, files).then(function(data) {
-            //渲染页面
-            res.redirect('/component/edit/' + data);
-        }).catch(function(e) {
+        if(data.name) {
+            //当组件存储完成、文件上传完成，才响应
+            editComponent(data, files).then(function (data) {
+                //渲染页面
+                res.redirect('/component/edit/' + data);
+            }).catch(function (e) {
+                res.redirect('error');
+            });
+        }else {
             res.redirect('error');
-        });
+        }
     },
 
     deleteFile : function (req, res) {
         var componentFileID = req.params.componentFileID;
-        ComponentFileDAL.deleteFileByID(componentFileID).then(function() {
-            res.send({
-                status : 1
+        if(componentFileID) {
+            ComponentFileDAL.deleteFileByID(componentFileID).then(function() {
+                res.send({
+                    status : 1
+                });
+            }).catch(function() {
+                res.send({
+                    status : 0
+                });
             });
-        }).catch(function() {
+        }else {
             res.send({
                 status : 0
             });
-        });
+        }
+
     }
 };
 
