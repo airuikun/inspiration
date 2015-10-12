@@ -176,6 +176,7 @@ var ComponentController = {
     create: function(req, res) {
         var data = req.body,
             files = req.files;
+        data.productLineID = req.cookies.productLineID;
         //当组件存储完成、文件上传完成，才响应
         createComponent(data, files).then(function(result) {
             //渲染页面
