@@ -9,7 +9,7 @@ var ComponentHistoryTable = db.define('componentHistory', ComponentHistory.getTy
 ComponentHistoryTable.sync();
 
 
-var getAllComponentHistoryByComponentIDSQL = 'SELECT componentHistoryID, componentID, createTime, updateContent FROM componentHistory WHERE componentHistory.componentID = ?';
+var getAllComponentHistoryByComponentIDSQL = 'SELECT componentHistoryID, componentID, createTime FROM componentHistory WHERE componentHistory.componentID = ?';
 //获取某一个组件的所有的组件历史
 function getAllComponentHistoryByComponentID(componentID) {
     return new Promise(function(resolve, reject) {
