@@ -7,7 +7,7 @@ var template =
         'ngCookies'
     ])
 
-.value('template', '<!DOCTYPE html><html><head><meta charset="utf-8"><style>{{css}}</style></head><body>{{html}}<script>{{javascript}}</script></body></html>')
+.value('template', '<!DOCTYPE html><html><head><meta charset="utf-8"><style>{{cssReal}}</style></head><body>{{html}}<script>{{javascript}}</script></body></html>')
 
 .factory('compile', function(template, $sce) {
     return function(parts) {
@@ -21,11 +21,17 @@ var template =
     };
 })
 
-.factory('save', function($http) {
+.factory('save', function($http,$rootScope) {
+    console.log('send');
         return function(parts) {
-            $http.post('/component/create', parts).then(function(response) {
+            $http.post('/api/sass2css', parts).then(function(response) {
+                console.log('大伟的数据：');
                 console.info(response);
+                //真正生成动效的css
+                $rootScope.cssReal = response.data.data;
+                $rootScope.run();
             }).catch(function(response) {
+                console.log('大伟的数据：');
                 console.error(response);
             });
         };
@@ -140,7 +146,37 @@ var template =
     }
 
 })
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion, watchUpdateContent, projectGroup) {
+.factory('watchAll', function($rootScope,$timeout, save) {
+    return function(){
+        $rootScope.$watch('css', cssWatch);
+        $rootScope.$watch('html', jsHtmlWatch);
+        $rootScope.$watch('javascript', jsHtmlWatch);
+        var t1;
+        function jsHtmlWatch( data ){
+            $timeout.cancel(t1);
+            t1 = $timeout(function(){
+                    console.log(data);
+                    $rootScope.run();
+                }, 3000);
+        }
+        var t2;
+        function cssWatch( data ){
+            $timeout.cancel(t2);
+            //$http.get().success().error();
+            // $rootScope.css = '#airuikun {' 
+            //         + 'width: 200px;' 
+            //         + 'height: 200px;' 
+            //         + 'background-color: red;'
+            //     + '}';
+            t2 = $timeout(function(){
+                    console.log($rootScope.css);
+                    // $rootScope.run();
+                    $rootScope.save({css: $rootScope.css});
+                }, 3000);
+        }
+    }
+})
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion, watchUpdateContent, projectGroup, watchAll, template, $sce) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -219,12 +255,31 @@ var template =
     $rootScope.historyVersion = historyVersion;
     
     //历史版本消息
-    $rootScope.updateContent = '';
+    $rootScope.updateContent = component[0].remarks;
     //监听历史版本描述
-    $rootScope.watchUpdateContent = watchUpdateContent;
+    // $rootScope.watchUpdateContent = watchUpdateContent;
 
 
     //点击项目组
     $rootScope.projectGroup = projectGroup;
+
+
+
+    //执行效果
+    $rootScope.preview = '';
+    $rootScope.run = function () {
+            var self = this;
+            var code = template.replace(/{{(.+?)}}/g, function (_, type) {
+              return self[type]
+            });
+            self.preview = $sce.trustAsHtml(code)
+        };
+    $timeout(function(){
+        $timeout(function(){
+            $rootScope.run();
+        },1000);
+        //监听数据的变化 
+        watchAll();
+    }, 400);
 
 });
