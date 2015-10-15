@@ -7,7 +7,7 @@ var template =
         'ngCookies'
     ])
 
-.value('template', '<!DOCTYPE html><html><head><meta charset="utf-8"><style>{{css}}</style></head><body>{{html}}<script>{{javascript}}</script></body></html>')
+.value('template', '<!DOCTYPE html><html><head><meta charset="utf-8"><style>{{cssReal}}</style></head><body>{{html}}<script>{{javascript}}</script></body></html>')
 
 .factory('compile', function(template, $sce) {
     return function(parts) {
@@ -21,12 +21,15 @@ var template =
     };
 })
 
-.factory('save', function($http) {
+.factory('save', function($http,$rootScope) {
     console.log('send');
         return function(parts) {
             $http.post('/api/sass2css', parts).then(function(response) {
                 console.log('大伟的数据：');
                 console.info(response);
+                //真正生成动效的css
+                $rootScope.cssReal = response.data.data;
+                $rootScope.run();
             }).catch(function(response) {
                 console.log('大伟的数据：');
                 console.error(response);
@@ -98,7 +101,7 @@ var template =
         // alert($rootScope.categoryCur);
     };
 })
-.factory('watchAll', function($rootScope,$timeout) {
+.factory('watchAll', function($rootScope,$timeout, save) {
     return function(){
         $rootScope.$watch('css', cssWatch);
         $rootScope.$watch('html', jsHtmlWatch);
@@ -109,7 +112,7 @@ var template =
             t1 = $timeout(function(){
                     console.log(data);
                     $rootScope.run();
-                }, 1000);
+                }, 3000);
         }
         var t2;
         function cssWatch( data ){
@@ -122,8 +125,9 @@ var template =
             //     + '}';
             t2 = $timeout(function(){
                     console.log($rootScope.css);
-                    $rootScope.run();
-                }, 1000);
+                    // $rootScope.run();
+                    $rootScope.save({css: $rootScope.css});
+                }, 3000);
         }
     }
 })

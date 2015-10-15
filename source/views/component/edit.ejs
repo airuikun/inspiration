@@ -131,7 +131,7 @@
         </div>
         <div class="col-sm-6">
           <section class="panel panel-default">
-            <header class="panel-heading">CSS</header>
+            <header class="panel-heading">SASS</header>
             <div class="" ui-codemirror="{
               lineNumbers: true,
               theme: 'monokai',
@@ -161,7 +161,7 @@
            <section class="panel panel-default">
             <header class="panel-heading">Preview</header>
             <div class="embed-responsive embed-responsive-16by9-ark">
-              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ compile({html: html, css: css, javascript: javascript}) }}" ng-cloak></iframe>
+              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ preview }}"></iframe>
             </div>
           </section>
         </div>
@@ -200,7 +200,7 @@
             <div class="form-group">
                 <label>历史版本 ： </label>
                  <ul>
-                    <div ng-repeat="historyItem in componentHistory" class="alert fileDiv-ark"  >{{historyItem.updateContent}}
+                    <div ng-repeat="historyItem in componentHistory" class="alert fileDiv-ark"  >{{historyItem.createTime}}
                         <div class="btn btn-primary fileDivfork-ark" ng-click="historyVersion(historyItem.componentID,historyItem.componentHistoryID)">
                                 跳转
                             </div>
@@ -215,14 +215,14 @@
 
 
             <div class="form-group remarks-div-width">
-                <label>版本描述 ： </label>
+                <label>动效描述 ： </label>
                 <ul>
-                    <input type="text" name="updateContent" ng-model="updateContent" class="form-control">
+                    <textarea name="remarks" ng-model="updateContent" class="form-control">{{component.remarks}}</textarea>
                 </ul>
             </div>
 
 
-            <input type="submit" ng-click="watchUpdateContent()" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
+            <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
 
             <input type="button" class="btn btn-info btn-confirm-ark btn-com-ark" value="取消">
 

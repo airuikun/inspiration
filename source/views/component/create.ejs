@@ -48,7 +48,7 @@
             </div>
         </li>
         <!-- <li><a href="" ng-click="createPage();">新建</a></li> -->
-        <li><a href="" ng-click="save({css: css})">发送sass</a></li>
+        <!-- <li><a href="" ng-click="save({css: css})">发送sass</a></li> -->
         <li><a href="" ng-click="html = ''; css = ''; javascript = '';">清除</a></li>
       </ul>
     </div>
@@ -105,7 +105,7 @@
         </div>
         <div class="col-sm-6">
           <section class="panel panel-default">
-            <header class="panel-heading">CSS</header>
+            <header class="panel-heading">SASS</header>
             <div class="" ui-codemirror="{
               lineNumbers: true,
               theme: 'monokai',
@@ -157,13 +157,13 @@
            
 
             <div class="form-group remarks-div-width">
-                <label>版本描述 ： </label>
+                <label>动效描述 ： </label>
                 <ul>
-                  <input type="text" name="updateContent" ng-model="updateContent" class="form-control">
+                  <textarea name="remarks" ng-model="updateContent" class="form-control"></textarea>
                 </ul>
             </div>
 
-            <input type="submit" ng-click="watchUpdateContent()" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
+            <input type="submit" class="btn btn-info btn-confirm-ark btn-com-ark" value="确认">
 
             <input type="button" class="btn btn-info btn-confirm-ark btn-com-ark" value="取消">
 
