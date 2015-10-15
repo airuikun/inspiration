@@ -5,7 +5,7 @@ var CategoryTable = db.define('category', Category.getType(),{
     cache   : false
 });
 //同步表
-CategoryTable.sync();
+//CategoryTable.sync();
 
 
 //获取该产品线所有类型

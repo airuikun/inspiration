@@ -5,7 +5,7 @@ var ComponentTable = db.define('component', Component.getType(),{
     cache   : false
 });
 //同步表
-ComponentTable.sync();
+//ComponentTable.sync();
 
 //获取所有的产品线
 function getAllComponent() {

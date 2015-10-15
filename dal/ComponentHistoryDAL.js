@@ -6,7 +6,7 @@ var ComponentHistoryTable = db.define('componentHistory', ComponentHistory.getTy
     cache   : false
 });
 //同步表
-ComponentHistoryTable.sync();
+//ComponentHistoryTable.sync();
 
 
 var getAllComponentHistoryByComponentIDSQL = 'SELECT componentHistoryID, componentID, createTime FROM componentHistory WHERE componentHistory.componentID = ?';

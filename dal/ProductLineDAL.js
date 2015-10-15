@@ -7,7 +7,7 @@ var ProductLineTable = db.define('productLine', ProductLine.getType(), {
     cache   : false
 });
 //同步表
-ProductLineTable.sync();
+//ProductLineTable.sync();
 
 //获取所有的产品线
 function getAllProductLine() {

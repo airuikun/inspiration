@@ -6,7 +6,7 @@ var ComponentFileTable = db.define('componentFile', ComponentFile.getType(),{
     cache   : false
 });
 //同步表
-ComponentFileTable.sync();
+//ComponentFileTable.sync();
 
 
 //创建文件，传的是文件对象数组
