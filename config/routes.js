@@ -20,7 +20,9 @@ module.exports = function(app) {
         next();
     });
 
-    app.use('/public', express.static(path.join(path.dirname(require.main.filename), '/public')));
+    var oneDay = 86400000;
+
+    app.use('/public', express.static(path.join(path.dirname(require.main.filename), '/public'), { maxAge: oneDay }));
 
     // 首页
     app.get('/', PageController.redirectWelcome, ComponentController.renderIndexPage);
