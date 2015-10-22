@@ -112,7 +112,7 @@ var template =
             t1 = $timeout(function(){
                     console.log(data);
                     $rootScope.run();
-                }, 3000);
+                }, 1000);
         }
         var t2;
         function cssWatch( data ){
@@ -127,7 +127,7 @@ var template =
                     console.log($rootScope.css);
                     // $rootScope.run();
                     $rootScope.save({css: $rootScope.css});
-                }, 3000);
+                }, 1000);
         }
     }
 })

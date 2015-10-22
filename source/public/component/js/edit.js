@@ -157,7 +157,7 @@ var template =
             t1 = $timeout(function(){
                     console.log(data);
                     $rootScope.run();
-                }, 3000);
+                }, 1000);
         }
         var t2;
         function cssWatch( data ){
@@ -172,10 +172,20 @@ var template =
                     console.log($rootScope.css);
                     // $rootScope.run();
                     $rootScope.save({css: $rootScope.css});
-                }, 3000);
+                }, 1000);
         }
     }
 })
+
+// .filter('timeFormat1', function(){
+//     return function( input ){
+//         console.log(input);
+//         var a = new Date(input);
+//         a = a.Format('yyyy-MM-dd hh:mm:ss');
+//         return a;
+//     };
+// })
+
 .run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion, watchUpdateContent, projectGroup, watchAll, template, $sce) {
     $rootScope.compile = compile;
     $rootScope.save = save;
