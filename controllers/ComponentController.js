@@ -43,7 +43,7 @@ function editComponent(data, files) {
             var strArr = [component[0].html, component[0].js, component[0].css];
             if(strArr.join('') !== postStr) {
                 //历史版本
-                var newComponentHistory = new ComponentHistory(componentID, data.html, data.js, data.css);
+                var newComponentHistory = new ComponentHistory(componentID, data.html, data.js, data.css, 'userid');
                 return ComponentHistoryDAL.createComponentHistory(newComponentHistory);
             }
         }).then(function() {
@@ -229,11 +229,3 @@ var ComponentController = {
 };
 
 module.exports = ComponentController;
-
-
-
-
-
-
-
-
