@@ -83,7 +83,7 @@
     <div class="row">
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
-                <accordion-group ng-repeat="itemCate in components" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
+                <accordion-group ng-repeat="itemCate in components" id="{{itemCate.id}}"  heading="{{itemCate.category}}" is-open="openTarget==itemCate.category" is-disabled="openTarget!=itemCate.category" ng-click="open(itemCate.category)" >
                     <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="/component/edit/{{item.componentID}}">{{item.componentName}}</a></div>
                 </accordion-group>
             </accordion>
@@ -176,7 +176,7 @@
             <input type="hidden" name="css" value="{{css}}" />
 
 
-            <div class="form-group">
+            <div class="form-group" ng-show="showEditFile">
                 <label>编辑已有文件 ： </label>
                 <ul>
                     <div ng-repeat="fileItem in files" class="alert fileDiv-ark {{fileItem.componentFileID}}"  >{{fileItem.fileName}}
@@ -197,7 +197,7 @@
                 <input type="file" name="file" multiple />
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="hideOldHistory">
                 <label>历史版本 ： </label>
                  <ul>
                     <div ng-repeat="historyItem in componentHistory" class="alert fileDiv-ark"  >{{historyItem.createTime | date:'yyyy-MM-dd   hh:mm:ss'}}
@@ -208,6 +208,21 @@
                 </ul>
             </div>
 
+            <div class="form-group">
+                <label>历史版本 ： </label></br>
+                <div class="btn-group project-button" dropdown>
+                    <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+                      <span>版本号</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" ng-repeat="historyItem in componentHistory" ng-click="historyVersion(historyItem.componentID,historyItem.componentHistoryID)">
+                        <a>
+                            {{historyItem.createTime | date:'yyyy-MM-dd   hh:mm:ss'}}
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
             <input type="text" name="componentID" class="hide" value="{{componentID}}" />
 

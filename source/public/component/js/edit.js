@@ -176,7 +176,23 @@ var template =
         }
     }
 })
-
+.factory('openDefault', function($rootScope) {
+    return function(){
+        var comId = $rootScope.component.componentID;
+        for ( var i = 0; i < $rootScope.components.length; i++ ) {
+            for ( var j = 0; j < $rootScope.components[i].example.length; j++ ) {
+                if ( comId == $rootScope.components[i].example[j].componentID ) {
+                    $rootScope.openTarget = $rootScope.components[i].category;
+                    console.log($rootScope.openTarget);
+                }
+            }
+        }
+        $rootScope.open = function(name){
+            console.log(name);
+            $rootScope.openTarget = name;
+        }
+    }
+})
 // .filter('timeFormat1', function(){
 //     return function( input ){
 //         console.log(input);
@@ -186,7 +202,7 @@ var template =
 //     };
 // })
 
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion, watchUpdateContent, projectGroup, watchAll, template, $sce) {
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $timeout, deleteFiles, historyVersion, watchUpdateContent, projectGroup, watchAll, template, $sce, openDefault) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -254,7 +270,17 @@ var template =
         //左边栏
         $rootScope.components = components;
         
+        //控制默认打开的左边栏
+        openDefault();
 
+        //如果没有已编辑本件 就不显示编辑已有文件
+        $rootScope.showEditFile = true;
+        if($rootScope.files.length == 0){
+            $rootScope.showEditFile = false;
+        }
+
+        //隐藏掉老版本的“历史版本”
+        $rootScope.show
 
     }, 300);
 
