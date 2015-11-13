@@ -69,7 +69,7 @@ fileLog.warn = function(msg){
     logWarn.warn(msg);
 };
 
-fileLog.write = function(msg, exp){
+fileLog.error = function(msg, exp){
     if(msg == null)
         msg = "";
     if(exp != null)
