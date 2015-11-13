@@ -22,4 +22,4 @@ require('./config/routes')(app);
 // 配置日志
 require('./helpers/LoggerHelper').use(app);
 
-app.listen(3100);
+app.listen(3000);
