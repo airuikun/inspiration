@@ -1,4 +1,5 @@
-var db = require('./ORM'),
+var logger = require('../helpers/LoggerHelper').logger,
+    db = require('./ORM'),
     Component = require('../models/Component');
 
 var ComponentTable = db.define('component', Component.getType(),{
@@ -14,7 +15,7 @@ function getAllComponent() {
             status : 1
         }, function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(JSON.stringify(data));
@@ -28,10 +29,10 @@ function createComponent(component) {
     return new Promise(function(resolve, reject) {
         ComponentTable.create([component],function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
-                console.debug('上传组件成功', JSON.stringify(data));
+                logger.debug('上传组件成功', JSON.stringify(data));
                 resolve(JSON.stringify(data));
             }
         });
@@ -63,7 +64,7 @@ function getAllComponent() {
     return new Promise(function(resolve, reject) {
         ComponentTable.find({}, function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(JSON.stringify(data));

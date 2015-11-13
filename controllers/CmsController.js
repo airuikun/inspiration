@@ -1,4 +1,5 @@
-var ProductLine = require('../dal/ProductLineDAL'),
+var logger = require('../helpers/LoggerHelper').logger,
+    ProductLine = require('../dal/ProductLineDAL'),
     SafetyHelper = require('../helpers/SafetyHelper'),
     pageTitle = "动效平台后台管理",
 
@@ -38,6 +39,7 @@ var ProductLine = require('../dal/ProductLineDAL'),
             });
             res.end();
         }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+            logger.error(error);
             res.render('cms/showProductPage', {
                 "pageTitle":pageTitle,
                 "data":[]
@@ -55,6 +57,7 @@ var ProductLine = require('../dal/ProductLineDAL'),
             });
             res.end();
         }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+            logger.error(error);
             res.render('cms/addCategoryPage', {
                 "pageTitle":pageTitle,
                 "data":[]
@@ -79,11 +82,13 @@ var ProductLine = require('../dal/ProductLineDAL'),
                 });
                 res.end();
             }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+                logger.error(error);
                 res.render('cms/showCategoryPage', {
                     "pageTitle":pageTitle,
                     "proData":[]
                 });
                 res.end();
+                
             })  
         })
     },
@@ -100,12 +105,13 @@ var ProductLine = require('../dal/ProductLineDAL'),
                 res.end();
 
             },function(err) {
-
+                logger.error(e);
                 result.message = "添加失败,产品线可能已存在";
                 result.status = 400;
 
                 res.send(result);
                 res.end();
+                
             })
     },
 
@@ -135,12 +141,13 @@ var ProductLine = require('../dal/ProductLineDAL'),
                 res.end();
 
             },function(err) {
-
+                logger.error(err);
                 result.message = "修改失败";
                 result.status = 400;
 
                 res.send(result);
                 res.end();
+
             })
     },
 
@@ -158,12 +165,13 @@ var ProductLine = require('../dal/ProductLineDAL'),
                 res.end();
 
             },function(err) {
-
+                logger.error(err);
                 result.message = "添加失败,产品线下此分类可能已存在";
                 result.status = 400;
 
                 res.send(result);
                 res.end();
+                
             })
     },
 
@@ -191,12 +199,13 @@ var ProductLine = require('../dal/ProductLineDAL'),
                 res.end();
 
             },function(err) {
-
+                logger.error(err);      
                 result.message = "暂无结果";
                 result.status = 400;
 
                 res.send(result);
                 res.end();
+                
             })
     },
 
@@ -214,7 +223,7 @@ var ProductLine = require('../dal/ProductLineDAL'),
                 res.end();
 
             },function(err) {
-
+                logger.error(err);
                 result.message = "修改失败";
                 result.status = 400;
 

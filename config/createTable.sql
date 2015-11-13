@@ -1,82 +1,82 @@
--- ·ÖÀàĞÅÏ¢±í
+-- åˆ†ç±»ä¿¡æ¯è¡¨
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID,Êµ¼ÊÖĞÎŞÓÃ',
-  `categoryID` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '·ÖÀàID',
-  `productLineID` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '²úÆ·ÏßID',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '·ÖÀàÃû³Æ',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '×´Ì¬ 1¿ª 2¹Ø(É¾³ı¼´ÉèÖÃÎª2)',
-  `createTime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢ID,å®é™…ä¸­æ— ç”¨',
+  `categoryID` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»ID',
+  `productLineID` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'äº§å“çº¿ID',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»åç§°',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'çŠ¶æ€ 1å¼€ 2å…³(åˆ é™¤å³è®¾ç½®ä¸º2)',
+  `createTime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`productLineID`),
   KEY `status` (`status`),
   KEY `categoryID` (`categoryID`),
   KEY `productLineID` (`productLineID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='·ÖÀàĞÅÏ¢±í' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='åˆ†ç±»ä¿¡æ¯è¡¨' AUTO_INCREMENT=1 ;
 
 
 
--- ×é¼şĞÅÏ¢±í
+-- ç»„ä»¶ä¿¡æ¯è¡¨
 
 CREATE TABLE IF NOT EXISTS `component` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID',
-  `componentID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '×é¼şID',
-  `categoryID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '·ÖÀàID',
-  `productLineID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '²úÆ·ÏßID',
-  `name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '×é¼şÃû³Æ',
-  `userID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ÓÃ»§ID',
-  `remarks` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '±¸×¢',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '¿ª¹Ø 1¿ª 2¹Ø(É¾³ı¼´ÉèÖÃÎª2)',
-  `createTime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢ID',
+  `componentID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç»„ä»¶ID',
+  `categoryID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»ID',
+  `productLineID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'äº§å“çº¿ID',
+  `name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç»„ä»¶åç§°',
+  `userID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç”¨æˆ·ID',
+  `remarks` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'å¤‡æ³¨',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'å¼€å…³ 1å¼€ 2å…³(åˆ é™¤å³è®¾ç½®ä¸º2)',
+  `createTime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `componentID` (`componentID`),
   KEY `categoryID` (`categoryID`),
   KEY `productLineID` (`productLineID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='×é¼şĞÅÏ¢±í' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='ç»„ä»¶ä¿¡æ¯è¡¨' AUTO_INCREMENT=1 ;
 
 
--- ×é¼şÄÚÈİÎÄ¼şĞÅÏ¢±í
+-- ç»„ä»¶å†…å®¹æ–‡ä»¶ä¿¡æ¯è¡¨
 
 CREATE TABLE IF NOT EXISTS `componentFile` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID',
-  `componentFileID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '×é¼şÎÄ¼şID',
-  `componentID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '×é¼şID',
-  `fileName` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ÎÄ¼şÃû³Æ',
-  `path` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ÎÄ¼ş´æ·ÅÂ·¾¶',
-  `createTime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢ID',
+  `componentFileID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç»„ä»¶æ–‡ä»¶ID',
+  `componentID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç»„ä»¶ID',
+  `fileName` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'æ–‡ä»¶åç§°',
+  `path` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'æ–‡ä»¶å­˜æ”¾è·¯å¾„',
+  `createTime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
   PRIMARY KEY (`id`),
   KEY `componentFileID` (`componentFileID`),
   KEY `componentID` (`componentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='×é¼şÄÚÈİÎÄ¼şĞÅÏ¢±í' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='ç»„ä»¶å†…å®¹æ–‡ä»¶ä¿¡æ¯è¡¨' AUTO_INCREMENT=1 ;
 
 
--- ×é¼şÀúÊ·¼ÇÂ¼ĞÅÏ¢±í
+-- ç»„ä»¶å†å²è®°å½•ä¿¡æ¯è¡¨
 
 CREATE TABLE IF NOT EXISTS `componentHistory` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID',
-  `componentID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '×é¼şID',
-  `componentHistoryID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '×é¼şÀúÊ·ĞÅÏ¢ID',
-  `userID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ÓÃ»§ID',
-  `html` text COLLATE utf8_bin NOT NULL COMMENT 'html´úÂë',
-  `js` text COLLATE utf8_bin NOT NULL COMMENT 'js´úÂë',
-  `css` text COLLATE utf8_bin NOT NULL COMMENT 'css´úÂë',
-  `updateContent` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '¸üĞÂ±¸×¢',
-  `createTime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢ID',
+  `componentID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç»„ä»¶ID',
+  `componentHistoryID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç»„ä»¶å†å²ä¿¡æ¯ID',
+  `userID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'ç”¨æˆ·ID',
+  `html` text COLLATE utf8_bin NOT NULL COMMENT 'htmlä»£ç ',
+  `js` text COLLATE utf8_bin NOT NULL COMMENT 'jsä»£ç ',
+  `css` text COLLATE utf8_bin NOT NULL COMMENT 'cssä»£ç ',
+  `updateContent` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'æ›´æ–°å¤‡æ³¨',
+  `createTime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='×é¼şÀúÊ·¼ÇÂ¼ĞÅÏ¢±í' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='ç»„ä»¶å†å²è®°å½•ä¿¡æ¯è¡¨' AUTO_INCREMENT=1 ;
 
 
--- ²úÆ·ÏßĞÅÏ¢±í
+-- äº§å“çº¿ä¿¡æ¯è¡¨
 
 CREATE TABLE IF NOT EXISTS `productLine` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID±í',
-  `productLineID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '²úÆ·ÏßID',
-  `name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '²úÆ·ÏßÃû³Æ',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '¿ª¹Ø 1¿ª 2¹Ø(É¾³ı¼´ÉèÖÃÎª2)',
-  `createTime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢IDè¡¨',
+  `productLineID` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'äº§å“çº¿ID',
+  `name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'äº§å“çº¿åç§°',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'å¼€å…³ 1å¼€ 2å…³(åˆ é™¤å³è®¾ç½®ä¸º2)',
+  `createTime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `status` (`status`),
   KEY `productLineID` (`productLineID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='²úÆ·ÏßĞÅÏ¢±í' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='äº§å“çº¿ä¿¡æ¯è¡¨' AUTO_INCREMENT=1 ;

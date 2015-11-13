@@ -1,4 +1,5 @@
-var ProductLineDAL = require('../dal/ProductLineDAL'),
+var logger = require('../helpers/LoggerHelper').logger,
+    ProductLineDAL = require('../dal/ProductLineDAL'),
     AppUtils = require('../helpers/AppUtils');
 
 var renderWelcomePage  = function (req, res) {

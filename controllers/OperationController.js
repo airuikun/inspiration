@@ -1,10 +1,11 @@
 var SassHelper = require('../helpers/SassHelper'),
+    logger = require('../helpers/LoggerHelper').logger,
 OperationController = {
     sass2css: function(req, res) {
         var data = req.body.css,
         result = {
             data : {},
-            status : 400,
+            status : 400
         };
 
         if(!data) {
@@ -23,6 +24,7 @@ OperationController = {
             res.end();
         }, 
         function(error) {//转化失败
+            logger.error(error);
             result.message = error.message;
             result.status = 400;
 

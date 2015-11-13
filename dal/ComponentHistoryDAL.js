@@ -1,4 +1,5 @@
-var db = require('./ORM'),
+var logger = require('../helpers/LoggerHelper').logger,
+    db = require('./ORM'),
     ComponentHistory = require('../models/ComponentHistory');
 
 
@@ -15,7 +16,7 @@ function getAllComponentHistoryByComponentID(componentID) {
     return new Promise(function(resolve, reject) {
         db.driver.execQuery(getAllComponentHistoryByComponentIDSQL,  [componentID], function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(data);
@@ -31,7 +32,7 @@ function getComponentHistoryByID(componentHistoryID) {
             componentHistoryID : componentHistoryID
         }, function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(data);
@@ -45,10 +46,10 @@ function createComponentHistory(ComponentHistory) {
     return new Promise(function(resolve, reject) {
         ComponentHistoryTable.create([ComponentHistory],function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
-                console.log('生成组件版本成功', JSON.stringify(data));
+                logger.log('生成组件版本成功', JSON.stringify(data));
                 resolve(ComponentHistory.componentHistoryID);
             }
         });
@@ -62,7 +63,7 @@ function getComponentHistoryByComponentID(componentID) {
     return new Promise(function(resolve, reject) {
         db.driver.execQuery(getComponentHistoryByComponentIDSQL,  [componentID], function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(data);
@@ -77,7 +78,7 @@ function getComponentHistoryByComponentHistoryID(componentHistoryID) {
     return new Promise(function(resolve, reject) {
         db.driver.execQuery(getComponentHistoryByComponentHistoryIDSQL,  [componentHistoryID], function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(data);

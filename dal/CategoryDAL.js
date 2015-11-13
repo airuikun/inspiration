@@ -1,4 +1,5 @@
-var db = require('./ORM'),
+var logger = require('../helpers/LoggerHelper').logger,
+    db = require('./ORM'),
     Category = require('../models/Category');
 
 var CategoryTable = db.define('category', Category.getType(),{
@@ -16,7 +17,7 @@ function getAllCategoryByProductLineID(productLineID) {
             status : 1
         }, function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(data);
@@ -31,7 +32,7 @@ function getComponentsByProductLineID(productLineID) {
     return new Promise(function(resolve, reject) {
         db.driver.execQuery(getAllCategoriesSQL,  [productLineID], function(err, data) {
             if(err) {
-                console.log(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(formatCategories(data));

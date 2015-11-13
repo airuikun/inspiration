@@ -20,6 +20,6 @@ app.use(cookieParser());
 // 配置路由
 require('./config/routes')(app);
 // 配置日志
-require('./config/log')(app);
+require('./helpers/LoggerHelper').use(app);
 
-app.listen(3000);
+app.listen(3100);

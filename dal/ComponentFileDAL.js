@@ -1,4 +1,5 @@
-var db = require('./ORM'),
+var logger = require('../helpers/LoggerHelper').logger,
+    db = require('./ORM'),
     ComponentFile = require('../models/ComponentFile');
 
 
@@ -14,10 +15,10 @@ function saveFiles(files) {
     return new Promise(function(resolve, reject) {
         ComponentFileTable.create(files,function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
-                console.log(JSON.stringify(data));
+                logger.log(JSON.stringify(data));
                 resolve(data);
             }
         })
@@ -31,10 +32,10 @@ function getFilesByComponentID(componentID) {
             componentID : componentID
         }, function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
-                console.log(JSON.stringify(data));
+                logger.log(JSON.stringify(data));
                 resolve(data);
             }
         });
@@ -48,7 +49,7 @@ function deleteFilesByComponentID(componentID) {
             componentID : componentID
         }).remove(function (err) {
             if(err) {
-                console.error('删除' + componentID + '文件失败', err);
+                logger.error('删除' + componentID + '文件失败', err);
                 reject(err);
             }else {
                 resolve(componentID);
@@ -64,7 +65,7 @@ function deleteFileByID(componentFileID) {
             componentFileID: componentFileID
         }).remove(function (err) {
             if (err) {
-                console.error('删除' + componentFileID + '文件失败', err);
+                logger.error('删除' + componentFileID + '文件失败', err);
                 reject(err);
             } else {
                 resolve(componentFileID);

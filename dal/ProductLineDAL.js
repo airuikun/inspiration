@@ -1,4 +1,5 @@
-var db = require('./ORM'),
+var logger = require('../helpers/LoggerHelper').logger,
+    db = require('./ORM'),
     uuid = require('node-uuid'),
     ProductLine = require('../models/ProductLine');
 
@@ -16,7 +17,7 @@ function getAllProductLine() {
             status : 1
         }, function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
                 resolve(data);
@@ -30,10 +31,10 @@ function createProductLine(productLine) {
     return new Promise(function(resolve, reject) {
         ProductLineTable.create([productLine],function(err, data) {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 reject(err);
             }else {
-                console.log(JSON.stringify(data));
+                logger.log(JSON.stringify(data));
             }
         });
     });
@@ -47,6 +48,7 @@ var addProduct = function(productName) {
         db._exec(sql).then(function(data){
             resolve(data);
         }, function(err) {
+            logger.error(err);
             reject(err);
         });
     });

@@ -1,4 +1,5 @@
-var ProductLine = require('../models/ProductLine'),
+var logger = require('../helpers/LoggerHelper').logger,
+    ProductLine = require('../models/ProductLine'),
     Category = require('../models/Category');
 
 //创建组件、组件项
@@ -18,8 +19,6 @@ function createCategory(data) {
 //模拟保存到数据库
 function saveDB(data) {
     return new Promise(function(resolve, reject) {
-        //模拟保存数据
-        console.debug(JSON.stringify(data) + ' 数据存数成功');
         resolve(data);
     });
 }
@@ -33,6 +32,7 @@ var CategoryController = {
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
+            logger.error(e);
             res.redirect('error');
         });
     },
@@ -46,6 +46,7 @@ var CategoryController = {
             //res.render('index', data.componentItem.componentItemID);
             res.send(JSON.stringify(data));
         }).catch(function(e) {
+            logger.error(e);
             res.redirect('error');
         });
     }

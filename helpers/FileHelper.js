@@ -1,4 +1,5 @@
-var fs = require('fs'),
+var logger = require('./LoggerHelper').logger,
+    fs = require('fs'),
     path = require('path'),
     mkdirp = require('mkdirp'),
     BASE_PATH = path.dirname(require.main.filename);
@@ -25,10 +26,10 @@ function saveFile(file, componentFile) {
                         reject(e)
                     });
                 }).catch(function(e) {
-                    console.error(e);
+                    logger.error(e);
                 });
         }catch (e) {
-            console.error(e);
+            logger.error(e);
         }
 
     });
@@ -38,7 +39,8 @@ function mkdir(resolvePath) {
     return new Promise(function(resolve, reject) {
         mkdirp(resolvePath, function (err) {
             if (err) {
-                console.error(err);
+                logger.error('文件夹 ' + resolvePath + ' 创建失败');
+                logger.error(err);
                 reject(err);
             }else {
                 resolve();
@@ -52,10 +54,10 @@ function deleteFile(filePath) {
     return new Promise(function(resolve, reject) {
         fs.unlink(path.join(BASE_PATH,filePath), function(err) {
             if(err) {
-                console.error('删除 ' + filePath + ' 出错',err);
+                logger.error('删除 ' + filePath + ' 出错',err);
                 reject(err);
             }else {
-                console.debug('删除 ' + filePath + ' 成功');
+                logger.debug('删除 ' + filePath + ' 成功');
                 resolve();
             }
         })

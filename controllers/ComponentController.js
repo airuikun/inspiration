@@ -1,4 +1,5 @@
-var FileHelper = require('../helpers/FileHelper'),
+var logger = require('../helpers/LoggerHelper').logger,
+    FileHelper = require('../helpers/FileHelper'),
     AppUtils = require('../helpers/AppUtils'),
     CategoryDAL = require('../dal/CategoryDAL'),
     ComponentFileDAL = require('../dal/ComponentFileDAL'),
@@ -84,7 +85,7 @@ function saveFile(data) {
                 promiseArr.push(FileHelper.saveFile(item, componentFile).then(saveFileToDB));
             }
             Promise.all(promiseArr).then(function() {
-                console.log('上传完毕');
+                logger.info('上传完毕');
                 resolve(data.componentID);
             });
         }else {
@@ -108,6 +109,7 @@ var ComponentController = {
                 productLines : result[1]
             });
         }).catch(function(e) {
+            logger.error(e);
             res.redirect('error');
         });
     },
@@ -125,6 +127,7 @@ var ComponentController = {
                 productLine : result[2]
             });
         }).catch(function(e) {
+            logger.error(e);
             res.redirect('error');
         });
     },
@@ -169,6 +172,7 @@ var ComponentController = {
                 });
             }
         }).catch(function(e) {
+            logger.error(e);
             res.redirect('error');
         });
     },
@@ -200,6 +204,7 @@ var ComponentController = {
                 //渲染页面
                 res.redirect('/component/edit/' + data);
             }).catch(function (e) {
+                logger.error(e);
                 res.redirect('error');
             });
         }else {

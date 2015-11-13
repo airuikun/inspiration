@@ -1,4 +1,5 @@
-var sass = require('node-sass');
+var logger = require('./LoggerHelper').logger,
+    sass = require('node-sass');
 /*
 * sass字符串转化为css字符串方法
 * param sassStr string sass字符串
@@ -10,6 +11,7 @@ function sass2css(sassStr) {
             data : sassStr
         }, function(err,result) {
             if(err) {//失败
+                logger.error('sass转换失败');
                 reject(err);
             }
             else {
