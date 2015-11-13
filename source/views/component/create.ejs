@@ -89,11 +89,15 @@
         </div>
 
 
-    <div class="col-sm-10 container-fluid">
+    <div class="col-sm-10 container-fluid" >
         <div class="col-sm-6">
           <section class="panel panel-default">
-            <header class="panel-heading">HTML</header>
-            <div class="" ui-codemirror="{
+            <header class="panel-heading cc" ng-class="{bb: isPreviewHTML}">HTML   
+                <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchHTML()" >
+                    {{textPreviewHTML}}
+                </div>
+            </header>
+            <div ng-class="{aa: isPreviewHTML}" ui-codemirror="{
                 lineNumbers: true,
                 theme: 'monokai',
                 lineWrapping : true,
@@ -105,8 +109,12 @@
         </div>
         <div class="col-sm-6">
           <section class="panel panel-default">
-            <header class="panel-heading">CSS/SASS</header>
-            <div class="" ui-codemirror="{
+            <header class="panel-heading cc"  ng-class="{bb: isPreviewCSS}">CSS/SASS
+                <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchCSS()" >
+                    {{textPreviewCSS}}
+                </div>
+            </header>
+            <div ng-class="{aa: isPreviewCSS}"  ui-codemirror="{
               lineNumbers: true,
               theme: 'monokai',
               lineWrapping : true,
@@ -120,8 +128,12 @@
     <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
           <section class="panel panel-default">
-            <header class="panel-heading">JavaScript</header>
-            <div class="" ui-codemirror="{
+            <header class="panel-heading cc"  ng-class="{bb: isPreviewJS}">JavaScript
+                <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchJS()" >
+                    {{textPreviewJS}}
+                </div>
+            </header>
+            <div ng-class="{aa: isPreviewJS}" ui-codemirror="{
               lineNumbers: true,
               theme: 'monokai',
               lineWrapping : true,
@@ -133,13 +145,19 @@
         </div>
         <div class="col-sm-6">
            <section class="panel panel-default">
-            <header class="panel-heading">Preview</header>
-            <div class="embed-responsive embed-responsive-16by9-ark">
+            <header class="panel-heading cc" ng-class="{bb: isPreviewFRAME}">Preview
+                <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchFRAME()" >
+                    {{textPreviewFRAME}}
+                </div>
+            </header>
+            <div class="embed-responsive embed-responsive-16by9-ark" ng-class="{aa: isPreviewFRAME}">
               <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ preview }}"></iframe>
             </div>
           </section>
         </div>
     </div>
+
+
 
     <div class="col-sm-10 container-fluid"  ng-show="isShowCreate">
         <form action="/component/create/" method="post" class="form-marginleft-ark" enctype="multipart/form-data">

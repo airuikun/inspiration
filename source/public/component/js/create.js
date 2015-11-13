@@ -142,7 +142,66 @@ var template =
     }
 
 })
-.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies, watchUpdateContent, projectGroup) {
+
+
+
+
+.factory('changeWatchHTML', function($rootScope) {
+        return function() {
+            // window.location.href = '/component/edit/';
+            $rootScope.isPreviewHTML = !$rootScope.isPreviewHTML;
+            if ($rootScope.textPreviewHTML == "开启全屏"){
+                $rootScope.textPreviewHTML = "关闭全屏";
+            } else {
+                $rootScope.textPreviewHTML = "开启全屏"
+            }
+        };
+    })
+
+.factory('changeWatchCSS', function($rootScope) {
+        return function() {
+            // window.location.href = '/component/edit/';
+            $rootScope.isPreviewCSS = !$rootScope.isPreviewCSS;
+            if ($rootScope.textPreviewCSS == "开启全屏"){
+                $rootScope.textPreviewCSS = "关闭全屏";
+            } else {
+                $rootScope.textPreviewCSS = "开启全屏"
+            }
+        };
+    })
+
+.factory('changeWatchJS', function($rootScope) {
+        return function() {
+            // window.location.href = '/component/edit/';
+            $rootScope.isPreviewJS = !$rootScope.isPreviewJS;
+            if ($rootScope.textPreviewJS == "开启全屏"){
+                $rootScope.textPreviewJS = "关闭全屏";
+            } else {
+                $rootScope.textPreviewJS = "开启全屏"
+            }
+        };
+    })
+
+.factory('changeWatchFRAME', function($rootScope) {
+        return function() {
+            // window.location.href = '/component/edit/';
+            $rootScope.isPreviewFRAME = !$rootScope.isPreviewFRAME;
+            if ($rootScope.textPreviewFRAME == "开启全屏"){
+                $rootScope.textPreviewFRAME = "关闭全屏";
+            } else {
+                $rootScope.textPreviewFRAME = "开启全屏"
+            }
+        };
+    })
+
+
+
+
+
+
+
+
+.run(function($rootScope, $templateRequest, compile, save, createPage, choiceCategory, gotoExample, $sce, $timeout, watchAll, template, $cookies, watchUpdateContent, projectGroup, changeWatchHTML, changeWatchCSS, changeWatchJS, changeWatchFRAME) {
     $rootScope.compile = compile;
     $rootScope.save = save;
     $templateRequest('init.html').then(function(data) {
@@ -218,6 +277,27 @@ var template =
 
     //点击项目组
     $rootScope.projectGroup = projectGroup;
+
+
+    //是否预览HTML
+    $rootScope.isPreviewHTML = false;
+    $rootScope.textPreviewHTML = "开启全屏";
+    $rootScope.changeWatchHTML = changeWatchHTML;
+
+    //是否预览CSS
+    $rootScope.isPreviewCSS = false;
+    $rootScope.textPreviewCSS = "开启全屏";
+    $rootScope.changeWatchCSS = changeWatchCSS;
+
+    //是否预览JS
+    $rootScope.isPreviewJS = false;
+    $rootScope.textPreviewJS = "开启全屏";
+    $rootScope.changeWatchJS = changeWatchJS;
+
+    //是否预览FRAME
+    $rootScope.isPreviewFRAME = false;
+    $rootScope.textPreviewFRAME = "开启全屏";
+    $rootScope.changeWatchFRAME = changeWatchFRAME;
 
 
 

@@ -46,11 +46,6 @@
 }
 
 
-.fileDivfork-ark {
-    position: absolute;
-    right: 15px;
-    bottom: 8px;
-}
 
 .fileDivfork-left-ark {
     position: absolute;
@@ -63,6 +58,60 @@
    width: 639px;
 }
 
+.fileDivfork-ark-1 {
+    position: absolute;
+    right: 15px;
+    bottom: 8px;
+    top: 8px;
+}
 
 
+
+
+
+
+
+.fileDivfork-ark {
+    position: absolute;
+    right: 33px;
+    /*bottom: 8px;*/
+    top: 5px;
+}
+
+
+
+
+/*预览图*/
+
+/*.CodeMirror {
+    height: 100% !important;
+}*/
+
+
+.aa > div {
+    height: 100% !important;
+}
+
+
+.aa{
+    width:100%;
+    height:100% !important;
+    position:fixed;
+    top:40px;
+    left:0;
+    z-index:1000;
+    background-color: #FFF;
+}
+
+.bb{
+    position:fixed;
+    top:0px;
+    left:0;
+    z-index:1000;
+}
+
+.cc{
+    width:100%;
+
+}
 
