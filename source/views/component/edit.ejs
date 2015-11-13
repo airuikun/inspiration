@@ -197,7 +197,7 @@
                 <input type="file" name="file" multiple />
             </div>
 
-            <div class="form-group" ng-show="hideOldHistory">
+            <div class="form-group" ng-init="hideOldHistory=false" ng-show="hideOldHistory">
                 <label>历史版本 ： </label>
                  <ul>
                     <div ng-repeat="historyItem in componentHistory" class="alert fileDiv-ark"  >{{historyItem.createTime | date:'yyyy-MM-dd   hh:mm:ss'}}

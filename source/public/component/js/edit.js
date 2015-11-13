@@ -280,7 +280,7 @@ var template =
         }
 
         //隐藏掉老版本的“历史版本”
-        $rootScope.show
+        // $rootScope.hideOldHistory = false;
 
     }, 300);
 
