@@ -117,6 +117,18 @@
 
     <div class="col-sm-10 container-fluid" >
         <div class="col-sm-6">
+           <section class="panel panel-default">
+            <header class="panel-heading cc" ng-class="{bb: isPreviewFRAME}">Preview
+                <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchFRAME()">
+                    {{textPreviewFRAME}}
+                </div>
+            </header>
+            <div class="embed-responsive embed-responsive-16by9-ark" ng-class="{aa: isPreviewFRAME}">
+              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ preview }}"  ng-cloak></iframe>
+            </div>
+          </section>
+        </div>
+        <div class="col-sm-6">
           <section class="panel panel-default">
             <header class="panel-heading cc" ng-class="{bb: isPreviewHTML}">HTML   
                 <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchHTML()" >
@@ -133,6 +145,8 @@
               }"></div>
           </section>
         </div>
+    </div>
+    <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
           <section class="panel panel-default">
             <header class="panel-heading cc"  ng-class="{bb: isPreviewCSS}">CSS/SASS
@@ -150,8 +164,6 @@
             }"></div>
           </section>
         </div>
-    </div>
-    <div class="col-sm-10 container-fluid">
         <div class="col-sm-6">
           <section class="panel panel-default">
             <header class="panel-heading cc"  ng-class="{bb: isPreviewJS}">JavaScript
@@ -169,18 +181,6 @@
             }"></div>
           </section>
         </div>
-        <div class="col-sm-6">
-           <section class="panel panel-default">
-            <header class="panel-heading cc" ng-class="{bb: isPreviewFRAME}">Preview
-                <div class="btn btn-primary fileDivfork-ark" ng-click="changeWatchFRAME()" >
-                    {{textPreviewFRAME}}
-                </div>
-            </header>
-            <div class="embed-responsive embed-responsive-16by9-ark" ng-class="{aa: isPreviewFRAME}">
-              <iframe class="col-sm-12 iframe-ark"  srcdoc="{{ preview }}"></iframe>
-            </div>
-          </section>
-        </div>
     </div>
 
     <div class="col-sm-10 container-fluid"  ng-show="isShowCreate">
@@ -196,7 +196,7 @@
                 <label>编辑已有文件 ： </label>
                 <ul>
                     <div ng-repeat="fileItem in files" class="alert fileDiv-ark {{fileItem.componentFileID}}"  >{{fileItem.fileName}}
-                        <a href="http://localhost:3000/{{fileItem.path}}">
+                        <a href="/{{fileItem.path}}">
                             <div class="btn btn-primary fileDivfork-left-ark" >
                                 下载
                             </div>

@@ -87,22 +87,6 @@
     height: 100% !important;
 }*/
 
-
-.aa > div {
-    height: 100% !important;
-}
-
-
-.aa{
-    width:100%;
-    height:100% !important;
-    position:fixed;
-    top:40px;
-    left:0;
-    z-index:1000;
-    background-color: #FFF;
-}
-
 .bb{
     position:fixed;
     top:0px;
@@ -115,3 +99,19 @@
 
 }
 
+.aa .CodeMirror {
+    height: 100% ;
+}
+.aa{
+    width:100%;
+    height:100% !important;
+    position:fixed;
+    top:40px;
+    left:0;
+    z-index:1000;
+    background-color: #FFF;
+}
+
+/*.CodeMirror {
+  height: 100%;
+}*/
