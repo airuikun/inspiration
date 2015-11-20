@@ -1,7 +1,7 @@
 var fileLog = {};
 var isConsole = false;
 var log4js = require('log4js');
-var fs = require("fs");
+var mkdirp = require('mkdirp');
 var path = require("path");
 
 // 加载配置文件
@@ -38,7 +38,7 @@ if(objConfig.appenders){
         }
         var category = item["category"];
         var dir = path.dirname(fileName);
-        checkAndCreateDir(dir);
+        mkdirp.sync(dir);
     }
 }
 
@@ -84,10 +84,3 @@ exports.use = function(app) {
 };
 
 exports.logger = isConsole ? consoleLog : fileLog;
-
-// 判断日志目录是否存在，不存在时创建日志目录
-function checkAndCreateDir(dir){
-    if(!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
-    }
-}
