@@ -65,12 +65,27 @@ function editComponent(data, files) {
         });
 }
 
-
-//保存文件到数据库
+// 保存文件到数据库
 function saveFileToDB(componentFile) {
-    return ComponentFileDAL.saveFiles([componentFile]);
-}
+    return ComponentFileDAL.hasComponentFile(componentFile.path).then(function (has) {
+        if (!has) {
+           return ComponentFileDAL.saveFiles([componentFile]);
+        }
+    });
 
+    //if (-1 != componentFile.fileName.indexOf('preview')) {
+        // 如果是预览图的话需要查询是否存在，如果存在则替换
+    //     return ComponentFileDAL.updFilePathByCidAndFname(componentFile.componentID, componentFile.fileName, componentFile.path).then(function (data) {
+    //         if (200 != data) {
+    //             // 预览图不存在
+    //             ComponentFileDAL.saveFiles([componentFile]);
+    //         }
+    //     });
+    //} else {
+        //不是预览图直接保存入库
+    //    return ComponentFileDAL.saveFiles([componentFile]);
+    //}
+}
 
 function saveFile(data) {
     return new Promise(function(resolve, reject) {

@@ -102,6 +102,7 @@
             </div>
           </section>
         </div>
+
         <div class="col-sm-6">
           <section class="panel panel-default">
             <header class="panel-heading cc" ng-class="{bb: isPreviewHTML}">HTML   
@@ -168,7 +169,7 @@
             <input type="hidden" name="css"  value="{{css}}" />
             <input type="hidden" name="productLineID" value="{{productLineID}}" />
             <div class="form-group">
-                <label>上传文件 ： </label>
+                <label>上传文件 ：<span class='red font12'>(如需上传预览图,请将图片命名为preview.jpg / preview.gif / preview.png其中一种)</span></span></label>
                 <input type="file" name="file" multiple />
             </div>
 
@@ -215,6 +216,8 @@
 
 
 <script src="../../public/component/js/create.js"></script>
+<!--上传文件插件所需文件 3个-->
+<script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
 
 </body>
 </html>

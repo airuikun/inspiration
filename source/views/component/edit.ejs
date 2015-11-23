@@ -89,7 +89,9 @@
             </accordion>
         </div>
 
-        <div id="controlCreateView" class="col-sm-10 container-fluid" ng-show="isShowCreate">
+        <div id="controlCreateView" class="col-sm-10 container-fluid posRev" ng-show="isShowCreate">
+            <div class="previewImg {{previewFile.style}}">
+            <img src="../../{{previewFile.path}}" alt='效果图' /><!--预览图放这里,初始是隐藏状态--></div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>样例名称 ： </label>
@@ -191,11 +193,11 @@
             <input type="hidden" name="js" value="{{javascript}}" />
             <input type="hidden" name="css" value="{{css}}" />
 
-
             <div class="form-group" ng-show="showEditFile">
-                <label>编辑已有文件 ： </label>
+                <label>编辑已有文件 ：</label>
+
                 <ul>
-                    <div ng-repeat="fileItem in files" class="alert fileDiv-ark {{fileItem.componentFileID}}"  >{{fileItem.fileName}}
+                    <div ng-repeat="fileItem in files" class="alert fileDiv-ark {{fileItem.componentFileID}}"  >{{fileItem.fileName}} <span class='font10 red'>{{fileItem.previewNotic}}</span>
                         <a href="/{{fileItem.path}}">
                             <div class="btn btn-primary fileDivfork-left-ark" >
                                 下载
@@ -204,12 +206,12 @@
                         <div class="btn btn-primary fileDivfork-ark-1" ng-click="deleteFiles(fileItem.componentFileID)">
                             删除
                         </div>
-                    </div>
+                    </div>                    
                 </ul>
             </div>
 
             <div class="form-group">
-                <label>上传文件 ： </label>
+                <label>上传文件 ：<span class='red font12'>(如需上传预览图,请将图片命名为preview.jpg / preview.gif / preview.png其中一种)</span></label>
                 <input type="file" name="file" multiple />
             </div>
 

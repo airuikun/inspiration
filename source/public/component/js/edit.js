@@ -105,7 +105,7 @@ var template =
 
 //点击去下载文件
 .factory('deleteFiles', function($http, $rootScope, $document) {
-        return function(componentFileID) {
+        return function(componentFileID) {//加个参数,标识删除的是预览图还是普通文件
             $http.get('/file/' + componentFileID)
             .success(function() {
                 for ( var i = 0; i < $rootScope.files.length; i++ ) {
@@ -283,6 +283,22 @@ var template =
     //点击样例
     $rootScope.gotoExample = gotoExample;
 
+    // 将效果图从文件列表中取出
+    if (files) {
+        var fileLen = files.length,
+            previewFile = {'style' : 'hide'};//存放效果图,默认是隐藏状态,没有效果图也是隐藏状态
+
+        // 将效果图文件与其他文件分别放到不同的存储变量
+        for (var i = 0; i < fileLen; i++) {
+            if (-1 != files[i].fileName.indexOf('preview')) {
+                previewFile = files[i];
+                files[i].previewNotic = "(预览图)";
+                previewFile.style = 'show';//有效果图,将效果图状态改为显示
+            }
+        }
+    }
+        
+
 
     //从数据段获取的到页面信息
     $timeout(function(){
@@ -298,8 +314,10 @@ var template =
         $rootScope.componentID = $rootScope.component.componentID;
         $rootScope.componentHistoryID = $rootScope.component.componentHistoryID;
         $rootScope.categoryID = component.categoryID; 
-        //文件
+        //上传的文件
         $rootScope.files = files;
+        //上传的效果图
+        $rootScope.previewFile = previewFile;
         //历史版本
         $rootScope.componentHistory = componentHistory;
 

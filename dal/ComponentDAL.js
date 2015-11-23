@@ -46,7 +46,7 @@ function updateComponent(componentID, newComponent) {
         ComponentTable.find({
             componentID : componentID
         }, function(err, component) {
-            if(err) reject(err);;
+            if(err) reject(err);
             for(var key in newComponent) {
                 component[0][key] = newComponent[key];
             }

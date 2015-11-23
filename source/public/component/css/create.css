@@ -15,6 +15,13 @@
     height: 300px;
 }
 
+.red {
+  color: red;
+}
+.font12 {
+  font-size: 12px;
+}
+
 .iframe-ark {
     padding-right:0px;
 }

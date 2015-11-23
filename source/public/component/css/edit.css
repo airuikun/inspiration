@@ -58,18 +58,13 @@
    width: 639px;
 }
 
+
 .fileDivfork-ark-1 {
     position: absolute;
     right: 15px;
     bottom: 8px;
     top: 8px;
 }
-
-
-
-
-
-
 
 .fileDivfork-ark {
     position: absolute;
@@ -78,10 +73,25 @@
     top: 5px;
 }
 
-
-
-
 /*预览图*/
+.previewImg {
+    height: 150px;
+    position: absolute;
+    top: 0px;
+    right: 200px;
+}
+
+.previewImg img {
+    height: 150px;
+}
+
+.show {
+    display: block;
+}
+
+.posRev{
+    position: relative;
+}
 
 /*.CodeMirror {
     height: 100% !important;
@@ -97,6 +107,13 @@
 .cc{
     width:100%;
 
+}
+
+.red {
+  color: red;
+}
+.font12 {
+  font-size: 12px;
 }
 
 .aa .CodeMirror {
