@@ -1,11 +1,11 @@
+var objConfig = require("../config/log4js.json");
 var fileLog = {};
-var isConsole = false;
+var isConsole = objConfig.debug;
 var log4js = require('log4js');
 var mkdirp = require('mkdirp');
 var path = require("path");
 
-// 加载配置文件
-var objConfig = require("../config/log4js.json");
+
 
 // 检查配置文件所需的目录是否存在，不存在时创建
 if(objConfig.appenders){
