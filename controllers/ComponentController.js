@@ -245,6 +245,18 @@ var ComponentController = {
             });
         }
 
+    },
+    preview : function(req, res) {
+        var componentID = req.params.componentID;
+        if(componentID) {
+            ComponentHistoryDAL.getComponentHistoryByComponentID(componentID)
+                .then(function(componentHistory) {
+                    console.log(componentHistory)
+                })
+        }else {
+            res.redirect('404');
+        }
+
     }
 };
 

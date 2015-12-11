@@ -32,6 +32,8 @@ module.exports = function(app) {
     app.get('/component/edit/:componentID/:componentHistoryID', PageController.redirectWelcome, ComponentController.renderEditPage);
     // 新建组件页面
     app.get('/component/create', PageController.redirectWelcome, ComponentController.renderCreationPage);
+    // 预览组件页面
+    app.get('/component/preview/:componentID', PageController.redirectWelcome, ComponentController.preview);
 
     // 组件类的路由
     app.post('/component/create', multipartMiddleware, ComponentController.create);
@@ -40,7 +42,9 @@ module.exports = function(app) {
 
     //类别
     app.post('/category/create', CategoryController.createCategory);
-    //app.get('/category/:productLineID', CategoryController.getCategoriesByProductLineID);
+
+    //代码广场
+    app.get('/square', CategoryController.findComponentsByCategoryID);
 
     //产品线
     app.post('/productLine/create', CategoryController.createProductLine);

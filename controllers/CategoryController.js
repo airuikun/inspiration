@@ -1,6 +1,7 @@
 var logger = require('../helpers/LoggerHelper').logger,
     ProductLine = require('../models/ProductLine'),
-    Category = require('../models/Category');
+    Category = require('../models/Category'),
+    ComponentDAL = require('../dal/ComponentDAL');
 
 //创建组件、组件项
 function createProductLine(data) {
@@ -49,8 +50,31 @@ var CategoryController = {
             logger.error(e);
             res.redirect('error');
         });
+    },
+    findComponentsByCategoryID: function(req, res) {
+        var categoryID = req.query.categoryID;
+        var pageNum = parseInt(req.query.pageNum) || 1;
+        var pageSize = parseInt(req.query.pageSize) || 10;
+
+        if(categoryID) {
+            Promise.all([
+                ComponentDAL.getComponentsByCategoryID(categoryID, pageNum, pageSize),
+                ComponentDAL.getCountsByCategoryID(categoryID, pageSize)
+            ]).then(function(data) {
+                res.send({
+                    pageNum: pageNum,
+                    pageSize: pageSize,
+                    totalPage: data[1],
+                    component: data[0]
+                });
+            })
+        } else {
+            res.redirect('error');
+        }
+
     }
 };
+
 
 module.exports = CategoryController;
 

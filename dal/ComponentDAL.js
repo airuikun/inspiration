@@ -108,6 +108,40 @@ function delComponent(comid){
     });
 }
 
+function getComponentsByCategoryID(categoryID, pageNum, pageSize) {
+    return new Promise(function(resolve, reject) {
+        ComponentTable.find({
+            categoryID : categoryID,
+            status: 1
+        }).offset((pageNum - 1) * pageSize).limit(pageSize).run(function(err, data) {
+            if(err) {
+                logger.error(err);
+                reject(err);
+            }else {
+                resolve(data);
+            }
+        })
+    });
+}
+
+
+function getCountsByCategoryID(categoryID, pageSize) {
+    return new Promise(function(resolve, reject) {
+        ComponentTable.find({
+            categoryID : categoryID,
+            status: 1
+        }).count(function(err, count) {
+            if(err) {
+                logger.error(err);
+                reject(err);
+            }else {
+                resolve(Math.ceil(count / pageSize));
+            }
+        })
+    });
+}
+
+
 //这里提交给上层Controller调用
 module.exports = {
     getAllComponent : getAllComponent,
@@ -115,4 +149,6 @@ module.exports = {
     updateComponent : updateComponent,
     getProductCategory2Component : getProductCategory2Component,
     delComponent : delComponent,
+    getComponentsByCategoryID : getComponentsByCategoryID,
+    getCountsByCategoryID: getCountsByCategoryID
 };
