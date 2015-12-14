@@ -5,6 +5,7 @@ var logger = require('../helpers/LoggerHelper').logger,
 var CategoryTable = db.define('category', Category.getType(),{
     cache   : false
 });
+
 //同步表
 //CategoryTable.sync();
 
@@ -70,8 +71,7 @@ function formatCategories(arr) {
     return result;
 }
 
-
 module.exports = {
     getComponentsByProductLineID : getComponentsByProductLineID,
-    getAllCategoryByProductLineID : getAllCategoryByProductLineID
+    getAllCategoryByProductLineID : getAllCategoryByProductLineID,
 };

@@ -1,5 +1,7 @@
 var logger = require('../helpers/LoggerHelper').logger,
     ProductLine = require('../dal/ProductLineDAL'),
+    CategoryDAL = require('../dal/CategoryDAL'),
+    ComponentDAL = require('../dal/ComponentDAL'),
     SafetyHelper = require('../helpers/SafetyHelper'),
     pageTitle = "动效平台后台管理",
 
@@ -209,6 +211,62 @@ var logger = require('../helpers/LoggerHelper').logger,
             })
     },
 
+
+    //查看指定产品线下分类信息
+    getComponentApi: function(req, res) {
+        var productId = req.body.pid,
+            categoryId = req.body.cid,
+            result = {'cateMessage':'','comMessage':''};
+        //查询全部产品线
+        CategoryDAL.getAllCategoryByProductLineID(productId).then(function(catData) {
+            categoryId = categoryId ? categoryId : (catData[0].categoryID || categoryId);
+            //根据产品线ID和分类ID查询出组件列表,删除后需要显示之前的ID数据
+            ComponentDAL.getProductCategory2Component(productId,categoryId).then(function(comData) {
+                if(catData[0]){
+                    var catLen = catData.length;
+                    for(var i=0;i<catLen;i++){ 
+                        var rs = catData[i];
+                        result.cateMessage+="<option value='"+rs.productLineID+"⊙"+rs.categoryID+"'>"+rs.name+"</option>";
+                    }
+                }
+                if(comData[0]){
+                    var comLen = comData.length;
+                    for(var i=0;i<comLen;i++){
+                        var rs = comData[i],
+                            dataTime = new Date(rs.createTime).toLocaleDateString(),
+                            num =i+1;
+                        result.comMessage+="<tr class='cat2com'>";
+                        result.comMessage+="<td align='center' valign='middle'>"+num+"</td>";
+                        result.comMessage+="<td align='center' valign='middle'>"+rs.name+"</td>";
+                        result.comMessage+="<td align='center' valign='middle'>"+dataTime+"</td>";
+                        result.comMessage+="<td align='center' valign='middle'><span pid='"+rs.productLineID+"' cateid='"+rs.categoryID+"' comid='"+rs.componentID+"' cname='"+rs.name+"' class='crosshair del'>删除</span></td>";
+                        result.comMessage+="</tr>";
+                    }
+                }
+
+                result.status = 200;
+                res.send(result);
+                res.end();
+            }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+                logger.error(err);      
+                result.message = "暂无结果";
+                result.status = 400;
+
+                res.send(result);
+                res.end();
+                
+            });
+        }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+            logger.error(err);      
+            result.message = "暂无结果";
+            result.status = 400;
+
+            res.send(result);
+            res.end();
+                
+        })
+    },
+
     //修改产品线ajax接口
     editCategoryApi: function(req, res) {
         var categoryName = SafetyHelper.stripscript(req.body.categoryName),//XSS过滤
@@ -241,6 +299,65 @@ var logger = require('../helpers/LoggerHelper').logger,
             result.status = 200;
             res.send(result);
             res.end();
+        })
+    },
+
+    delComApi: function(req, res) {
+        var comid = req.body.comid,
+            result = {};
+        ComponentDAL.delComponent(comid).then(function() {
+            result.message = "删除成功";
+            result.status = 200;
+            res.send(result);
+            res.end();
+        })
+    },
+
+    //查看组件页面
+    showComponentPage: function(req, res) {
+        var productId = req.params.pid != 'nopid' ? req.params.pid : '';
+        var categoryId = req.params.cid != 'nocid' ? req.params.cid : '';
+        //查询全部产品线
+        ProductLine.getAllProductLine().then(function(proData) {
+            productId = productId ? productId : (proData[0].productLineID || productId);
+            CategoryDAL.getAllCategoryByProductLineID(productId).then(function(catData) {
+                categoryId = categoryId ? categoryId : (catData[0].categoryID || categoryId);
+                //根据产品线ID和分类ID查询出组件列表,编辑或删除后需要显示之前的ID数据
+                ComponentDAL.getProductCategory2Component(productId,categoryId).then(function(comData) {
+                    res.render('cms/showComponentPage', {
+                        "pageTitle":pageTitle,
+                        "proData":proData,
+                        "catData":catData,
+                        "comData":comData,
+                        "productId":productId,
+                        "categoryId":categoryId
+                    });
+                    res.end();
+                }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+                    logger.error(error);
+                    res.render('cms/showCategoryPage', {
+                        "pageTitle":pageTitle,
+                        "ComData":[]
+                    });
+                    res.end();
+                });
+            }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+                logger.error(error);
+                res.render('cms/showCategoryPage', {
+                    "pageTitle":pageTitle,
+                    "ComData":[]
+                });
+                res.end();
+                
+            })
+        }, function(error){//错误信息不用传递到页面,错误后页面不显示数据即可
+            logger.error(error);
+            res.render('cms/showCategoryPage', {
+                "pageTitle":pageTitle,
+                "ComData":[]
+            });
+            res.end();
+            
         })
     },
 };

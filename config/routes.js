@@ -71,6 +71,7 @@ module.exports = function(app) {
     app.get('/cms/showProduct', CmsController.showProductPage);//查看产品线管理页面
     app.get('/cms/addCategory', CmsController.addCategoryPage);//添加分类管理页面
     app.get('/cms/showCategory/:pid', CmsController.showCategoryPage);//查看分类管理页面
+    app.get('/cms/showComponent/:pid/:cid', CmsController.showComponentPage);//查看组件页面
     //cms管理ajax接口
     //app.get('/cms/addProductApi/:projectName', CmsController.addProductApi);//添加产品线
     app.post('/cms/addProduct', CmsController.addProductApi);//添加产品线
@@ -80,4 +81,6 @@ module.exports = function(app) {
     app.post('/cms/showCategory', CmsController.getCategoryApi);//获取产品线下全部分类
     app.post('/cms/editCategory', CmsController.editCategoryApi);//修改分类
     app.post('/cms/delCategory', CmsController.delCategoryApi);//删除分类
+    app.post('/cms/showComponent', CmsController.getComponentApi);//获取组件
+    app.post('/cms/delCom', CmsController.delComApi);//删除组件
 };

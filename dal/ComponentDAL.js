@@ -73,10 +73,46 @@ function getAllComponent() {
     });
 }
 
+function getProductCategory2Component(productId,categoryId){
+    return new Promise(function(resolve, reject) {
+        ComponentTable.find({
+            productLineID : productId,
+            categoryID : categoryId,
+            status : 1
+        }, function(err, data) {
+            if(err) {
+                logger.error(err);
+                reject(err);
+            }else {
+                resolve(data);
+            }
+        });
+    });
+}
+
+function delComponent(comid){
+    return new Promise(function(resolve, reject) {
+        ComponentTable.find({
+            componentID : comid,
+        }, function(err, data) {
+            if(data[0].id) {
+                data[0].status = 2;
+                data[0].save(function (err) {
+                   reject(err);
+                });
+                resolve(200);
+            }else{
+                resolve(400);
+            }
+        });
+    });
+}
 
 //这里提交给上层Controller调用
 module.exports = {
     getAllComponent : getAllComponent,
     createComponent : createComponent,
-    updateComponent : updateComponent
+    updateComponent : updateComponent,
+    getProductCategory2Component : getProductCategory2Component,
+    delComponent : delComponent,
 };
