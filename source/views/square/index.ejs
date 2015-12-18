@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="ucpen">
+<head>
+    <meta charset="UTF-8">
+    <title>动效平台首页</title>
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../../public/bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="../../public/bower_components/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="../../public/square/css/index.css">
+</head>
+<body>
+<script>
+    //左边栏
+    var data = <%- JSON.stringify(data) %>;
+    console.log('数据'); 
+    console.log(data); 
+
+   </script>
+
+
+
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <span class="navbar-brand">动效广场</span>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+
+        <!-- <li><a href="/component/create">新建</a></li> -->
+        <!-- <li><a href="/component/edit">编辑</a></li>
+        <li><a href="" ng-click="createPage();">新建</a></li> -->
+        <!-- <li><a href="" ng-click="save({html: html, css: css, javascript: javascript})">保存</a></li> -->
+        <!-- <li><a href="" ng-click="html = ''; css = ''; javascript = '';">清除</a></li> -->
+      </ul>
+    </div>
+</nav>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 container-fluid" >
+
+                <div ng-repeat="items in component" class="col-sm-4">
+                    <section class="panel panel-default">
+                        <header class="panel-heading cc">{{items.name}}
+                            <div class="fileDivfork-ark">
+                                <a href="/component/preview/{{items.componentID}}">
+                                    预览
+                                </a>
+                            </div>
+                        </header>
+                        <div class="embed-responsive embed-responsive-16by9-ark">
+                        <iframe class="col-sm-12 iframe-ark"  ng-src="{{items.url}}"></iframe>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../public/bower_components/angular/angular.js"></script>
+<script src="../../public/bower_components/angular-animate/angular-animate.js"></script>
+<script src="../../public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<script src="../../public/bower_components/codemirror/lib/codemirror.js"></script>
+<script src="../../public/bower_components/codemirror/mode/xml/xml.js"></script>
+<script src="../../public/bower_components/codemirror/mode/css/css.js"></script>
+<script src="../../public/bower_components/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../public/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="../../public/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
+
+<script src="../../public/square/js/index.js"></script>
+
+   </body>
+</html>

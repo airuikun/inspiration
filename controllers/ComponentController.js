@@ -251,7 +251,11 @@ var ComponentController = {
         if(componentID) {
             ComponentHistoryDAL.getComponentHistoryByComponentID(componentID)
                 .then(function(componentHistory) {
-                    console.log(componentHistory)
+                    console.log(componentHistory);
+                    res.render('component/preview', {
+                        "data":componentHistory
+                    });
+                    res.end();
                 })
         }else {
             res.redirect('404');
