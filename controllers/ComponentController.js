@@ -252,6 +252,7 @@ var ComponentController = {
             ComponentHistoryDAL.getComponentHistoryByComponentID(componentID)
                 .then(function(componentHistory) {
                     console.log(componentHistory);
+                    componentHistory[0].html = encodeURIComponent(componentHistory[0].html);
                     res.render('component/preview', {
                         "data":componentHistory
                     });

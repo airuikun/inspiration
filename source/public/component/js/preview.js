@@ -56,7 +56,7 @@ var template =
     $rootScope.save = save;
 
     $rootScope.preview = '';
-    $rootScope.html = data[0].html;
+    $rootScope.html = decodeURIComponent(data[0].html);
     $rootScope.css = data[0].css;
     $rootScope.javascript = data[0].js;
 
