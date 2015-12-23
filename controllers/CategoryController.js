@@ -61,12 +61,22 @@ var CategoryController = {
                 ComponentDAL.getComponentsByCategoryID(categoryID, pageNum, pageSize),
                 ComponentDAL.getCountsByCategoryID(categoryID, pageSize)
             ]).then(function(data) {
-                res.send({
-                    pageNum: pageNum,
-                    pageSize: pageSize,
-                    totalPage: data[1],
-                    component: data[0]
-                });
+                 res.render('square', {
+                        "data":{
+                            pageNum: pageNum,
+                            pageSize: pageSize,
+                            totalPage: data[1],
+                            component: data[0]
+                        }
+                    });
+                res.end();
+
+                // res.send({
+                //     pageNum: pageNum,
+                //     pageSize: pageSize,
+                //     totalPage: data[1],
+                //     component: data[0]
+                // });
             })
         } else {
             res.redirect('error');
