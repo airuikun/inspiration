@@ -53,9 +53,13 @@
     <div class="row">
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
-                <accordion-group ng-repeat="itemCate in category" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
-                    <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="/component/edit/{{item.componentID}}">{{item.componentName}}</a></div>
-                </accordion-group>
+                <div style="position:relative;" ng-repeat="itemCate in category" >
+                    <accordion-group id="{{itemCate.id}}"  heading="{{itemCate.category}}">
+                        <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="/component/edit/{{item.componentID}}">{{item.componentName}}</a></div>
+                    </accordion-group>
+                    <a href="/square?categoryID={{itemCate.id}}&pageNum=1&pageSize=10"><div class="fileDivfork-ark">广场</div></a>
+                </div>
+
             </accordion>
         </div>
     

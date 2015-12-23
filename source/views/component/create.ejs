@@ -57,10 +57,13 @@
     <div class="row">
         <div class="col-sm-2 sidebar sidebar-css-ark">
             <accordion>
-                <accordion-group ng-repeat="itemCate in component" id="{{itemCate.id}}"  heading="{{itemCate.category}}">
+                <div style="position:relative;" ng-repeat="itemCate in component" >
+                <accordion-group id="{{itemCate.id}}" heading="{{itemCate.category}}">
                     <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="/component/edit/{{item.componentID}}">{{item.componentName}}</a></div>
                 </accordion-group>
             </accordion>
+            <a href="/square?categoryID={{itemCate.id}}&pageNum=1&pageSize=10"><div class="fileDivfork-ark">广场</div></a>
+            </div>
         </div>
     
         <div id="controlCreateView" class="col-sm-10 container-fluid" ng-show="isShowCreate">

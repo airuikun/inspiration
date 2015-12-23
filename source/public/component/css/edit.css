@@ -68,9 +68,10 @@
 
 .fileDivfork-ark {
     position: absolute;
-    right: 33px;
+    right: 18px;
     /*bottom: 8px;*/
-    top: 11px;
+    top: 8px;
+    z-index: 999999;
 }
 
 /*预览图*/
