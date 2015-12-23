@@ -57,7 +57,7 @@
                     <accordion-group id="{{itemCate.id}}"  heading="{{itemCate.category}}">
                         <div ng-repeat="item in itemCate.example" id="{{item.componentID}}" ng-click="gotoExample(item.componentID)"><a href="/component/edit/{{item.componentID}}">{{item.componentName}}</a></div>
                     </accordion-group>
-                    <a href="http://localhost:3000/square?categoryID={{itemCate.id}}&pageNum=1&pageSize=10"><div class="fileDivfork-ark">广场</div></a>
+                    <a href="/square?categoryID={{itemCate.id}}&pageNum=1&pageSize=10"><div class="fileDivfork-ark">广场</div></a>
                 </div>
 
             </accordion>

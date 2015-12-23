@@ -8,7 +8,8 @@ var logger = require('../helpers/LoggerHelper').logger,
     ProductLineDAL = require('../dal/ProductLineDAL'),
     Component = require('../models/Component'),
     ComponentFile = require('../models/ComponentFile'),
-    ComponentHistory = require('../models/ComponentHistory');
+    ComponentHistory = require('../models/ComponentHistory'),
+    SassHelper = require('../helpers/SassHelper');
 
 //创建组件、组件项
 function createComponent(data, files) {
@@ -251,13 +252,15 @@ var ComponentController = {
         if(componentID) {
             ComponentHistoryDAL.getComponentHistoryByComponentID(componentID)
                 .then(function(componentHistory) {
-                    console.log(componentHistory);
-                    componentHistory[0].html = encodeURIComponent(componentHistory[0].html);
-                    res.render('component/preview', {
-                        "data":componentHistory
+                    //将sass代码转化为css代码
+                    SassHelper.sass2css(componentHistory[0].css).then(function(resData) {
+                        componentHistory[0].css = resData.css.toString("utf8");
+                        res.render('component/preview', {
+                            "data":componentHistory[0]
+                        });
+                        res.end();
                     });
-                    res.end();
-                })
+                });
         }else {
             res.redirect('404');
         }
