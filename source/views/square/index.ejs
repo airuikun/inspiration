@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-hans" >
+<head>
+    <meta charset="UTF-8">
+    <title>动效平台首页</title>
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../../public/square/css/index.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <span class="navbar-brand">动效广场</span>
+          </div>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 container-fluid" >
+
+                <% for (var i = 0; i < data.component.length; i++) {%>
+
+                    <div class="col-sm-4">
+                        <section class="panel panel-default">
+                            <header class="panel-heading cc">
+                            <%- data.component[i].name %>
+                                <div class="fileDivfork-ark">
+                                    <a href="/component/preview/<%- data.component[i].componentID %>">
+                                        预览
+                                    </a>
+                                </div>
+                            </header>
+                            <div class="embed-responsive embed-responsive-16by9-ark">
+                            <iframe class="col-sm-12 iframe-ark"  src="/component/preview/<%- data.component[i].componentID %>"></iframe>
+                            </div>
+                        </section>
+                    </div>
+                <%} %>
+
+            </div>
+        </div>
+    </div>
+
+   </body>
+</html>
